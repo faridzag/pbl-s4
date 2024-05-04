@@ -1,0 +1,2 @@
+id_number, full_name, birth_date, gender, phone_number is from applicant_profile table
+username, email, password is from users table
