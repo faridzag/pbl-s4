@@ -10,7 +10,7 @@
     <body>
         <div class="container">
             <div class="login-container">
-                <img src="{{ asset('images/logo-poliwangi.png')}}" alt="logo-poliwangi">
+                <img src="{{ asset('admin/img/logo-poliwangi.png')}}" alt="logo-poliwangi">
                 @if (session()->has('success'))
                 <div class="alert alert-success">
                     {{ session()->get('success') }}

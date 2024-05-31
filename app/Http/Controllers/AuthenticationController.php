@@ -33,4 +33,10 @@ class AuthenticationController extends Controller
             return back()->withInput()->withErrors(['login' => 'Kredensial Login Invalid.']);
         }
     }
+
+    function logout()
+    {
+        Auth::logout();
+        return redirect('login');
+    }
 }

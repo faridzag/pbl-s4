@@ -1,0 +1,130 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Companies;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+class CompaniesController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        // $companies = Companies::get();
+        $companies = Companies::with('user')->get();
+        return view('companies.index', ['companies' => $companies]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function tambah()
+    {
+        return view('companies.tambah-company');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function simpan(Request $request)
+    {
+        // Validasi Data
+        $request->validate([
+            'name' => 'required|string|min:3|max:100',
+            'description' => 'string|max:255',
+            // 'website' => 'required',
+            'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
+            'email' => 'required|email|min:6|max:100|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'COMPANY',
+        ]);
+
+        $companies = Companies::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'user_id' => $user->id,
+        ]);
+        event(new Registered($user));
+
+
+        // Menyimpan data event ke database
+        // Companies::create($request->all());
+
+        return redirect()->route('companies');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $companies = Companies::find($id)->first();
+
+        return view('companies.tambah-company', ['companies'=>$companies]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update($id, Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|min:3|max:100',
+            'description' => 'string|max:255',
+            // 'website' => 'required',
+            'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
+            'email' => 'required|email|min:6|max:100|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'COMPANY',
+        ]);
+
+        $companies = Companies::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'user_id' => $user->id,
+        ]);
+
+        $user->companies()->save($companies);
+
+        // return route('company.create');
+        // Companies::find($id)->update($request->all());
+
+        return redirect()->route('companies');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function hapus($id)
+    {
+        Companies::find($id)->delete();
+        //User::find($id->user_id)->delete(); // harusnya hapus akun user dengan refer user_id yang terkait..
+
+        return redirect()->route('companies');
+    }
+}
