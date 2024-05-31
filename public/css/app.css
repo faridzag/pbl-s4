@@ -1,0 +1,92 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F5F5F5;
+}
+
+.top-bar {
+    height: 80px;
+    width: 100%;
+    background-color: #004878;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    margin-right: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.dashboard-title {
+    margin-right: auto; /* Menggeser teks Dashboard ke kanan */
+    font-size: 24px; /* Ukuran teks yang lebih besar */
+}
+
+.sidebar {
+    height: calc(100% - 80px);
+    width: 20%;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    background-color: #004878;
+    padding-top: 20px;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Tambahkan scroll jika konten terlalu panjang */
+}
+
+.sidebar a {
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px; 
+    margin-bottom: 10px; 
+    display: flex; 
+    align-items: center; 
+}
+
+.sidebar a:hover {
+    background-color: #000080;
+    transform: translateX(5px);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
+}
+
+.content {
+    margin-left: 20%;
+    margin-top: 80px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+h2 {
+    margin: 0;
+    font-size: 24px; 
+    margin-bottom: 20px; 
+}
+
+.sidebar a:last-child:hover {
+    background-color: #d30000; 
+}
+
+.sidebar a:last-child::before {
+    content: "\f08b"; /* Unicode untuk ikon logout (font awesome) */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 10px; /* Beri ruang antara ikon dan teks */
+}

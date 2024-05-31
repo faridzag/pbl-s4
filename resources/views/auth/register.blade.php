@@ -28,12 +28,7 @@
                 <form action="{{ route('register') }}" method="POST" onsubmit="return confirm('Yakin untuk melanjutkan? Klik OK untuk membuat akun.')">
                     @csrf
                     <div class="input-group">
-                        <input type="text" class="form-control @error('id_number') is-invalid @enderror" value="{{ old('id_number')}}" id="id_number" name="id_number" placeholder="NIK" required maxlength="16" minlength="16" inputmode="numeric">
-                            @error('id_number')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>NIK Tidak sesuai</strong>
-                        </span>
-                        @enderror
+                        <input type="text" value="{{ old('id_number')}}" id="id_number" name="id_number" placeholder="NIK" required maxlength="16" minlength="16" inputmode="numeric">
                     </div>
                     <div class="input-group">
                         <input type="text" value="{{ old('full_name')}}" id="full_name" name="full_name" placeholder="Nama Lengkap" required minlength="6" maxlength="100">
@@ -53,7 +48,7 @@
                         <input type="tel" value="{{ old('phone_number')}}" id="phone_number" name="phone_number" pattern="(\+62|62|0)8[0-9]{8,11}" placeholder="No telepon" required minlength="10" maxlength="13">
                     </div>
                     <div class="input-group">
-                        <input type="text" value="{{ old('username')}}" id="username" name="username" placeholder="Nama Pengguna" required maxlength="25">
+                        <input type="text" value="{{ old('username')}}" id="username" name="username" placeholder="Nama Pengguna" required minlength="6" maxlength="25">
                     </div>
                     <div class="input-group">
                         <input type="password" id="password" name="password" placeholder="Kata Sandi" required minlength="8" maxlength="50">

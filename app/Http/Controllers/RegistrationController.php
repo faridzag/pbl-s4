@@ -21,11 +21,11 @@ class RegistrationController extends Controller
     {
         $request->validate([
             'id_number' => 'required|digits:16|alpha_num:ascii|unique:applicant_profile',
-            'full_name' => 'required|alpha:ascii|min:3',
+            'full_name' => 'required|string|min:3',
             'birth_date' => 'required|date',
             'gender' => 'required|in:pria,wanita',
             'phone_number' => 'required|min:10|max:13|alpha_num:ascii',
-            'username' => 'required|min:6|max:100|alpha_dash:ascii|unique:users',
+            'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
             'email' => 'required|email|min:6|max:100|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);

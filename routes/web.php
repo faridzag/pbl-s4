@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\JPCController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AddCompanyController;
 use App\Http\Controllers\CompaniesController;
@@ -14,11 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [AuthenticationController::class, 'index'])->name('login')->middleware('guest');
-Route::post('/login', [AuthenticationController::class, 'login']);
+Route::middleware(['auth', 'verified'])->group(function(){
+    Route::get('/add-company', [JPCController::class, 'addCompany'])->name('add-company');
+    Route::post('/add-company', [JPCController::class, 'createCompanyAccount']);
+    Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+    Route::get('/dashboard', function(){
+        return view('dashboard');
+    })->name('dashboard');
+});
 
-Route::get('/register', [RegistrationController::class, 'index'])->name('register')->middleware('guest');
-Route::post('/register', [RegistrationController::class, 'register']);
+Route::middleware(['guest'])->group(function(){
+    Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
+    Route::post('/login', [AuthenticationController::class, 'login']);
+    Route::get('/register', [RegistrationController::class, 'index'])->name('register');
+    Route::post('/register', [RegistrationController::class, 'register']);
+});
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
