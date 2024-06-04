@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title','Acara')
+@section('title','ACARA')
 @section('content')
 <div class="card shadow mb-4">
                         <div class="card-header py-3">
