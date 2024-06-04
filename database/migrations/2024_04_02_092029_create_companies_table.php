@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('name', 100)->nullable();
             $table->string('description')->nullable();
-            $table->string('website')->nullable();
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

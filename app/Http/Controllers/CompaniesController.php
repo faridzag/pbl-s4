@@ -37,6 +37,7 @@ class CompaniesController extends Controller
         $request->validate([
             'name' => 'required|string|min:3|max:100',
             'description' => 'string|max:255',
+            'is_active' => 'boolean',
             // 'website' => 'required',
             'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
             'email' => 'required|email|min:6|max:100|unique:users',
@@ -46,6 +47,7 @@ class CompaniesController extends Controller
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
+            //'email_verified_at' => now(),
             'password' => Hash::make($request->password),
             'role' => 'COMPANY',
         ]);
@@ -53,13 +55,15 @@ class CompaniesController extends Controller
         $companies = Companies::create([
             'name' => $request->name,
             'description' => $request->description,
+            'is_active' => $request->is_active,
             'user_id' => $user->id,
         ]);
-        event(new Registered($user));
+
+        $user->markEmailAsVerified();
 
 
         // Menyimpan data event ke database
-        // Companies::create($request->all());
+        // Companies::forceCreate($request->all());
 
         return redirect()->route('companies');
     }
