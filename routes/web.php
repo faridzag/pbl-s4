@@ -81,3 +81,19 @@ Route::middleware('auth')->group(function () {
 //         return view('dashboard');
 //     })->name('dashboard');
 // });
+
+// ROUTE UNTUK DASHBOARD PERUSAHAAN
+Route::get('/dasbor', function () {
+    return view('dashboard-company');
+})->name('dasbor');
+
+// ROUTE UNTUK LOWONGAN PERUSAHAAN
+Route::get('/lowongan', function () {
+    return view('job-vacancy.index');
+})->name('lowongan');
+
+// ROUTE UNTUK TAMBAH LOWONGAN PERUSAHAAN
+Route::get('/add-vacancy', function () {
+    return view('job-vacancy.add-vacancy');
+})->name('add-vacancy');
+
