@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->enum('event_type', ['Job Fair', 'Direct Applicant']);
+            $table->enum('event_type', ['Job Fair', 'Campus Hiring']);
             $table->date('date');
             $table->timestamps();
         });

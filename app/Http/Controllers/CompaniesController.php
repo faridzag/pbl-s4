@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Companies;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -15,9 +15,8 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        // $companies = Companies::get();
-        $companies = Companies::with('user')->get();
-        return view('companies.index', ['companies' => $companies]);
+        $companies = Company::with('user')->get();
+        return view('pages.companies.index', ['companies' => $companies]);
     }
 
     /**
@@ -25,7 +24,7 @@ class CompaniesController extends Controller
      */
     public function tambah()
     {
-        return view('companies.tambah-company');
+        return view('pages.companies.tambah-company');
     }
 
     /**
@@ -49,10 +48,10 @@ class CompaniesController extends Controller
             'email' => $request->email,
             //'email_verified_at' => now(),
             'password' => Hash::make($request->password),
-            'role' => 'COMPANY',
+            'role' => User::ROLE_COMPANY,
         ]);
 
-        $companies = Companies::create([
+        Company::create([
             'name' => $request->name,
             'description' => $request->description,
             'is_active' => $request->is_active,
@@ -81,9 +80,9 @@ class CompaniesController extends Controller
      */
     public function edit($id)
     {
-        $companies = Companies::find($id)->first();
+        $companies = Company::find($id)->first();
 
-        return view('companies.tambah-company', ['companies'=>$companies]);
+        return view('pages.companies.tambah-company', ['companies'=>$companies]);
     }
 
     /**
@@ -104,10 +103,10 @@ class CompaniesController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'COMPANY',
+            'role' => User::ROLE_COMPANY,
         ]);
 
-        $companies = Companies::create([
+        $companies = Company::create([
             'name' => $request->name,
             'description' => $request->description,
             'user_id' => $user->id,
@@ -126,7 +125,7 @@ class CompaniesController extends Controller
      */
     public function hapus($id)
     {
-        Companies::find($id)->delete();
+        Company::find($id)->delete();
         //User::find($id->user_id)->delete(); // harusnya hapus akun user dengan refer user_id yang terkait..
 
         return redirect()->route('companies');

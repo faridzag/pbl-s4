@@ -10,26 +10,28 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::middleware(['auth', 'verified'])->group(function(){
-    Route::get('/add-company', [JPCController::class, 'addCompany'])->name('add-company');
-    Route::post('/add-company', [JPCController::class, 'createCompanyAccount']);
-    Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
-    Route::get('/dashboard', function(){
-        return view('dashboard');
-    })->name('dashboard');
-});
 
 Route::middleware(['guest'])->group(function(){
+    Route::get('/', function () {
+        return view('welcome');
+    });
     Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
     Route::post('/login', [AuthenticationController::class, 'login']);
     Route::get('/register', [RegistrationController::class, 'index'])->name('register');
     Route::post('/register', [RegistrationController::class, 'register']);
 });
+
+Route::middleware(['auth', 'verified'])->group(function(){
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('role-check:JPC');
+    //Route::get('/dashboard/company', [DashboardController::class, 'index'])->name('company-dashboard');
+    //Route::get('/dashboard/user', [DashboardController::class, 'index'])->name('user-dashboard');
+    Route::get('/add-company', [JPCController::class, 'addCompany'])->name('add-company');
+    Route::post('/add-company', [JPCController::class, 'createCompanyAccount']);
+    Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+});
+
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
@@ -47,8 +49,6 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth', 'verified']);
-Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout')->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::controller(EventController::class)->prefix('event')->group(function(){
@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::controller(CompaniesController::class)->prefix('çompanies')->group(function () {
+    Route::controller(CompaniesController::class)->prefix('companies')->group(function () {
         Route::get('','index')->name('companies');
         Route::get('tambah','tambah')->name('companies.tambah');
         Route::post('tambah','simpan')->name('companies.tambah.simpan');

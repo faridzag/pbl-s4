@@ -14,7 +14,7 @@ class JPCController extends Controller
 {
     function addCompany()
     {
-        return view('jpc.add-company');
+        return view('pages.jpc.add-company');
     }
 
     function createCompanyAccount(Request $request)

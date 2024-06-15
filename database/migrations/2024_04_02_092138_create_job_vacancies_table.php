@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('job_vacancy', function (Blueprint $table) {
+        Schema::create('job_vacancies', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('event_id');
             $table->string('position', 100);
             $table->text('description');
-            $table->foreignId('event_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignId('company_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreign('company_id')->constrained()->cascadeOnDelete()
+            ->references('id')->on('company_profiles');
+            $table->foreign('event_id')->constrained()->cascadeOnDelete()
+            ->references('id')->on('events');
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('job_vacancy');
+        Schema::dropIfExists('job_vacancies');
     }
 };

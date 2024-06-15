@@ -13,6 +13,17 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
+    const ROLE_JPC = 'JPC';
+    const ROLE_COMPANY = 'COMPANY';
+    const ROLE_APPLICANT = 'APPLICANT';
+    const ROLE_DEFAULT = self::ROLE_APPLICANT;
+
+    const ROLES = [
+        self::ROLE_JPC => 'Jpc',
+        self::ROLE_COMPANY => 'Company',
+        self::ROLE_APPLICANT => 'Applicant',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -46,6 +57,21 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_JPC;
+    }
+
+    public function isCompany(): bool
+    {
+        return $this->role === self::ROLE_COMPANY;
+    }
+
+    public function isApplicant(): bool
+    {
+        return $this->role === self::ROLE_APPLICANT;
     }
 
     public function applicantProfile()

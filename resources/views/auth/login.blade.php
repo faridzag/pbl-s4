@@ -27,8 +27,8 @@
                 @endif
                 <form action="{{ route('login') }}" method="post">
                     @csrf
-                    <input type="text" value="{{ old('login') }}" id="login" name="login" class="form-control" placeholder="Email / Nama Pengguna" required autofocus>
-                    <input type="password" id="password" name="password" placeholder="Kata Sandi" required />
+                    <input type="text" value="{{ old('login') }}" id="login" name="login" class="form-control" placeholder="Email / Nama Pengguna" autofocus>
+                    <input type="password" id="password" name="password" placeholder="Kata Sandi" />
                     <button name="submit" type="submit">Masuk</button>
                 </form>
                 <a href="">Lupa kata sandi?</a>

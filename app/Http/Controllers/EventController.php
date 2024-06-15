@@ -7,15 +7,15 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function index()  
+    public function index()
     {
         $event = Event::get();
-        return view('event.index', ['event' => $event]);
+        return view('pages.events.index', ['event' => $event]);
     }
 
     public function tambah()
     {
-        return view('event.tambah-event');    
+        return view('pages.events.tambah-event');
     }
 
     public function simpan(Request $request)
@@ -23,7 +23,7 @@ class EventController extends Controller
         // Validasi data
         $request->validate([
             'name' => 'required|string|max:255',
-            'event_type' => 'required|in:Job Fair,Direct Applicant',
+            'event_type' => 'required|in:Job Fair,Campus Hiring',
             'date' => 'required|date',
         ]);
 
@@ -33,11 +33,11 @@ class EventController extends Controller
         return redirect()->route('event');
     }
 
-    public function edit($id) 
+    public function edit($id)
     {
         $event = Event::find($id)->first();
 
-        return view('event.tambah-event', ['event'=>$event]);
+        return view('pages.events.tambah-event', ['event'=>$event]);
     }
 
     public function update($id, Request $request)
@@ -45,19 +45,19 @@ class EventController extends Controller
         // Validasi data
         $request->validate([
             'name' => 'required|string|max:255',
-            'event_type' => 'required|in:Job Fair,Direct Applicant',
+            'event_type' => 'required|in:Job Fair,Campus Hiring',
             'date' => 'required|date',
         ]);
 
-        Event::find($id)->update($request->all());   
-        
+        Event::find($id)->update($request->all());
+
         return redirect()->route('event');
     }
 
     public function hapus($id)
     {
-        Event::find($id)->delete();  
-        
-        return redirect()->route('event');  
+        Event::find($id)->delete();
+
+        return redirect()->route('event');
     }
 }

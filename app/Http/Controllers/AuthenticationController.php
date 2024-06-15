@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +28,15 @@ class AuthenticationController extends Controller
         $request->merge([$login_type => $request->input('login')]);
 
         if (Auth::attempt($request->only($login_type, 'password'))) {
-            return redirect()->intended('dashboard');
+            if(Auth::user()->role == User::ROLE_JPC) {
+                return redirect()->intended('dashboard');
+            } elseif(Auth::user()->role == User::ROLE_COMPANY) {
+                echo "TEST COMPANY";
+                //return redirect()->intended('dashboard/company');
+            } else {
+                echo "TEST USER";
+                //return redirect()->intended('dashboard/user');
+            }
         } else {
             //dd($request->all());
             return back()->withInput()->withErrors(['login' => 'Kredensial Login Invalid.']);

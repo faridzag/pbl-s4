@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('title', 'Tambah Perusahaan')
 @section('content')
@@ -59,5 +59,5 @@
             </div>
         </div>
     </form>
-    
+
 @endsection

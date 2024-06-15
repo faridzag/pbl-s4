@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('title', 'Buat Acara')
 
@@ -21,7 +21,7 @@
                         <label for="event_type">Jenis Acara</label>
                         <select class="form-control" id="event_type" name="event_type" value="{{isset($event) ? $event->event_type : ''}}">
                             <option value="Job Fair">Job Fair</option>
-                            <option value="Direct Applicant">Direct Applicant</option>
+                            <option value="Campus Hiring">Campus Hiring</option>
                         </select>
                     </div>
 

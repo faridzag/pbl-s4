@@ -28,33 +28,33 @@
                 <form action="{{ route('register') }}" method="POST" onsubmit="return confirm('Yakin untuk melanjutkan? Klik OK untuk membuat akun.')">
                     @csrf
                     <div class="input-group">
-                        <input type="text" value="{{ old('id_number')}}" id="id_number" name="id_number" placeholder="NIK" required maxlength="16" minlength="16" inputmode="numeric">
+                        <input type="text" value="{{ old('id_number')}}" id="id_number" name="id_number" placeholder="NIK" maxlength="16" minlength="16" inputmode="numeric">
                     </div>
                     <div class="input-group">
-                        <input type="text" value="{{ old('full_name')}}" id="full_name" name="full_name" placeholder="Nama Lengkap" required minlength="6" maxlength="100">
+                        <input type="text" value="{{ old('full_name')}}" id="full_name" name="full_name" placeholder="Nama Lengkap" minlength="6" maxlength="100">
                     </div>
                     <div class="input-group">
-                        <input type="email" value="{{ old('email')}}" id="email" name="email" placeholder="Email" required minlength="6" maxlength="100">
+                        <input type="email" value="{{ old('email')}}" id="email" name="email" placeholder="Email" minlength="6" maxlength="100">
                     </div>
                     <div class="input-group">
-                        <input placeholder="Tanggal Lahir" value="{{ old('birth_date')}}" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="birth_date" name="birth_date" required/>
-                        <select id="gender" name="gender" required>
+                        <input placeholder="Tanggal Lahir" value="{{ old('birth_date')}}" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="birth_date" name="birth_date"/>
+                        <select id="gender" name="gender">
                             <option value="" disabled selected>Jenis Kelamin ▼ </option>
                             <option value="pria" {{ old('gender') === 'pria' ? 'selected' : '' }}>Pria</option>
                             <option value="wanita" {{ old('gender') === 'wanita' ? 'selected' : '' }}>Wanita</option>
                         </select>
                     </div>
                     <div class="input-group">
-                        <input type="tel" value="{{ old('phone_number')}}" id="phone_number" name="phone_number" pattern="(\+62|62|0)8[0-9]{8,11}" placeholder="No telepon" required minlength="10" maxlength="13">
+                        <input type="tel" value="{{ old('phone_number')}}" id="phone_number" name="phone_number" pattern="(\+62|62|0)8[0-9]{8,11}" placeholder="No telepon" minlength="10" maxlength="13">
                     </div>
                     <div class="input-group">
-                        <input type="text" value="{{ old('username')}}" id="username" name="username" placeholder="Nama Pengguna" required minlength="6" maxlength="25">
+                        <input type="text" value="{{ old('username')}}" id="username" name="username" placeholder="Nama Pengguna" minlength="6" maxlength="25">
                     </div>
                     <div class="input-group">
-                        <input type="password" id="password" name="password" placeholder="Kata Sandi" required minlength="8" maxlength="50">
+                        <input type="password" id="password" name="password" placeholder="Kata Sandi" minlength="8" maxlength="50">
                     </div>
                     <div class="input-group">
-                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Kata Sandi" required minlength="8" maxlength="50">
+                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Kata Sandi" minlength="8" maxlength="50">
                     </div>
                     <div class="input-group">
                         <button name="submit" type="submit">Daftar</button>

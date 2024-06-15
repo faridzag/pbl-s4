@@ -20,7 +20,7 @@ class RegistrationController extends Controller
     function register(Request $request)
     {
         $request->validate([
-            'id_number' => 'required|digits:16|alpha_num:ascii|unique:applicant_profile',
+            'id_number' => 'required|digits:16|alpha_num:ascii|unique:applicant_profiles',
             'full_name' => 'required|string|min:3',
             'birth_date' => 'required|date',
             'gender' => 'required|in:pria,wanita',
@@ -34,7 +34,7 @@ class RegistrationController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'APPLICANT',
+            'role' => User::ROLE_DEFAULT,
         ]);
 
         $applicantProfile = Applicant::create([

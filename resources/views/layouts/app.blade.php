@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('admin/css/sb-admin-2.css')}}" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -24,7 +24,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        @include('layout.left-sidebar')
+        @include('layouts.left-sidebar')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -34,7 +34,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                @include('layout.navbar')
+                @include('layouts.navbar')
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -48,7 +48,7 @@
                     @yield('content')
 
                     <!-- Content Row -->
-                 
+
                 </div>
                 <!-- /.container-fluid -->
 
@@ -56,7 +56,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            @include('layout.footer')
+            @include('layouts.footer')
             <!-- End of Footer -->
 
         </div>

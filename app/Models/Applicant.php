@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Applicant extends Model
 {
     use HasFactory;
-    protected $table = 'applicant_profile';
+    protected $table = 'applicant_profiles';
     protected $primaryKey = 'id_number';
     public $incrementing = false;
     protected $keyType = 'string';

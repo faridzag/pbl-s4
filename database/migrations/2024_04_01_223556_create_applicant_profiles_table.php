@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('applicant_profile', function (Blueprint $table) {
+        Schema::create('applicant_profiles', function (Blueprint $table) {
             $table->string('id_number', 16)->primary();
-            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->constrained()->cascadeOnDelete()
+            ->references('id')->on('users');
             $table->string('full_name', 100);
             $table->string('phone_number', 15);
             $table->date('birth_date');
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('applicant_profile');
+        Schema::dropIfExists('applicant_profiles');
     }
 };

@@ -17,11 +17,12 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="">Posisi Lowongan</label>
-                        <!-- <input type="text" class="form-control" id="name" name="name" value="{{isset($event) ? $event->name : ''}}"> -->
+                        <input type="text" class="form-control" id="name" name="name" value="{{isset($event) ? $event->name : ''}}">
                     </div>
 
                     <div class="form-group">
-                        <label for="">Deskripsi</label>
+                        <label for="description">Deskripsi</label>
+                        <textarea class="form-control" id="description" name="description" rows="4" maxlength="255"></textarea>
                     </div>
 
                     <div class="form-group">
