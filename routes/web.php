@@ -8,6 +8,7 @@ use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventsController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -32,6 +33,9 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 });
 
+Route::resources([
+    'events' => EventController::class,
+]);
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
@@ -50,8 +54,9 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
+// tag to fix
 Route::middleware('auth')->group(function () {
-    Route::controller(EventController::class)->prefix('event')->group(function(){
+    Route::controller(EventsController::class)->prefix('event')->group(function(){
         Route::get('','index')->name('event');
         Route::get('tambah','tambah')->name('event.tambah');
         Route::post('tambah','simpan')->name('event.tambah.simpan');
@@ -61,6 +66,7 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+// tag to fix
 Route::middleware('auth')->group(function () {
     Route::controller(CompaniesController::class)->prefix('companies')->group(function () {
         Route::get('','index')->name('companies');
@@ -82,16 +88,19 @@ Route::middleware('auth')->group(function () {
 //     })->name('dashboard');
 // });
 
+// tag to fix
 // ROUTE UNTUK DASHBOARD PERUSAHAAN
 Route::get('/dasbor', function () {
     return view('dashboard-company');
 })->name('dasbor');
 
+// tag to fix
 // ROUTE UNTUK LOWONGAN PERUSAHAAN
 Route::get('/lowongan', function () {
     return view('job-vacancy.index');
 })->name('lowongan');
 
+// tag to fix
 // ROUTE UNTUK TAMBAH LOWONGAN PERUSAHAAN
 Route::get('/add-vacancy', function () {
     return view('job-vacancy.add-vacancy');

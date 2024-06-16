@@ -46,7 +46,7 @@
 
 <li class="nav-item">
     <a class="nav-link" href="#">
-        <i class="fas fa-briefcase"></i> 
+        <i class="fas fa-briefcase"></i>
         <span>LOWONGAN</span>
     </a>
 </li> -->

@@ -1,17 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\JPC;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Company;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
-class EventController extends Controller
+class JpcCompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+      $companies = Company::with('user')->get();
+      return view('pages.companies.index', ['companies' => $companies]);
     }
 
     /**

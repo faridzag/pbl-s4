@@ -10,6 +10,6 @@ class DashboardController extends Controller
     public function index()
     {
         $loggedUser = Auth::user();
-        return view('dashboard', ['loggedUser' => $loggedUser]);
+        return view('layouts.app', ['loggedUser' => $loggedUser]);
     }
 }
