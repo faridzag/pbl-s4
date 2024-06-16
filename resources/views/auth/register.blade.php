@@ -25,13 +25,13 @@
                     </ul>
                 </div>
                 @endif
-                <form action="{{ route('register') }}" method="POST" onsubmit="return confirm('Yakin untuk melanjutkan? Klik OK untuk membuat akun.')">
+                <form id="registerForm" action="{{ route('register') }}" method="POST">
                     @csrf
                     <div class="input-group">
                         <input type="text" value="{{ old('id_number')}}" id="id_number" name="id_number" placeholder="NIK" maxlength="16" minlength="16" inputmode="numeric">
                     </div>
                     <div class="input-group">
-                        <input type="text" value="{{ old('full_name')}}" id="full_name" name="full_name" placeholder="Nama Lengkap" minlength="6" maxlength="100">
+                        <input type="text" value="{{ old('full_name')}}" id="full_name" name="full_name" placeholder="Nama Lengkap" minlength="6" maxlength="40">
                     </div>
                     <div class="input-group">
                         <input type="email" value="{{ old('email')}}" id="email" name="email" placeholder="Email" minlength="6" maxlength="100">
@@ -45,7 +45,7 @@
                         </select>
                     </div>
                     <div class="input-group">
-                        <input type="tel" value="{{ old('phone_number')}}" id="phone_number" name="phone_number" pattern="(\+62|62|0)8[0-9]{8,11}" placeholder="No telepon" minlength="10" maxlength="13">
+                        <input type="tel" value="{{ old('phone_number')}}" id="phone_number" name="phone_number" placeholder="No telepon" minlength="10" maxlength="13">
                     </div>
                     <div class="input-group">
                         <input type="text" value="{{ old('username')}}" id="username" name="username" placeholder="Nama Pengguna" minlength="6" maxlength="25">

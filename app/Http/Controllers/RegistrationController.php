@@ -20,14 +20,28 @@ class RegistrationController extends Controller
     function register(Request $request)
     {
         $request->validate([
-            'id_number' => 'required|digits:16|alpha_num:ascii|unique:applicant_profiles',
-            'full_name' => 'required|string|min:3',
+            'id_number' => 'required|digits:16|unique:applicant_profiles',
+            'full_name' => 'required|string|string|min:4|max:40',
             'birth_date' => 'required|date',
             'gender' => 'required|in:pria,wanita',
-            'phone_number' => 'required|min:10|max:13|alpha_num:ascii',
+            'phone_number' => ['required', 'min:9', 'numeric', 'regex:/^(\+62|62|0)8[1-9][0-9]{8,11}$/'],
             'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
             'email' => 'required|email|min:6|max:100|unique:users',
             'password' => 'required|string|min:8|confirmed',
+        ], [
+            'id_number.required' => 'NIK wajib diisi',
+            'id_number.digits' => 'NIK harus terdiri dari 16 digit angka',
+            'full_name.required' => 'Nama lengkap wajib diisi',
+            'full_name.size' => 'Nama terdiri dari 4 sampai 40 karakter',
+            'birth_date.required' => 'Tanggal lahir wajib diisi',
+            'gender.required' => 'Jenis kelamin wajib diisi',
+            'phone_number.required' => 'Nomor Telpon wajib diisi',
+            'phone_number.regex' => 'Nomor telepon tidak valid.',
+            'username.required' => 'Nama Pengguna wajib diisi',
+            'username.size' => 'Nama pengguna terdiri dari 6 sampai 25 karakter',
+            'email.required' => 'Email wajib diisi',
+            'email.size' => 'Karakter Email 6 sampai 100 karakter',
+            'password.required'=>'Password wajib diisi',
         ]);
 
         $user = User::create([
