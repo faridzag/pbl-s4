@@ -1,20 +1,15 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\JPCController;
 use App\Http\Controllers\JPC\CompanyAccountController;
 use App\Http\Controllers\JPC\EventManagementController;
 use App\Http\Controllers\COMPANY\JobManagementController;
 use App\Http\Controllers\COMPANY\JobApplicationController;
 use App\Http\Controllers\APPLICANT\JobApplicationController as ApplicantJob;
 use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\AddCompanyController;
-use App\Http\Controllers\CompaniesController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BasicController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\EventsController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -31,6 +26,7 @@ Route::middleware(['guest'])->group(function(){
 });
 
 Route::middleware(['auth', 'verified'])->group(function(){
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
     // Route::resource('basic', BasicController::class);
     Route::resource('company-account', CompanyAccountController::class)->middleware('role-jpc');
@@ -39,7 +35,6 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::resource('job-application', JobApplicationController::class)->middleware('role-company');
     Route::resource('my-job-application', ApplicantJob::class)->middleware('role-applicant');
 });
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -47,13 +42,6 @@ Route::put('/profile', [ProfileController::class, 'update'])->name('profile.upda
 Route::get('/blank', function () {
     return view('pages.blank');
 })->name('blank');
-
-Route::middleware('auth')->group(function() {
-});
-
-Route::resources([
-    'events' => EventController::class,
-]);
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
@@ -70,57 +58,3 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-
-// tag to fix
-Route::middleware('auth')->group(function () {
-    Route::controller(EventsController::class)->prefix('event')->group(function(){
-        Route::get('','index')->name('event');
-        Route::get('tambah','tambah')->name('event.tambah');
-        Route::post('tambah','simpan')->name('event.tambah.simpan');
-        Route::get('edit/{id}','edit')->name('event.edit');
-        Route::post('edit/{id}','update')->name('event.tambah.update');
-        Route::get('hapus/{id}','hapus')->name('event.hapus');
-    });
-});
-
-// tag to fix
-Route::middleware('auth')->group(function () {
-    Route::controller(CompaniesController::class)->prefix('companies')->group(function () {
-        Route::get('','index')->name('companies');
-        Route::get('tambah','tambah')->name('companies.tambah');
-        Route::post('tambah','simpan')->name('companies.tambah.simpan');
-        Route::get('edit/{id}','edit')->name('companies.edit');
-        Route::post('edit/{id}','update')->name('companies.tambah.update');
-        Route::get('hapus/{id}','hapus')->name('companies.hapus');
-    });
-});
-
-// Route::middleware(['auth', 'verified'])->group(function(){
-//     Route::get('/add-company', [CompanyController::class, 'index'])->name('company');
-//     Route::get('/add-company/create', [CompanyController::class, 'addCompany'])->name('company.create');
-//     Route::post('/add-company/create', [CompanyController::class, 'createCompanyAccount']);
-//     Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
-//     Route::get('/dashboard', function(){
-//         return view('dashboard');
-//     })->name('dashboard');
-// });
-
-// tag to fix
-// ROUTE UNTUK DASHBOARD PERUSAHAAN
-Route::get('/dasbor', function () {
-    return view('dashboard-company');
-})->name('dasbor');
-
-// tag to fix
-// ROUTE UNTUK LOWONGAN PERUSAHAAN
-Route::get('/lowongan', function () {
-    return view('job-vacancy.index');
-})->name('lowongan');
-
-// tag to fix
-// ROUTE UNTUK TAMBAH LOWONGAN PERUSAHAAN
-Route::get('/add-vacancy', function () {
-    return view('job-vacancy.add-vacancy');
-})->name('add-vacancy');
-
