@@ -22,6 +22,7 @@
                 <th>Email</th>
                 <th>Nama Perusahaan</th>
                 <th>Deskripsi</th>
+                <th>Status</th>
                 <th>Role</th>
                 <th>#</th>
             </tr>
@@ -34,6 +35,7 @@
                     <td>{{ $company->user->email }}</td>
                     <td>{{ $company->name }}</td>
                     <td>{{ $company->description }}</td>
+                    <td>{{ $company->status == 1 ? 'Aktif' : 'NonAktif' }}</td>
                     <td>{{ $company->user->role }}</td>
                     <td>
                         <div class="d-flex">

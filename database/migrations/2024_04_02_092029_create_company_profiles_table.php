@@ -18,7 +18,7 @@ return new class extends Migration
             ->references('id')->on('users');
             $table->string('name', 100)->nullable();
             $table->string('description')->nullable();
-            $table->boolean('is_active')->default(false);
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

@@ -44,8 +44,6 @@ class JpcCompanyController extends Controller
         $request->validate([
             'name' => 'required|string|min:3|max:100',
             'description' => 'string|max:255',
-            'is_active' => 'boolean',
-            // 'website' => 'required',
             'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
             'email' => 'required|email|min:6|max:100|unique:users',
             'password' => 'required|string|min:8|confirmed',
@@ -62,10 +60,10 @@ class JpcCompanyController extends Controller
         Company::create([
             'name' => $request->name,
             'description' => $request->description,
-            'is_active' => $request->is_active,
+            'status' => $request->has('status') ? 1 : 0,
             'user_id' => $user->id,
         ]);
-
+        
         $user->markEmailAsVerified();
 
         return redirect()->route('company-account.index')->with('message', 'Berhasil menambahkan akun perusahaan!');
@@ -103,8 +101,6 @@ class JpcCompanyController extends Controller
         $request->validate([
             'name' => 'required|string|min:3|max:100',
             'description' => 'string|max:255',
-            'is_active' => 'boolean',
-            // 'website' => 'required',
             'username' => 'required|min:6|max:25|alpha_dash:ascii',
             'email' => 'required|email|min:6|max:100',
             'password' => 'nullable|string|min:8|confirmed',
@@ -119,6 +115,7 @@ class JpcCompanyController extends Controller
         $user->email = $request->email;
         $user->save();
         $company->name = $request->name;
+        $company->status = $request->has('status') ? 1 : 0;
         $company->description = $request->description;
         $company->save();
         return redirect()->route('company-account.index')->with('message', 'Berhasil memperbarui data perusahaan!');

@@ -41,6 +41,15 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+                <div class="form-group">
+                  <label class="block" for="status">
+                    <span>Aktif</span>
+                    <input type="checkbox" class="@error('status') is-invalid @enderror" name="status" id="status" value="" checked>
+                  </label>
+                  @error('status')
+                    <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                </div>
 
                 <div class="form-group">
                   <label for="password">Password</label>
@@ -52,7 +61,7 @@
 
                 <div class="form-group">
                   <label for="password_confirmation">Konfirmasi Password</label>
-                  <input type="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="password_confirmation" placeholder="Konfirmasi Password" autocomplete="off">
+                  <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="password_confirmation" placeholder="Konfirmasi Password" autocomplete="off">
                   @error('password_confirmation')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror

@@ -43,6 +43,15 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+                <div class="form-group">
+                  <label class="block" for="status">
+                    <span>Aktif</span>
+                    <input type="checkbox" class="@error('status') is-invalid @enderror" name="status" id="status" value="1" {{ $company->status == 1 ? 'checked' : '' }}>
+                  </label>
+                  @error('status')
+                    <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                </div>
 
                 <div class="form-group">
                   <label for="password">Password</label>
