@@ -29,7 +29,7 @@ class AuthenticationController extends Controller
 
         if (Auth::attempt($request->only($login_type, 'password'))) {
             if(Auth::user()->role == User::ROLE_JPC) {
-                return redirect()->intended('dashboard');
+                return redirect()->intended('home');
             } elseif(Auth::user()->role == User::ROLE_COMPANY) {
                 echo "TEST COMPANY";
                 //return redirect()->intended('dashboard/company');

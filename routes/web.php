@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\JPCController;
+use App\Http\Controllers\JPC\JpcCompanyController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AddCompanyController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BasicController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventsController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -25,12 +29,25 @@ Route::middleware(['guest'])->group(function(){
 });
 
 Route::middleware(['auth', 'verified'])->group(function(){
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('role-check:JPC');
+    //Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('role-check:JPC');
     //Route::get('/dashboard/company', [DashboardController::class, 'index'])->name('company-dashboard');
     //Route::get('/dashboard/user', [DashboardController::class, 'index'])->name('user-dashboard');
-    Route::get('/add-company', [JPCController::class, 'addCompany'])->name('add-company');
-    Route::post('/add-company', [JPCController::class, 'createCompanyAccount']);
-    Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+    // TO DELETE Route::get('/add-company', [JPCController::class, 'addCompany'])->name('add-company');
+    // TO DELETE Route::post('/add-company', [JPCController::class, 'createCompanyAccount']);
+    Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+    Route::resource('basic', BasicController::class);
+    Route::resource('company-account', JpcCompanyController::class);
+});
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+Route::get('/blank', function () {
+    return view('pages.blank');
+})->name('blank');
+
+Route::middleware('auth')->group(function() {
 });
 
 Route::resources([
