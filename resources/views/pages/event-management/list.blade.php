@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
-@section('title','Akun Perusahaan | List')
+@section('title','Manajemen Kegiatan | List')
 @section('main-content')
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">{{ $title ?? __('Akun Perusahaan') }}</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ $title ?? __('Event') }}</h1>
 
     <!-- Main Content goes here -->
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List Perusahaan</h6>
+        <h6 class="m-0 font-weight-bold text-primary">List Kegiatan</h6>
     </div>
     <div class="card-body">
-        <a href="{{ route('company-account.create') }}" class="btn btn-primary mb-3">Buat Akun Baru</a>
+        <a href="{{ route('event-management.create') }}" class="btn btn-primary mb-3">Buat Kegiatan Baru</a>
 
     @if (session('message'))
     <div class="alert alert-success">
@@ -24,29 +24,37 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Pengguna</th>
-                    <th>Email</th>
-                    <th>Nama Perusahaan</th>
+                    <th>Nama Kegiatan</th>
+                    <th>Jenis</th>
+                    <th>Lokasi</th>
                     <th>Deskripsi</th>
+                    <th>Tanggal Mulai</th>
                     <th>Status</th>
-                    <th>Role</th>
+                    <th>Anggota</th>
                     <th>#</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($companies as $company)
+                @foreach ($events as $event)
                     <tr>
                         <td scope="row">{{ $loop->iteration }}</td>
-                        <td>{{ $company->user->username }}</td>
-                        <td>{{ $company->user->email }}</td>
-                        <td>{{ $company->name }}</td>
-                        <td>{{ $company->description }}</td>
-                        <td>{{ $company->status == 1 ? 'Aktif' : 'NonAktif' }}</td>
-                        <td>{{ $company->user->role }}</td>
+                        <td>{{ $event->name }}</td>
+                        <td>{{ $event->event_type }}</td>
+                        <td>{{ $event->location }}</td>
+                        <td>{{ $event->description }}</td>
+                        <td>{{ $event->start_date }}</td>
+                        <td>{{ $event->status }}</td>
+                        <td>
+                            <ul>
+                            @foreach($event->companies as $company)
+                                <li>{{ $company->name }}</li>
+                            @endforeach
+                            </ul>
+                        </td>
                         <td>
                             <div class="d-flex">
-                                <a href="{{ route('company-account.edit', $company->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
-                                <form action="{{ route('company-account.destroy', $company->id) }}" method="post">
+                                <a href="{{ route('event-management.edit', $event->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                                <form action="{{ route('event-management.destroy', $event->id) }}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete this?')">Delete</button>
@@ -60,7 +68,7 @@
     </div>
 </div>
 
-    {{ $companies->links() }}
+    {{ $events->links() }}
 
     <!-- End of Main Content -->
 </div>

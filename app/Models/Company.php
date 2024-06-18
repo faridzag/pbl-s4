@@ -20,4 +20,9 @@ class Company extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_company')->withTimestamps();
+    }
 }

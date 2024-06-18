@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
-@section('title','Akun Perusahaan | List')
+@section('title','Manajemen Lowongan | List')
 @section('main-content')
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">{{ $title ?? __('Akun Perusahaan') }}</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ $title ?? __('job') }}</h1>
 
     <!-- Main Content goes here -->
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List Perusahaan</h6>
+        <h6 class="m-0 font-weight-bold text-primary">List Lowongan</h6>
     </div>
     <div class="card-body">
-        <a href="{{ route('company-account.create') }}" class="btn btn-primary mb-3">Buat Akun Baru</a>
+        <a href="{{ route('job-management.create') }}" class="btn btn-primary mb-3">Buat Lowongan Baru</a>
 
     @if (session('message'))
     <div class="alert alert-success">
@@ -24,29 +24,25 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Pengguna</th>
-                    <th>Email</th>
-                    <th>Nama Perusahaan</th>
+                    <th>Kegiatan</th>
+                    <th>Posisi Pekerjaan</th>
                     <th>Deskripsi</th>
                     <th>Status</th>
-                    <th>Role</th>
                     <th>#</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($companies as $company)
+                @foreach ($jobs as $job)
                     <tr>
                         <td scope="row">{{ $loop->iteration }}</td>
-                        <td>{{ $company->user->username }}</td>
-                        <td>{{ $company->user->email }}</td>
-                        <td>{{ $company->name }}</td>
-                        <td>{{ $company->description }}</td>
-                        <td>{{ $company->status == 1 ? 'Aktif' : 'NonAktif' }}</td>
-                        <td>{{ $company->user->role }}</td>
+                        <td>{{ $job->event->name }}</td>
+                        <td>{{ $job->position }}</td>
+                        <td>{{ $job->description }}</td>
+                        <td>{{ $job->status }}</td>
                         <td>
                             <div class="d-flex">
-                                <a href="{{ route('company-account.edit', $company->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
-                                <form action="{{ route('company-account.destroy', $company->id) }}" method="post">
+                                <a href="{{ route('job-management.edit', $job->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                                <form action="{{ route('job-management.destroy', $job->id) }}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete this?')">Delete</button>
@@ -60,7 +56,7 @@
     </div>
 </div>
 
-    {{ $companies->links() }}
+    {{ $jobs->links() }}
 
     <!-- End of Main Content -->
 </div>

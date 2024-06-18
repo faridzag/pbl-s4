@@ -1,21 +1,21 @@
 @extends('layouts.app')
 
-@section('title','Akun Perusahaan | List')
+@section('title','Manajemen Lamaran | Edit')
 @section('main-content')
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">{{ $title ?? __('Edit Akun Perusahaan') }}</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ $title ?? __('') }}</h1>
 
     <!-- Main Content goes here -->
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('company-account.update', $company->id) }}" method="post">
+            <form action="{{ route('job-application.update', $job->id) }}" method="post">
                 @csrf
                 @method('PUT')
 
                 <div class="form-group">
                   <label for="name">Nama Perusahaan</label>
-                  <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Nama Perusahaan" autocomplete="off" value="{{ old('name') ?? $company->name }}">
+                  <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Nama Perusahaan" autocomplete="off" value="{{ old('name') ?? $job->name }}">
                   @error('name')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -23,7 +23,7 @@
 
                 <div class="form-group">
                   <label for="description">Profile / Deskripsi perusahaan</label>
-                  <textarea class="form-control" id="description" name="description" rows="6" maxlength="255">{{ old('description') ?? $company->description }}</textarea>
+                  <textarea class="form-control" id="description" name="description" rows="6" maxlength="255">{{ old('description') ?? $job->description }}</textarea>
                   @error('description')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -31,7 +31,7 @@
 
                 <div class="form-group">
                   <label for="username">Nama Pengguna</label>
-                  <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" placeholder="Nama Pengguna" autocomplete="off" value="{{ old('username') ?? $company->user->username }}" readonly>
+                  <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" placeholder="Nama Pengguna" autocomplete="off" value="{{ old('username') ?? $job->user->username }}" readonly>
                   @error('username')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -39,7 +39,7 @@
 
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Email" autocomplete="off" value="{{ old('email') ?? $company->user->email }}">
+                  <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Email" autocomplete="off" value="{{ old('email') ?? $job->user->email }}">
                   @error('email')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -47,7 +47,7 @@
                 <div class="form-group">
                   <label class="block" for="status">
                     <span>Aktif</span>
-                    <input type="checkbox" class="@error('status') is-invalid @enderror" name="status" id="status" value="1" {{ $company->status == 1 ? 'checked' : '' }}>
+                    <input type="checkbox" class="@error('status') is-invalid @enderror" name="status" id="status" value="1" {{ $job->status == 1 ? 'checked' : '' }}>
                   </label>
                   @error('status')
                     <span class="text-danger">{{ $message }}</span>
@@ -71,7 +71,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ route('company-account.index') }}" class="btn btn-default">Kembali</a>
+                <a href="{{ route('job-application.index') }}" class="btn btn-default">Kembali</a>
 
             </form>
         </div>

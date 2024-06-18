@@ -28,15 +28,7 @@ class AuthenticationController extends Controller
         $request->merge([$login_type => $request->input('login')]);
 
         if (Auth::attempt($request->only($login_type, 'password'))) {
-            if(Auth::user()->role == User::ROLE_JPC) {
-                return redirect()->intended('home');
-            } elseif(Auth::user()->role == User::ROLE_COMPANY) {
-                echo "TEST COMPANY";
-                //return redirect()->intended('dashboard/company');
-            } else {
-                echo "TEST USER";
-                //return redirect()->intended('dashboard/user');
-            }
+            return redirect()->intended('home');
         } else {
             //dd($request->all());
             return back()->withInput()->withErrors(['login' => 'Kredensial Login Invalid.']);

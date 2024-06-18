@@ -1,5 +1,6 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
+@section('title','Akun Perusahaan | Baru')
 @section('main-content')
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">{{ $title ?? __('Akun Perusahaan') }}</h1>

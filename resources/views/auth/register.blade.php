@@ -13,7 +13,7 @@
         <div class="container">
             <div class="form-container">
                 <header>
-                    <img src="{{ asset('admin/img/logo-poliwangi.png') }}" alt="Logo Poliwangi">
+                    <img src="{{ asset('img/logo-poliwangi.png') }}" alt="Logo Poliwangi">
                 </header>
                 <h1>Buat Sebuah Akun</h1>
                 @if ($errors->any())

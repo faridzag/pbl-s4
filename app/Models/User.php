@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -19,9 +20,9 @@ class User extends Authenticatable implements MustVerifyEmail
     const ROLE_DEFAULT = self::ROLE_APPLICANT;
 
     const ROLES = [
-        self::ROLE_JPC => 'Jpc',
-        self::ROLE_COMPANY => 'Company',
-        self::ROLE_APPLICANT => 'Applicant',
+        self::ROLE_JPC => 'JPC',
+        self::ROLE_COMPANY => 'COMPANY',
+        self::ROLE_APPLICANT => 'APPLICANT',
     ];
 
     /**

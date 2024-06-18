@@ -2,16 +2,18 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\JPCController;
-use App\Http\Controllers\JPC\JpcCompanyController;
+use App\Http\Controllers\JPC\CompanyAccountController;
+use App\Http\Controllers\JPC\EventManagementController;
+use App\Http\Controllers\COMPANY\JobManagementController;
+use App\Http\Controllers\COMPANY\JobApplicationController;
+use App\Http\Controllers\APPLICANT\JobApplicationController as ApplicantJob;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AddCompanyController;
 use App\Http\Controllers\CompaniesController;
-use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BasicController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventsController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
@@ -29,14 +31,13 @@ Route::middleware(['guest'])->group(function(){
 });
 
 Route::middleware(['auth', 'verified'])->group(function(){
-    //Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('role-check:JPC');
-    //Route::get('/dashboard/company', [DashboardController::class, 'index'])->name('company-dashboard');
-    //Route::get('/dashboard/user', [DashboardController::class, 'index'])->name('user-dashboard');
-    // TO DELETE Route::get('/add-company', [JPCController::class, 'addCompany'])->name('add-company');
-    // TO DELETE Route::post('/add-company', [JPCController::class, 'createCompanyAccount']);
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
-    Route::resource('basic', BasicController::class);
-    Route::resource('company-account', JpcCompanyController::class);
+    // Route::resource('basic', BasicController::class);
+    Route::resource('company-account', CompanyAccountController::class)->middleware('role-jpc');
+    Route::resource('event-management', EventManagementController::class)->middleware('role-jpc');
+    Route::resource('job-management', JobManagementController::class)->middleware('role-company');
+    Route::resource('job-application', JobApplicationController::class)->middleware('role-company');
+    Route::resource('my-job-application', ApplicantJob::class)->middleware('role-applicant');
 });
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -61,7 +62,7 @@ Route::get('/email/verify', function () {
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
-    return redirect('/dashboard');
+    return redirect('/home');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
