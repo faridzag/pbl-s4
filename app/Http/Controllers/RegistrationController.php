@@ -46,7 +46,7 @@ class RegistrationController extends Controller
 
         $user = User::create([
             'username' => $request->username,
-            'fullname' => $request->full_name,
+            'fullname' => $request->fullname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => User::ROLE_DEFAULT,
@@ -54,7 +54,6 @@ class RegistrationController extends Controller
 
         $applicantProfile = Applicant::create([
             'id_number' => $request->id_number,
-            'full_name' => $request->full_name,
             'birth_date' => $request->birth_date,
             'gender' => $request->gender,
             'phone_number' => $request->phone_number,
