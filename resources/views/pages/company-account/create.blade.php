@@ -13,7 +13,7 @@
                 @csrf
                 <div class="form-group">
                   <label for="fullname">Nama Perusahaan</label>
-                  <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" id="fullname" placeholder="Nama Pengguna" autocomplete="off" value="{{ old('fullname') }}">
+                  <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" id="fullname" placeholder="Nama Perusahaan" autocomplete="off" value="{{ old('fullname') }}">
                   @error('fullname')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror

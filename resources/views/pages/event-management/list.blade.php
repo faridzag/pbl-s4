@@ -47,7 +47,7 @@
                         <td>
                             <ul>
                             @foreach($event->companies as $company)
-                                <li>{{ $company->name }}</li>
+                                <li>{{ $company->user->fullname }}</li>
                             @endforeach
                             </ul>
                         </td>

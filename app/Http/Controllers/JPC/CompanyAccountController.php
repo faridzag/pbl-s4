@@ -41,7 +41,6 @@ class CompanyAccountController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|min:3|max:100',
             'fullname' => 'required|string|max:50',
             'description' => 'string|max:255',
             'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',

@@ -36,9 +36,10 @@
                     <tr>
                         <td scope="row">{{ $loop->iteration }}</td>
                         <td>{{ $application->event->name }}</td>
-                        <td>{{ $application->user->username }}</td>
+                        <td>{{ $application->user->fullname }}</td>
                         <td>{{ $application->vacancy->position }}</td>
                         <td>{{ $application->status }}</td>
+                        <td>
                             <div class="d-flex">
                                 <a href="{{ route('job-application.edit', $application->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
                                 <form action="{{ route('job-application.destroy', $application->id) }}" method="post">
