@@ -98,7 +98,7 @@ class CompanyAccountController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => 'required|string|min:3|max:100',
+            'fullname' => 'required|string|max:50',
             'description' => 'string|max:255',
             'username' => 'required|min:6|max:25|alpha_dash:ascii',
             'email' => 'required|email|min:6|max:100',
@@ -110,10 +110,10 @@ class CompanyAccountController extends Controller
         if($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
+        $user->fullname = $request->fullname;
         $user->username = $request->username;
         $user->email = $request->email;
         $user->save();
-        $company->name = $request->name;
         $company->status = $request->has('status') ? 1 : 0;
         $company->description = $request->description;
         $company->save();

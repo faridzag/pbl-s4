@@ -71,7 +71,7 @@
                   <label for="companies">Anggota Kegiatan:</label>
                     <select multiple size="3" class="form-select form-control @error('status') is-invalid @enderror" id="companies" name="companies[]">
                       @foreach($companies as $company)
-                        <option value="{{ $company->id }}" @if(in_array($company->id, $event->companies->pluck('id')->toArray())) selected @endif>{{ $company->name }}</option>
+                        <option value="{{ $company->id }}" @if(in_array($company->id, $event->companies->pluck('id')->toArray())) selected @endif>{{ $company->user->fullname }}</option>
                       @endforeach
                   </select>
                 </div>

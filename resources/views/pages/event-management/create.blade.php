@@ -3,7 +3,7 @@
 @section('title','Manajemen Kegiatan | Baru')
 @section('main-content')
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">{{ $title ?? __('Event') }}</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ $title ?? __('Kegiatan Baru') }}</h1>
 
     <!-- Main Content goes here -->
 

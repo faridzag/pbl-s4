@@ -24,7 +24,7 @@ class RegistrationController extends Controller
             'fullname' => 'required|string|string|min:4|max:50',
             'birth_date' => 'required|date',
             'gender' => 'required|in:pria,wanita',
-            'phone_number' => ['required', 'min:9', 'numeric', 'regex:/^(\+62|62|0)8[1-9][0-9]{8,11}$/'],
+            'phone_number' => ['required', 'min:10', 'numeric', 'regex:/^(\+62|62|0)8[1-9][0-9]{8,13}$/'],
             'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
             'email' => 'required|email|min:6|max:100|unique:users',
             'password' => 'required|string|min:8|confirmed',
