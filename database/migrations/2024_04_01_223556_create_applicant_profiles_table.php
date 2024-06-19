@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->constrained()->cascadeOnDelete()
             ->references('id')->on('users');
-            $table->string('full_name', 40);
             $table->string('phone_number', 11);
             $table->date('birth_date');
             $table->enum('gender',['pria', 'wanita']);

@@ -12,9 +12,9 @@
             <form action="{{ route('company-account.store') }}" method="post">
                 @csrf
                 <div class="form-group">
-                  <label for="name">Nama Perusahaan</label>
-                  <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Nama Perusahaan" autocomplete="off" value="{{ old('name') }}">
-                  @error('name')
+                  <label for="fullname">Nama Perusahaan</label>
+                  <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" id="fullname" placeholder="Nama Pengguna" autocomplete="off" value="{{ old('fullname') }}">
+                  @error('fullname')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
@@ -30,7 +30,7 @@
                 <div class="form-group">
                   <label for="username">Nama Pengguna</label>
                   <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" placeholder="Nama Pengguna" autocomplete="off" value="{{ old('username') }}">
-                  @error('name')
+                  @error('username')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>

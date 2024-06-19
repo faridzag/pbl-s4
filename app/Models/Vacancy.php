@@ -15,12 +15,12 @@ class Vacancy extends Model
     use HasFactory, AuthorizesRequests;
     protected $table = 'job_vacancies';
     protected $fillable = [
+        'user_id',
         'company_id',
         'event_id',
         'position',
         'description',
-        'status',
-        'user_id'
+        'status'
     ];
 
     public function event()
@@ -31,12 +31,5 @@ class Vacancy extends Model
     public function company()
     {
         return $this->belongsTo(Company::class);
-    }
-
-    public static function scopeCurrentCompany($query, int $companyId)
-    {
-        $query->whereHas('company', function ($query) use ($companyId) {
-            $query->where('id', $companyId);
-        });
     }
 }

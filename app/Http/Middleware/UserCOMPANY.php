@@ -16,8 +16,8 @@ class UserCOMPANY
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!Auth::check() || !$request->user()->isCompany()) {
-            abort(401, 'This action is unauthorized.');
+        if(!$request->user()->isCompany()) {
+            return redirect()->route('home')->withErrors(['error' => 'Anda Tidak Bisa Mengakses Halaman ini.']);
         }
         return $next($request);
     }

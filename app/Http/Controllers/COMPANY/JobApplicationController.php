@@ -15,10 +15,9 @@ class JobApplicationController extends Controller
     {
         $companyId = auth()->user()->company->id;
         $applications = Application::where('company_id', $companyId)
-            ->with('applicant', 'vacancy.event')
+            ->with('applicant.user', 'vacancy.event')
             ->paginate(10);
-
-        return view('company.job-applications.index', compact('applications'));
+        return view('pages.job-application.list', compact('applications'));
     }
 
     /**

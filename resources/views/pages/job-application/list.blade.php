@@ -24,35 +24,24 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Lamaran</th>
-                    <th>Jenis</th>
-                    <th>Deskripsi</th>
-                    <th>Tanggal Mulai</th>
+                    <th>Nama Kegiatan</th>
+                    <th>Nama Pelamar</th>
+                    <th>Posisi</th>
                     <th>Status</th>
-                    <th>Anggota</th>
                     <th>#</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($jobs as $job)
+                @foreach ($applications as $application)
                     <tr>
                         <td scope="row">{{ $loop->iteration }}</td>
-                        <td>{{ $job->name }}</td>
-                        <td>{{ $job->job_type }}</td>
-                        <td>{{ $job->description }}</td>
-                        <td>{{ $job->start_date }}</td>
-                        <td>{{ $job->status }}</td>
-                        <td>
-                            <ul>
-                            @foreach($job->companies as $company)
-                                <li>{{ $company->name }}</li>
-                            @endforeach
-                            </ul>
-                        </td>
-                        <td>
+                        <td>{{ $application->event->name }}</td>
+                        <td>{{ $application->user->username }}</td>
+                        <td>{{ $application->vacancy->position }}</td>
+                        <td>{{ $application->status }}</td>
                             <div class="d-flex">
-                                <a href="{{ route('job-application.edit', $job->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
-                                <form action="{{ route('job-application.destroy', $job->id) }}" method="post">
+                                <a href="{{ route('job-application.edit', $application->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                                <form action="{{ route('job-application.destroy', $application->id) }}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete this?')">Delete</button>
@@ -66,7 +55,7 @@
     </div>
 </div>
 
-    {{ $jobs->links() }}
+    {{ $applications->links() }}
 
     <!-- End of Main Content -->
 </div>

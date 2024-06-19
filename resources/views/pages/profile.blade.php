@@ -28,8 +28,8 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="text-center">
-                                <h5 class="font-weight-bold">{{  Auth::user()->username }}</h5>
-                                <p>{{ Auth::user()->role }}</p>
+                                <h5 class="font-weight-bold">{{  Auth::user()->fullname }}</h5>
+                                <p>{{ Auth::user()->username }} / {{ Auth::user()->role }}</p>
                             </div>
                         </div>
                     </div>
@@ -80,8 +80,14 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group focused">
+                                        <label class="form-control-label" for="fullname">Nama</label>
+                                        <input type="text" id="fullname" class="form-control" name="fullname" placeholder="Name" value="{{ old('fullname', Auth::user()->fullname) }}" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group focused">
                                         <label class="form-control-label" for="username">Nama Pengguna</label>
-                                        <input type="text" id="username" class="form-control" name="username" placeholder="Name" value="{{ old('name', Auth::user()->username) }}" readonly>
+                                        <input type="text" id="username" class="form-control" name="username" placeholder="Name" value="{{ old('username', Auth::user()->username) }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -90,10 +96,8 @@
                                         <input type="text" id="role" class="form-control" name="role" placeholder="Last name" value="{{ old('last_name', Auth::user()->role) }}" readonly>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="email">Alamat Email<span class="small text-danger">*</span></label>
                                         <input type="email" id="email" class="form-control" name="email" placeholder="example@example.com" value="{{ old('email', Auth::user()->email) }}">

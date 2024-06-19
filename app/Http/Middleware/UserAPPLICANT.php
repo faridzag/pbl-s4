@@ -17,7 +17,7 @@ class UserAPPLICANT
     public function handle(Request $request, Closure $next): Response
     {
         if(!$request->user()->isApplicant()) {
-            abort(401, 'This action is unauthorized.');
+            return redirect()->route('home')->withErrors(['error' => 'Anda Tidak Bisa Mengakses Halaman ini.']);
         }
         return $next($request);
     }

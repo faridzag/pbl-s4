@@ -14,7 +14,6 @@ class Applicant extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'id_number',
-        'full_name',
         'birth_date',
         'gender',
         'phone_number',
@@ -26,6 +25,7 @@ class Applicant extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
+
 }

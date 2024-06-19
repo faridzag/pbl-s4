@@ -80,7 +80,7 @@ class JobManagementController extends Controller
         //dd($user->company->id);
         //dd($job->company_id);
         if (!Gate::allows('update-job', $job)) {
-            abort(403);
+            return redirect()->route('job-management.index')->withErrors(['error' => 'Anda Tidak Memiliki Izin Untuk Mengupdate Kegiatan Tersebut.']);
         }
         return view('pages.job-management.edit', compact('job', 'availableEvents'));
     }

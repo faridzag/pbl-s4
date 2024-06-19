@@ -31,7 +31,7 @@
                         <input type="text" value="{{ old('id_number')}}" id="id_number" name="id_number" placeholder="NIK" maxlength="16" minlength="16" inputmode="numeric">
                     </div>
                     <div class="input-group">
-                        <input type="text" value="{{ old('full_name')}}" id="full_name" name="full_name" placeholder="Nama Lengkap" minlength="6" maxlength="40">
+                        <input type="text" value="{{ old('fullname')}}" id="fullname" name="fullname" placeholder="Nama Lengkap" minlength="6" maxlength="40">
                     </div>
                     <div class="input-group">
                         <input type="email" value="{{ old('email')}}" id="email" name="email" placeholder="Email" minlength="6" maxlength="100">

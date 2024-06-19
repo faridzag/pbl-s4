@@ -14,9 +14,9 @@
                 @method('PUT')
 
                 <div class="form-group">
-                  <label for="name">Nama Perusahaan</label>
-                  <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Nama Perusahaan" autocomplete="off" value="{{ old('name') ?? $company->name }}">
-                  @error('name')
+                  <label for="fullname">Nama Perusahaan</label>
+                  <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" id="fullname" placeholder="Nama Perusahaan" autocomplete="off" value="{{ old('fullname') ?? $company->user->fullname }}">
+                  @error('fullname')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>

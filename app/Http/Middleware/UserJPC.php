@@ -16,8 +16,8 @@ class UserJPC
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!Auth::check() || !$request->user()->isAdmin()) {
-            abort(401, 'This action is unauthorized.');
+        if(!$request->user()->isAdmin()) {
+            return redirect()->route('home')->withErrors(['error' => 'Anda Tidak Bisa Mengakses Halaman ini.']);
         }
         return $next($request);
     }

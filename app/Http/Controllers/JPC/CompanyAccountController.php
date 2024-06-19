@@ -42,6 +42,7 @@ class CompanyAccountController extends Controller
     {
         $request->validate([
             'name' => 'required|string|min:3|max:100',
+            'fullname' => 'required|string|max:50',
             'description' => 'string|max:255',
             'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
             'email' => 'required|email|min:6|max:100|unique:users',
@@ -50,6 +51,7 @@ class CompanyAccountController extends Controller
 
         $user = User::create([
             'username' => $request->username,
+            'fullname' => $request->fullname,
             'email' => $request->email,
             //'email_verified_at' => now(),
             'password' => Hash::make($request->password),
@@ -57,7 +59,6 @@ class CompanyAccountController extends Controller
         ]);
 
         Company::create([
-            'name' => $request->name,
             'description' => $request->description,
             'status' => $request->has('status') ? 1 : 0,
             'user_id' => $user->id,

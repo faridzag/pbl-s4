@@ -43,7 +43,7 @@
                         <td>{{ $event->location }}</td>
                         <td>{{ $event->description }}</td>
                         <td>{{ $event->start_date }}</td>
-                        <td>{{ $event->status }}</td>
+                        <td><span class="badge badge-info">{{ $event->status }}</span></td>
                         <td>
                             <ul>
                             @foreach($event->companies as $company)

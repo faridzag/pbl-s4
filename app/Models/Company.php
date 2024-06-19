@@ -11,7 +11,6 @@ class Company extends Model
     use HasFactory, AuthorizesRequests;
     protected $table = 'company_profiles';
     protected $fillable = [
-        'name',
         'description',
         'status',
         'user_id'

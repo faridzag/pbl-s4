@@ -38,7 +38,7 @@
                         <td>{{ $job->event->name }}</td>
                         <td>{{ $job->position }}</td>
                         <td>{{ $job->description }}</td>
-                        <td>{{ $job->status }}</td>
+                        <td><span class="badge badge-info">{{ $job->status }}</span></td>
                         <td>
                             <div class="d-flex">
                                 <a href="{{ route('job-management.edit', $job->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>

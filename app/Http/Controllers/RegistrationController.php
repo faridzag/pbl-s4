@@ -21,7 +21,7 @@ class RegistrationController extends Controller
     {
         $request->validate([
             'id_number' => 'required|digits:16|unique:applicant_profiles',
-            'full_name' => 'required|string|string|min:4|max:40',
+            'fullname' => 'required|string|string|min:4|max:50',
             'birth_date' => 'required|date',
             'gender' => 'required|in:pria,wanita',
             'phone_number' => ['required', 'min:9', 'numeric', 'regex:/^(\+62|62|0)8[1-9][0-9]{8,11}$/'],
@@ -46,6 +46,7 @@ class RegistrationController extends Controller
 
         $user = User::create([
             'username' => $request->username,
+            'fullname' => $request->full_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => User::ROLE_DEFAULT,

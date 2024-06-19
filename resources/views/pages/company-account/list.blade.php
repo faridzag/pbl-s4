@@ -39,9 +39,9 @@
                         <td scope="row">{{ $loop->iteration }}</td>
                         <td>{{ $company->user->username }}</td>
                         <td>{{ $company->user->email }}</td>
-                        <td>{{ $company->name }}</td>
+                        <td>{{ $company->user->fullname }}</td>
                         <td>{{ $company->description }}</td>
-                        <td>{{ $company->status == 1 ? 'Aktif' : 'NonAktif' }}</td>
+                        <td><span class="badge badge-primary">{{ $company->status == 1 ? 'Aktif' : 'NonAktif' }}</span></td>
                         <td>{{ $company->user->role }}</td>
                         <td>
                             <div class="d-flex">
