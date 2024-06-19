@@ -12,7 +12,6 @@
         <h6 class="m-0 font-weight-bold text-primary">List Lamaran</h6>
     </div>
     <div class="card-body">
-        <a href="{{ route('job-application.create') }}" class="btn btn-primary mb-3">Buat Lamaran Baru</a>
 
     @if (session('message'))
     <div class="alert alert-success">
@@ -26,7 +25,9 @@
                     <th>No</th>
                     <th>Nama Kegiatan</th>
                     <th>Nama Pelamar</th>
+                    <th>Tentang Pelamar</th>
                     <th>Posisi</th>
+                    <th>Cv</th>
                     <th>Status</th>
                     <th>#</th>
                 </tr>
@@ -37,16 +38,37 @@
                         <td scope="row">{{ $loop->iteration }}</td>
                         <td>{{ $application->event->name }}</td>
                         <td>{{ $application->user->fullname }}</td>
+                        <td>{{ $application->applicant->description }}</td>
                         <td>{{ $application->vacancy->position }}</td>
-                        <td>{{ $application->status }}</td>
+                        <td>{{ $application->applicant->cv_path }}</td>
+                        <td>
+                            @if ($application->status === 'accept')
+                                Diterima
+                            @elseif ($application->status === 'reject')
+                                Ditolak
+                            @else
+                                {{ $application->status }}
+                            @endif
+                        </td>
                         <td>
                             <div class="d-flex">
-                                <a href="{{ route('job-application.edit', $application->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
-                                <form action="{{ route('job-application.destroy', $application->id) }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete this?')">Delete</button>
-                                </form>
+                                    <form action="{{ route('job-application.update', $application->id) }}" method="post">
+                                            @csrf
+                                            @method('PUT')
+                                        <div class="form-group">
+                                            <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" value="{{ old('status') }}">
+                                                <option value="pending" {{ $application->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                <option value="accept" {{ $application->status == 'accept' ? 'selected' : '' }}>Terima</option>
+                                                <option value="reject" {{ $application->status == 'reject' ? 'selected' : '' }}>Tolak</option>
+                                            </select>
+                                        </div>
+                                            @error('status')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-sm btn-primary">Konfirmasi</button>
+                                        </div>
+                                    </form>
                             </div>
                         </td>
                     </tr>

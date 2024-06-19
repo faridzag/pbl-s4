@@ -17,6 +17,7 @@ class JobApplicationController extends Controller
         $applications = Application::where('company_id', $companyId)
             ->with('applicant.user', 'vacancy.event')
             ->paginate(10);
+        
         return view('pages.job-application.list', compact('applications'));
     }
 
@@ -49,31 +50,17 @@ class JobApplicationController extends Controller
      */
     public function edit(Application $application)
     {        
-        $this->authorize('update', $application);
-        if ($application->company_id != auth()->user()->company->id) {
-            abort(403, 'Unauthorized access');
-        }
-
-        return view('company.job-applications.update', compact('application'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Application $application)
-    {
-        $this->authorize('update', $application);
-        if ($application->company_id != auth()->user()->company->id) {
-            abort(403, 'Unauthorized access');
-        }
-
-        $request->validate([
-            'status' => 'required|in:accept,reject',
-        ]);
-
+    public function update(Request $request, $id)
+    {    
+        $application = Application::findOrFail($id);
         $application->update(['status' => $request->status]);
-
-        return redirect()->route('company.job-applications.index')->with('success', 'Status lamaran berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Lamaran berhasil diupdate!');
     }
 
     /**

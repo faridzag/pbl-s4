@@ -26,7 +26,7 @@ class Application extends Model
 
     public function applicant()
     {
-        return $this->belongsTo(Applicant::class);
+        return $this->belongsTo(Applicant::class, 'applicant_id', 'id_number');
     }
 
     public function company()
