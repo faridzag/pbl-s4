@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="description">Deskripsi kegiatan</label>
+                  <label for="description">Deskripsi lowongan</label>
                   <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" autocomplete="off" rows="6" maxlength="255">{{ old('description') ?? $job->description }}</textarea>
                   @error('name')
                     <span class="text-danger">{{ $message }}</span>

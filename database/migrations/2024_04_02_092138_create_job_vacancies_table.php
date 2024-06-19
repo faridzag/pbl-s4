@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('job_vacancies', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('event_id');
             $table->string('position', 100);
             $table->text('description');
             $table->enum('status', ['open', 'closed']);
+            $table->foreign('user_id')->constrained()->cascadeOnDelete()
+            ->references('id')->on('users');
             $table->foreign('company_id')->constrained()->cascadeOnDelete()
             ->references('id')->on('company_profiles');
             $table->foreign('event_id')->constrained()->cascadeOnDelete()

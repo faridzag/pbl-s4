@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\COMPANY;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Company;
 use App\Models\Vacancy;
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class JobManagementController extends Controller
 {
@@ -48,6 +52,7 @@ class JobManagementController extends Controller
         $job->position = $request->position;
         $job->description = $request->description;
         $job->status = $request->status;
+        $job->user_id = auth()->user()->id;
         $job->company_id = auth()->user()->company->id;
 
         $job->save();
@@ -69,8 +74,14 @@ class JobManagementController extends Controller
     public function edit(string $id)
     {
         $user = auth()->user();
-        $availableEvents = $user->company->events; 
-        $job = Vacancy::find($id);
+        $availableEvents = $user->company->events;
+        $job = Vacancy::find($id);  // Already sure this retrieve vacancy
+        // checks both values that supposed to be compared
+        //dd($user->company->id);
+        //dd($job->company_id);
+        if (!Gate::allows('update-job', $job)) {
+            abort(403);
+        }
         return view('pages.job-management.edit', compact('job', 'availableEvents'));
     }
 
@@ -81,7 +92,7 @@ class JobManagementController extends Controller
     {
         $request->validate([
             'position' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
             'status' => 'required|string',
         ]);
         $job = Vacancy::find($id);

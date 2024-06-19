@@ -4,7 +4,7 @@ namespace App\Http\Controllers\COMPANY;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Event;
+use App\Models\Application;
 
 class JobApplicationController extends Controller
 {
@@ -13,11 +13,12 @@ class JobApplicationController extends Controller
      */
     public function index()
     {
-        $events = Event::paginate(10);
-        return view('pages.job-application.list', [
-            'title' => 'Manajemen Lamaran Pengguna',
-            'events' => $events,
-        ]);
+        $companyId = auth()->user()->company->id;
+        $applications = Application::where('company_id', $companyId)
+            ->with('applicant', 'vacancy.event')
+            ->paginate(10);
+
+        return view('company.job-applications.index', compact('applications'));
     }
 
     /**
@@ -47,21 +48,33 @@ class JobApplicationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        $event = Event::with('companies')->findOrFail($id);
-        return view('pages.job-application.edit', [
-            'title' => 'Edit Kegiatan',
-            'event' => $event
-        ]);
+    public function edit(Application $application)
+    {        
+        $this->authorize('update', $application);
+        if ($application->company_id != auth()->user()->company->id) {
+            abort(403, 'Unauthorized access');
+        }
+
+        return view('company.job-applications.update', compact('application'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Application $application)
     {
-        //
+        $this->authorize('update', $application);
+        if ($application->company_id != auth()->user()->company->id) {
+            abort(403, 'Unauthorized access');
+        }
+
+        $request->validate([
+            'status' => 'required|in:accept,reject',
+        ]);
+
+        $application->update(['status' => $request->status]);
+
+        return redirect()->route('company.job-applications.index')->with('success', 'Status lamaran berhasil diperbarui!');
     }
 
     /**
@@ -69,9 +82,6 @@ class JobApplicationController extends Controller
      */
     public function destroy(string $id)
     {
-        $event = Event::find($id);
-        $event->companies()->detach();
-
-        $event->delete();
+        //
     }
 }

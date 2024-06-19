@@ -6,6 +6,9 @@ use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\ServiceProvider;
+use App\Models\User;
+use App\Models\Vacancy;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +36,10 @@ class AppServiceProvider extends ServiceProvider
             ->action('Verifikasi Alamat Email', $url)
             ->line("Hormat Kami,")
             ->salutation('Tim, ' . config('app.name'));
-    });
+        });
+        
+        Gate::define('update-job', function (User $user, Vacancy $job) {
+            return $job->user_id === $user->id;
+        });
     }
 }
