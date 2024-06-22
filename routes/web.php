@@ -14,11 +14,10 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
-
+Route::get('/', function () {
+    return view('beranda');
+});
 Route::middleware(['guest'])->group(function(){
-    Route::get('/', function () {
-        return view('welcome');
-    });
     Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
     Route::post('/login', [AuthenticationController::class, 'login']);
     Route::get('/register', [RegistrationController::class, 'index'])->name('register');
