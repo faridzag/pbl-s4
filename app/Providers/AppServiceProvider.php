@@ -9,6 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\User;
 use App\Models\Vacancy;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,5 +42,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('update-job', function (User $user, Vacancy $job) {
             return $job->user_id === $user->id;
         });
+
+        Paginator::useBootstrapFive();
     }
 }

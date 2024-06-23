@@ -8,15 +8,23 @@ use App\Http\Controllers\COMPANY\JobApplicationController;
 use App\Http\Controllers\APPLICANT\JobApplicationController as ApplicantJob;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\BasicController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\LandingController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
-Route::get('/', function () {
-    return view('beranda');
+Route::get('/', [LandingController::class, 'index'])->name('landing');
+Route::get('/event', [EventController::class, 'index'])->name('event');
+Route::get('/company', [CompanyController::class, 'index'])->name('company');
+Route::get('/companies/{company}', [LandingController::class, 'show'])->name('companies.show');
+Route::get('/detail-event', function() {
+    return view('pages.event.detail-event');
 });
+
+
 Route::middleware(['guest'])->group(function(){
     Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
     Route::post('/login', [AuthenticationController::class, 'login']);

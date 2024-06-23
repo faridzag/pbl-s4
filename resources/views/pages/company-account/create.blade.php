@@ -20,9 +20,17 @@
                 </div>
 
                 <div class="form-group">
+                  <label for="address">Alamat</label>
+                  <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" autocomplete="off" rows="3" maxlength="100">{{ old('address') ?? $company->address }}</textarea>
+                  @error('address')
+                    <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                </div>
+
+                <div class="form-group">
                   <label for="description">Profile / Deskripsi perusahaan</label>
                   <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" autocomplete="off" value="{{ old('description') }}" rows="6" maxlength="255"></textarea>
-                  @error('name')
+                  @error('description')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>

@@ -42,6 +42,7 @@ class CompanyAccountController extends Controller
     {
         $request->validate([
             'fullname' => 'required|string|max:50',
+            'address' => 'string|max:100',
             'description' => 'string|max:255',
             'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
             'email' => 'required|email|min:6|max:100|unique:users',
@@ -58,6 +59,7 @@ class CompanyAccountController extends Controller
         ]);
 
         Company::create([
+            'address' => $request->address,
             'description' => $request->description,
             'status' => $request->has('status') ? 1 : 0,
             'user_id' => $user->id,
@@ -99,6 +101,7 @@ class CompanyAccountController extends Controller
     {
         $request->validate([
             'fullname' => 'required|string|max:50',
+            'address' => 'string|max:100',
             'description' => 'string|max:255',
             'username' => 'required|min:6|max:25|alpha_dash:ascii',
             'email' => 'required|email|min:6|max:100',
@@ -115,6 +118,7 @@ class CompanyAccountController extends Controller
         $user->email = $request->email;
         $user->save();
         $company->status = $request->has('status') ? 1 : 0;
+        $company->address = $request->address;
         $company->description = $request->description;
         $company->save();
         return redirect()->route('company-account.index')->with('message', 'Berhasil memperbarui data perusahaan!');

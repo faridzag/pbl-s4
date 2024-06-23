@@ -22,6 +22,14 @@
                 </div>
 
                 <div class="form-group">
+                  <label for="address">Alamat</label>
+                  <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" autocomplete="off" rows="3" maxlength="100">{{ old('address') ?? $company->address }}</textarea>
+                  @error('address')
+                    <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                </div>
+
+                <div class="form-group">
                   <label for="description">Profile / Deskripsi perusahaan</label>
                   <textarea class="form-control" id="description" name="description" rows="6" maxlength="255">{{ old('description') ?? $company->description }}</textarea>
                   @error('description')

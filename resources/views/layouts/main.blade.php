@@ -13,6 +13,8 @@
             border-radius: 9px;
         }
     </style>
+    <!-- Favicon -->
+    <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
 </head>
 <body>
     <!-- Include Navbar -->

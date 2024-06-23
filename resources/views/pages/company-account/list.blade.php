@@ -27,6 +27,7 @@
                     <th>Nama Pengguna</th>
                     <th>Email</th>
                     <th>Nama Perusahaan</th>
+                    <th>Alamat</th>
                     <th>Deskripsi</th>
                     <th>Status</th>
                     <th>Role</th>
@@ -40,6 +41,7 @@
                         <td>{{ $company->user->username }}</td>
                         <td>{{ $company->user->email }}</td>
                         <td>{{ $company->user->fullname }}</td>
+                        <td>{{ $company->address }}</td>
                         <td>{{ $company->description }}</td>
                         <td><span class="badge badge-primary">{{ $company->status == 1 ? 'Aktif' : 'NonAktif' }}</span></td>
                         <td>{{ $company->user->role }}</td>

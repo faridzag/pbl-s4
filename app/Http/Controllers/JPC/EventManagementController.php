@@ -68,7 +68,7 @@ class EventManagementController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:100',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
             'event_type' => 'required|string',
             'start_date' => 'required|date',
             'status' => 'required|string',

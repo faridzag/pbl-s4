@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->constrained()->cascadeOnDelete()
             ->references('id')->on('users');
+            $table->string('address', 100)->nullable();
             $table->text('description')->nullable();
             $table->boolean('status')->default(false);
             $table->timestamps();
