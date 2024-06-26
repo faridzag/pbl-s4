@@ -1,5 +1,5 @@
 <!-- resources/views/components/footer.blade.php -->
-<footer class="container-fluid" style="background-color:  #D3E1E9; padding: 50px 0;">
+<footer class="container-fluid mt-auto" style="background-color:  #D3E1E9; padding: 50px 0;">
   <div class="container">
       <div class="row">
           <div class="col-md-2 text-center">

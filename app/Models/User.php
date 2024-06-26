@@ -76,11 +76,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->role === self::ROLE_APPLICANT;
     }
 
-    public function applicantProfile()
-    {
-        return $this->hasOne(Applicant::class);
-    }
-
     public function company()
     {
         return $this->hasOne(Company::class);
@@ -89,5 +84,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function vacancy()
     {
         return $this->hasOne(Vacancy::class);
+    }
+
+    public function applicant()
+    {
+        return $this->hasOne(Applicant::class);
     }
 }

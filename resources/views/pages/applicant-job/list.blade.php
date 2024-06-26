@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','Manajemen Lamaran | List')
+@section('title','Manajemen Lamaranku')
 @section('main-content')
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">{{ $title ?? __('Lamaran') }}</h1>
@@ -9,7 +9,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List Lamaran</h6>
+        <h6 class="m-0 font-weight-bold text-primary">List Lamaranku</h6>
     </div>
     <div class="card-body">
 
@@ -24,10 +24,9 @@
                 <tr>
                     <th>No</th>
                     <th>Nama Kegiatan</th>
-                    <th>Nama Pelamar</th>
-                    <th>Tentang Pelamar</th>
+                    <th>Nama Perusahaan</th>
+                    <th>Tentang Perusahaan</th>
                     <th>Posisi</th>
-                    <th>Cv</th>
                     <th>Status</th>
                     <th>#</th>
                 </tr>
@@ -37,16 +36,9 @@
                     <tr>
                         <td scope="row">{{ $loop->iteration }}</td>
                         <td>{{ $application->event->name }}</td>
-                        <td>{{ $application->user->fullname }}</td>
-                        <td>{{ $application->applicant->description }}</td>
+                        <td>{{ $application->company->user->fullname }}</td>
+                        <td>{{ $application->company->description }}</td>
                         <td>{{ $application->vacancy->position }}</td>
-                        <td>
-                            @if (isset($application->applicant->cv_path))
-                                <a href="{{ Storage::url($application->applicant->cv_path) }}" target="_blank">Lihat CV</a>
-                            @else
-                                <span class="text-muted">Pelamar belum mengupload CV</span>
-                            @endif
-                            </td>
                         <td>
                             @if ($application->status === 'accept')
                                 Diterima
@@ -58,23 +50,11 @@
                         </td>
                         <td>
                             <div class="d-flex">
-                                    <form action="{{ route('job-application.update', $application->id) }}" method="post">
-                                            @csrf
-                                            @method('PUT')
-                                        <div class="form-group">
-                                            <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" value="{{ old('status') }}">
-                                                <option value="pending" {{ $application->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                                <option value="accept" {{ $application->status == 'accept' ? 'selected' : '' }}>Terima</option>
-                                                <option value="reject" {{ $application->status == 'reject' ? 'selected' : '' }}>Tolak</option>
-                                            </select>
-                                        </div>
-                                            @error('status')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-sm btn-primary">Konfirmasi</button>
-                                        </div>
-                                    </form>
+                                <form action="{{ route('my-job-application.destroy', $application->id) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin untuk menghapus?')">Delete</button>
+                                </form>
                             </div>
                         </td>
                     </tr>

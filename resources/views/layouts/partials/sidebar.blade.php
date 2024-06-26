@@ -26,6 +26,7 @@
         {{ __('Menu') }}
         </div>
         
+        @if ( Auth::user()->role == 'JPC')
         <!-- Nav Item - Profile -->
         <li class="nav-item {{ Nav::isRoute('profile') }}">
                 <a class="nav-link" href="{{ route('profile') }}">
@@ -33,8 +34,6 @@
                         <span>{{ __('Profil') }}</span>
                 </a>
         </li>
-
-        @if ( Auth::user()->role == 'JPC')
         <!-- Nav Item Akun Perusahaan -->
         <li class="nav-item {{ Nav::isRoute('company-account.index') }}">
                 <a class="nav-link" href="{{ route('company-account.index') }}">
@@ -65,9 +64,16 @@
                 </a>
         </li>
         @else
+        <!-- Nav Item - Profile -->
+        <li class="nav-item {{ Nav::isRoute('applicant-profile') }}">
+                <a class="nav-link" href="{{ route('applicant-profile') }}">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>{{ __('Profil') }}</span>
+                </a>
+        </li>
         <!-- Nav Item Lamaran User -->
-        <li class="nav-item {{ Nav::isRoute('my-job-application.index') }}">
-                <a class="nav-link" href="{{ route('my-job-application.index') }}">
+        <li class="nav-item {{ Nav::isRoute('my-job-application') }}">
+                <a class="nav-link" href="{{ route('my-job-application') }}">
                         <i class="fas fa-fw fa-book"></i>
                         <span>{{ __('Lamaranku') }}</span>
                 </a>
@@ -75,10 +81,10 @@
         @endif        
 
         <!-- Nav Item -->
-        <li class="nav-item {{ Nav::isRoute('blank') }}">
-                <a class="nav-link" href="{{ route('blank') }}">
+        <li class="nav-item {{ Nav::isRoute('landing') }}">
+                <a class="nav-link" href="{{ route('landing') }}">
                         <i class="fas fa-fw fa-book"></i>
-                        <span>{{ __('Halaman kosong') }}</span>
+                        <span>{{ __('Jelajahi Job Fair') }}</span>
                 </a>
         </li>
 

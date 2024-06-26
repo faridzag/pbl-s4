@@ -20,12 +20,15 @@ class Applicant extends Model
         'profile_picture_path',
         'description',
         'cv_path',
-        'user_id'
+        'user_id',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
+    public function applications()
+    {
+        return $this->hasMany(Application::class, 'applicant_id', 'id_number');
+    }
 }

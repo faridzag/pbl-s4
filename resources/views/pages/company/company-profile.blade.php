@@ -15,8 +15,8 @@
             <div class="text-container">
               <h3 class="mb-1">{{ $company->user->fullname }}</h3> <!-- mengurangi margin bawah dari h3 -->
               <p class="text-secondary mb-5"><i class="bi bi-geo-alt-fill">{{ $company->address }}</i></p>
-              <a href="https://poliwangi.ac.id/" target="_blank" class="btn border-secondary me-2 nav-hover">PROFIL</a>
-              <a href="https://poliwangi.ac.id/" target="_blank" class="btn border-secondary nav-hover">JOB FAIR</a>
+              <a href="{{ route('company.profile', $company->id) }}" class="btn border-secondary me-2 nav-hover">PROFILE</a>
+              <a href="{{ route('company.event', $company->id) }}" class="btn border-secondary nav-hover">EVENT</a>
             </div>
           </div>
         </div>

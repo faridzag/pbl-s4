@@ -9,21 +9,18 @@ use App\Http\Controllers\APPLICANT\JobApplicationController as ApplicantJob;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\EventController;
+use App\Http\Controllers\ApplicantProfileController;
 use App\Http\Controllers\LandingController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
 Route::get('/', [LandingController::class, 'index'])->name('landing');
-Route::get('/event', [EventController::class, 'index'])->name('event');
-Route::get('/company', [CompanyController::class, 'index'])->name('company');
-Route::get('/companies/{company}', [LandingController::class, 'show'])->name('companies.show');
-Route::get('/detail-event', function() {
-    return view('pages.event.detail-event');
-});
-
+Route::get('/company/{company}', [LandingController::class, 'company_profile'])->name('company.profile');
+Route::get('/company-event/{company}', [LandingController::class, 'company_event'])->name('company.event');
+Route::get('/event/{event}', [LandingController::class, 'event_show'])->name('event.show');
+Route::get('/vacancy/{vacancy}', [LandingController::class, 'vacancy_show'])->name('vacancy.show');
+Route::post('/applications', [LandingController::class, 'apply'])->name('apply.job');
 
 Route::middleware(['guest'])->group(function(){
     Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
@@ -35,20 +32,30 @@ Route::middleware(['guest'])->group(function(){
 Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+    Route::post('/applications', [LandingController::class, 'apply'])->name('apply.job');
     // Route::resource('basic', BasicController::class);
-    Route::resource('company-account', CompanyAccountController::class)->middleware('role-jpc');
-    Route::resource('event-management', EventManagementController::class)->middleware('role-jpc');
-    Route::resource('job-management', JobManagementController::class)->middleware('role-company');
-    Route::resource('job-application', JobApplicationController::class)->middleware('role-company');
-    Route::resource('my-job-application', ApplicantJob::class)->middleware('role-applicant');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+// TODO ROUTE (no show)
+Route::middleware(['auth', 'verified', 'role-jpc'])->group(function(){
+    Route::resource('company-account', CompanyAccountController::class);
+    Route::resource('event-management', EventManagementController::class);
+});
 
-Route::get('/blank', function () {
-    return view('pages.blank');
-})->name('blank');
+Route::middleware(['auth', 'verified', 'role-company'])->group(function(){
+    Route::resource('job-management', JobManagementController::class);
+    Route::resource('job-application', JobApplicationController::class);
+});
+
+
+Route::middleware(['auth', 'verified', 'role-applicant'])->group(function(){
+    Route::get('my-job-application', [ApplicantJob::class, 'index'])->name('my-job-application');
+    Route::delete('my-job-application/{id}', [ApplicantJob::class, 'destroy'])->name('my-job-application.destroy');
+    Route::get('/applicant-profile', [ApplicantProfileController::class, 'index'])->name('applicant-profile');
+    Route::put('/applicant-profile', [ApplicantProfileController::class, 'update'])->name('applicant-profile.update');
+});
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');

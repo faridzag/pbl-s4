@@ -32,4 +32,21 @@ class Vacancy extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
+    public function isApplied()
+    {
+        // Access the currently logged-in user's applicant ID
+        $applicantId = auth()->user()->applicant->id_number;
+
+        // Check for existing application with applicant ID and vacancy ID
+        return Application::where('applicant_id', $applicantId)
+            ->where('vacancy_id', $this->id)
+            ->exists();
+    }
+
 }

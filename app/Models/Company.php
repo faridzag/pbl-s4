@@ -25,8 +25,8 @@ class Company extends Model
     {
         return $this->belongsToMany(Event::class, 'event_company')->withTimestamps();
     }
-    public function vacancy()
+    public function vacancies()
     {
-        return $this->hasOne(Vacancy::class);
+        return $this->hasMany(Vacancy::class);
     }
 }

@@ -6,7 +6,8 @@
     border-radius: 9px;
   }
 </style>
-<nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #D3E1E9;">
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-light sticky-top" style="background-color: #004878;">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ route('landing') }}">
       <img src="{{asset('img/logo-poliwangi.png')}}" alt="Logo" class="mr-2" style="width: 65px; height: auto">
@@ -16,20 +17,22 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a class="nav-link fw-bold nav-hover" href="{{ route('event') }}">Event</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-bold nav-hover" href="{{ route('company') }}">Perusahaan</a>
-        </li>
-      </ul>
       <ul class="navbar-nav ms-auto">
       @if (Route::has('login'))
           @auth
           <li class="nav-item">
             <a class="nav-link fw-bold nav-hover" href="{{ route('home') }}">Dasbor</a>
           </li>
+          <!--
+          <li class="nav-item">
+            <form id="GFG" action="{{ route('logout') }}" method="POST" style="display: inline;">
+              @csrf
+              <a class="nav-link fw-bold nav-hover" href="javascript:$('GFG').submit();"> 
+                Logout
+              </a> 
+            </form>
+          </li>
+          -->
           @else
           <li class="nav-item">
             <a class="nav-link fw-bold nav-hover" href="{{ route('login') }}">Masuk</a>
