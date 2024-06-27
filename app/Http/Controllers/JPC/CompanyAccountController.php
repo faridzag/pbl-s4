@@ -40,6 +40,7 @@ class CompanyAccountController extends Controller
      */
     public function store(Request $request)
     {
+        //ddd($request);
         $request->validate([
             'fullname' => 'required|string|max:50',
             'address' => 'string|max:100',
@@ -71,14 +72,6 @@ class CompanyAccountController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
@@ -102,7 +95,7 @@ class CompanyAccountController extends Controller
         $request->validate([
             'fullname' => 'required|string|max:50',
             'address' => 'string|max:100',
-            'description' => 'string|max:255',
+            'description' => 'string|max:1500',
             'username' => 'required|min:6|max:25|alpha_dash:ascii',
             'email' => 'required|email|min:6|max:100',
             'password' => 'nullable|string|min:8|confirmed',

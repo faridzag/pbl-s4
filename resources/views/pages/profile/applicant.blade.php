@@ -92,7 +92,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="form-control-label" for="description">Profil diri<span class="small text-danger">*</span></label>
-                                        <textarea class="form-control" name="description" id="description" autocomplete="off" rows="6" maxlength="100">{{ old('description') ?? Auth::user()->applicant->description }}</textarea>
+                                        <textarea class="form-control" name="description" id="description" autocomplete="off" rows="6" maxlength="1500">{{ old('description') ?? Auth::user()->applicant->description }}</textarea>
                                     </div>
                                 </div>
                             </div>

@@ -71,6 +71,7 @@ class EventManagementController extends Controller
             'description' => 'required|string|max:1000',
             'event_type' => 'required|string',
             'start_date' => 'required|date',
+            'end_date' => 'required|date',
             'status' => 'required|string',
             'companies' => 'required|array',  // Setidaknya 1 item terpilih
         ]);
@@ -79,6 +80,7 @@ class EventManagementController extends Controller
         $event->description = $request->description;
         $event->event_type = $request->event_type;
         $event->start_date = $request->start_date;
+        $event->end_date = $request->end_date;
         $event->status = $request->status;
 
         $event->save();
@@ -98,5 +100,7 @@ class EventManagementController extends Controller
         $event->companies()->detach();
 
         $event->delete();
+
+        return redirect()->route('event-management.index')->with('success', 'Kegiatan berhasil dihapus!');
     }
 }

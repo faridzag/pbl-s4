@@ -28,7 +28,7 @@
                 <form id="registerForm" action="{{ route('register') }}" method="POST">
                     @csrf
                     <div class="input-group">
-                        <input type="text" value="{{ old('id_number')}}" id="id_number" name="id_number" placeholder="NIK" maxlength="16" minlength="16" inputmode="numeric">
+                        <input class="form-control" type="text" value="{{ old('id_number')}}" id="id_number" name="id_number" placeholder="NIK" maxlength="16" minlength="16" inputmode="numeric">
                     </div>
                     <div class="input-group">
                         <input type="text" value="{{ old('fullname')}}" id="fullname" name="fullname" placeholder="Nama Lengkap" minlength="6" maxlength="50">
@@ -36,7 +36,7 @@
                     <div class="input-group">
                         <input type="email" value="{{ old('email')}}" id="email" name="email" placeholder="Email" minlength="6" maxlength="100">
                     </div>
-                    <div class="input-group">
+                    <div class="col-lg-12 input-group">
                         <input placeholder="Tanggal Lahir" value="{{ old('birth_date')}}" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="birth_date" name="birth_date"/>
                         <select id="gender" name="gender">
                             <option value="" disabled selected>Jenis Kelamin ▼ </option>
@@ -51,18 +51,19 @@
                         <input type="text" value="{{ old('username')}}" id="username" name="username" placeholder="Nama Pengguna" minlength="6" maxlength="25">
                     </div>
                     <div class="input-group">
-                        <input type="password" id="password" name="password" placeholder="Kata Sandi" minlength="8" maxlength="50">
+                        <input type="password" id="password" name="password" placeholder="Kata Sandi" minlength="8" maxlength="255">
                     </div>
                     <div class="input-group">
-                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Kata Sandi" minlength="8" maxlength="50">
+                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Kata Sandi" minlength="8" maxlength="255">
                     </div>
                     <div class="input-group">
-                        <button name="submit" type="submit">Daftar</button>
+                        <button name="submit" class="" type="submit">Daftar</button>
                     </div>
                 </form>
                 <p>Sudah punya akun? <a href="{{ route('login') }}">Masuk</a></p>
             </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script>
             const today = new Date();
             const eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());

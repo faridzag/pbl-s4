@@ -9,7 +9,7 @@ use App\Models\Vacancy;
 use App\Models\Company;
 use App\Models\Event;
 
-class LandingController extends Controller
+class LandingPageController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -48,8 +48,16 @@
 
                 <div class="form-group">
                     <label for="start_date">Tanggal Mulai</label>
-                    <input class="form-control @error('start_date') is-invalid @enderror" type="datetime-local" class="form-control" id="start_date" name="start_date" value="{{ old('start_date') }}">
+                    <input class="form-control @error('start_date') is-invalid @enderror" type="date" class="form-control" id="start_date" name="start_date" value="{{ old('start_date') }}">
                     @error('start_date')
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="end_date">Tanggal Akhir</label>
+                    <input class="form-control @error('end_date') is-invalid @enderror" type="date" class="form-control" id="end_date" name="end_date" value="{{ old('end_date') }}">
+                    @error('end_date')
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>

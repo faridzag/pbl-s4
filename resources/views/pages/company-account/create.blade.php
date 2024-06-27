@@ -13,7 +13,7 @@
                 @csrf
                 <div class="form-group">
                   <label for="fullname">Nama Perusahaan</label>
-                  <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" id="fullname" placeholder="Nama Perusahaan" autocomplete="off" value="{{ old('fullname') }}">
+                  <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" id="fullname" placeholder="Nama Perusahaan" autocomplete="off" maxlength="50" value="{{ old('fullname') }}">
                   @error('fullname')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -21,7 +21,7 @@
 
                 <div class="form-group">
                   <label for="address">Alamat</label>
-                  <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" autocomplete="off" rows="3" maxlength="100">{{ old('address') ?? $company->address }}</textarea>
+                  <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" autocomplete="off" rows="3" maxlength="100">{{ old('address') }}</textarea>
                   @error('address')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -29,7 +29,7 @@
 
                 <div class="form-group">
                   <label for="description">Profile / Deskripsi perusahaan</label>
-                  <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" autocomplete="off" value="{{ old('description') }}" rows="6" maxlength="255"></textarea>
+                  <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" autocomplete="off" value="{{ old('description') }}" rows="6" maxlength="1500"></textarea>
                   @error('description')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -37,7 +37,7 @@
 
                 <div class="form-group">
                   <label for="username">Nama Pengguna</label>
-                  <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" placeholder="Nama Pengguna" autocomplete="off" value="{{ old('username') }}">
+                  <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" placeholder="Nama Pengguna min 6 max 25" autocomplete="off" maxlength="25" value="{{ old('username') }}">
                   @error('username')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -45,7 +45,7 @@
 
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Email" autocomplete="off" value="{{ old('email') }}">
+                  <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Email" autocomplete="off" value="{{ old('email') }}" maxlength="100">
                   @error('email')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -62,7 +62,7 @@
 
                 <div class="form-group">
                   <label for="password">Password</label>
-                  <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Password" autocomplete="off">
+                  <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Password" autocomplete="off" maxlength="255">
                   @error('password')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -70,7 +70,7 @@
 
                 <div class="form-group">
                   <label for="password_confirmation">Konfirmasi Password</label>
-                  <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="password_confirmation" placeholder="Konfirmasi Password" autocomplete="off">
+                  <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="password_confirmation" placeholder="Konfirmasi Password" autocomplete="off" maxlength="255">
                   @error('password_confirmation')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror

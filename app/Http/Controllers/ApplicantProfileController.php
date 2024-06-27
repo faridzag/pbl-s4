@@ -22,6 +22,7 @@ class ApplicantProfileController extends Controller
         $request->validate([
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::user()->id,
             'cv_path' => 'file|max:1024',
+            'description' => 'nullable|string|max:1500',
             'current_password' => 'nullable|required_with:new_password',
             'new_password' => 'nullable|min:8|max:12|required_with:current_password',
             'password_confirmation' => 'nullable|min:8|max:12|required_with:new_password|same:new_password',
@@ -43,7 +44,9 @@ class ApplicantProfileController extends Controller
 
         
         if ($request->hasFile('cv_path')) {
-            Storage::delete($applicant->cv_path);
+            if (isset($applicant->cv_path)) {
+                Storage::delete($applicant->cv_path);
+            }
             //dd($request->all());
             $cv_path = $request->file('cv_path')->store('public/applicant-cvs');
             $applicant->cv_path = $cv_path;

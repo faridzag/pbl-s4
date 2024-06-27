@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('phone_number', 13);
             $table->date('birth_date');
             $table->enum('gender',['pria', 'wanita']);
-            $table->text('description')->nullable();
+            $table->string('description', 1500)->nullable();
             $table->string('cv_path')->nullable();
             $table->string('profile_picture_path')->nullable();
             $table->timestamps();

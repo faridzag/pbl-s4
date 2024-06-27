@@ -64,7 +64,7 @@ class RegistrationController extends Controller
 
         Auth::login($user);
 
-        $user->applicantProfile()->save($applicantProfile);
+        $user->applicant()->save($applicantProfile);
 
         return redirect()->route('verification.notice');
     }

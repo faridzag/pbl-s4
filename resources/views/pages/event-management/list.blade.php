@@ -29,6 +29,7 @@
                     <th>Lokasi</th>
                     <th>Deskripsi</th>
                     <th>Tanggal Mulai</th>
+                    <th>Tanggal Selesai</th>
                     <th>Status</th>
                     <th>Anggota</th>
                     <th>#</th>
@@ -42,7 +43,8 @@
                         <td>{{ $event->event_type }}</td>
                         <td>{{ $event->location }}</td>
                         <td>{{ $event->description }}</td>
-                        <td>{{ $event->start_date }}</td>
+                        <td>{{ \Carbon\Carbon::parse($event->start_date)->format('d-M-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($event->end_date)->format('d-M-Y') }}</td>
                         <td><span class="badge badge-info">{{ $event->status }}</span></td>
                         <td>
                             <ul>
