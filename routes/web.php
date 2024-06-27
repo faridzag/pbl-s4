@@ -36,7 +36,6 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
-// TODO ROUTE (no show)
 Route::middleware(['auth', 'verified', 'role-jpc'])->group(function(){
     Route::get('company-account', [CompanyAccountController::class, 'index'])->name('company-account.index');
     Route::get('company-account/create', [CompanyAccountController::class, 'create'])->name('company-account.create');

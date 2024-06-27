@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('event_id');
             $table->string('position', 100);
-            $table->text('description');
+            $table->string('description', 1500);
             $table->enum('status', ['open', 'closed']);
             $table->foreign('user_id')->constrained()->cascadeOnDelete()
             ->references('id')->on('users');
