@@ -4,10 +4,9 @@
 
 @section('content')
     <!-- Blade: Fullscreen Background -->
-    <div class="position-relative vh-100">
+    <div class="position-relative" >
         <!-- Gambar Latar Belakang dengan Blur -->
-        <img src="{{asset('admin/img/background-gedung.jpg')}}" class="position-absolute w-100 h-100" style="object-fit: cover; filter: blur(3px);" alt="Background">
-    </div>
+        <img src="{{asset('img/background-gedung.jpg')}}" class="position-absolute w-100 h-80" style="object-fit: cover; filter: blur(3px);" alt="Background">
 
     <!-- Blade: Job Fair Yang Berlangsung -->
     <div class="container-fluid bg-light" id="content">
@@ -86,5 +85,7 @@
             @endif
             </div>
         </div>
+    </div>
+    
     </div>
 @endsection

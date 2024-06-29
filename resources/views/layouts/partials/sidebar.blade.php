@@ -1,10 +1,11 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('landing') }}">
                 <div class="sidebar-brand-icon">
-                <img class="rounded-circle" src="{{asset('img/logo-poliwangi.png')}}" height="auto" width="50px" alt="...">
+                        <img class="rounded-circle" src="{{asset('img/logo-poliwangi.png')}}" height="auto" width="50px" alt="...">
+                        <img src="{{asset('img/poliwangi-white.svg')}}" alt="Job Fair Logo" width="100" height=auto class="d-inline-block align-text-top">      
                 </div>
-                <div class="sidebar-brand-text mx-3">Poliwangi - Job Fair</div>
+                
         </a>
 
         <!-- Divider -->

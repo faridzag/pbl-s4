@@ -11,7 +11,7 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ route('landing') }}">
       <img src="{{asset('img/logo-poliwangi.png')}}" alt="Logo" class="mr-2" style="width: 65px; height: auto">
-      <img src="{{asset('img/poliwangi-logo-text-only.svg')}}" alt="Job Fair Logo" width="170" height=auto class="d-inline-block align-text-top">
+      <img src="{{asset('img/poliwangi-white.svg')}}" alt="Job Fair Logo" width="170" height=auto class="d-inline-block align-text-top">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
