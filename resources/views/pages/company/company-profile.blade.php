@@ -7,7 +7,11 @@
     <div class="container">
       <div class="row align-items-center text-center text-md-start">
         <div class="col-md-4 mb-3 mb-md-0">
-          <img src="{{asset('img/somethinc-logo.jpeg')}}" alt="Perusahaan" width="280" height="280" class="img-fluid position-absolute-left mx-auto mx-md-0">
+              @if (isset($company->image))
+                  <img src="{{ asset(str_replace('public/', '', 'storage/' . $company->image)) }}" alt="{{ $company->user->fullname }}" width="280" height="280" class="rounded-circle shadow-4-strong position-absolute-left mx-auto mx-md-0">
+              @else
+                  <img src="{{asset('img/somethinc-logo.jpeg')}}" alt="Perusahaan" width="280" height="280" class="img-fluid mx-auto mx-md-0">
+              @endif
         </div>
         
         <div class="col-md-8 mt-5">

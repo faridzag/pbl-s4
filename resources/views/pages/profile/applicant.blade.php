@@ -20,7 +20,12 @@
         <div class="col-lg-4 order-lg-2">
             <div class="card shadow mb-4">
                 <div class="card-profile-image mt-4">
-                    <figure class="rounded-circle avatar avatar font-weight-bold" style="font-size: 60px; height: 180px; width: 180px;" data-initial="{{ Auth::user()->username[0] }}"></figure>
+                    @if (isset($applicant->image))
+                        <img src="{{ asset(str_replace('public/', '', 'storage/' . $applicant->image)) }}" alt="{{ Auth::user()->fullname }}"width="180" height="180" class="rounded-circle shadow-4-strong">
+                    @else
+                        <figure class="rounded-circle avatar avatar font-weight-bold" style="font-size: 60px; height: 180px; width: 180px;" data-initial="{{ Auth::user()->username[0] }}">
+                        </figure>
+                    @endif
                 </div>
                 <div class="card-body">
 
@@ -98,7 +103,13 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="image" class="form-control-label">Upload Foto Profil:</label>
+                                        <input class="form-control" type="file" id="image" name="image" accept=".png,.jpg,.jpeg">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="cv_path" class="form-control-label">Upload CV (pdf):</label>
                                         <input class="form-control" type="file" id="cv_path" name="cv_path" accept=".pdf">

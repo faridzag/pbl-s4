@@ -21,6 +21,7 @@ class ApplicantProfileController extends Controller
         //ddd($request);
         $request->validate([
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::user()->id,
+            'image' => 'image|file|max:1024',
             'cv_path' => 'file|max:1024',
             'description' => 'nullable|string|max:1500',
             'current_password' => 'nullable|required_with:new_password',
@@ -41,13 +42,18 @@ class ApplicantProfileController extends Controller
                 return redirect()->back()->withInput();
             }
         }
-
+        if ($request->hasFile('image')) {
+            if (isset($applicant->image)) {
+                Storage::delete($applicant->image);
+            }
+            $image = $request->file('image')->store('public/applicant-photo');
+            $applicant->image = $image;
+        }
         
         if ($request->hasFile('cv_path')) {
             if (isset($applicant->cv_path)) {
                 Storage::delete($applicant->cv_path);
             }
-            //dd($request->all());
             $cv_path = $request->file('cv_path')->store('public/applicant-cvs');
             $applicant->cv_path = $cv_path;
         }

@@ -17,7 +17,7 @@ class Applicant extends Model
         'birth_date',
         'gender',
         'phone_number',
-        'profile_picture_path',
+        'image',
         'description',
         'cv_path',
         'user_id',

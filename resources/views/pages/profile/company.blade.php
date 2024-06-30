@@ -21,7 +21,7 @@
             <div class="card shadow mb-4">
                 <div class="card-profile-image mt-4">
                     @if (isset($company->image))
-                        <img src="{{ asset(str_replace('public/', '', 'storage/' . $company->image)) }}" alt="{{ Auth::user()->company->name }}">
+                        <img src="{{ asset(str_replace('public/', '', 'storage/' . $company->image)) }}" alt="{{ Auth::user()->fullname }}"width="180" height="180" class="rounded-circle shadow-4-strong">
                     @else
                         <figure class="rounded-circle avatar avatar font-weight-bold" style="font-size: 60px; height: 180px; width: 180px;" data-initial="{{ Auth::user()->username[0] }}">
                         </figure>
@@ -41,7 +41,7 @@
                     <div class="row">
                         <div class="col-md-12 d-flex justify-content-center">
                             @if (isset($company->image))
-                                <a href="{{ Storage::url($company->image) }}" target="_blank">Lihat gambar</a>
+                                <a href="{{ Storage::url($company->image) }}" target="_blank">Lihat profil</a>
                             @else
                                 <span class="text-muted">Anda belum mengupload foto profil</span>
                             @endif

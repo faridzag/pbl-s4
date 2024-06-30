@@ -72,7 +72,11 @@
                         <div class="col-lg-4 mb-4">
                             <div class="card border-0 rounded shadow">
                                 <a href="{{ route('company.profile', $company->id) }}" class="card-title text-decoration-none">
-                                    <img src="https://via.placeholder.com/400x150" class="card-img-top" alt="...">
+                                    @if($company->image)
+                                        <img src="{{ asset(str_replace('public/', '', 'storage/' . $company->image)) }}" class="card-img-top img-fluid" style="height: 150px;" alt="{{ $company->name }}">
+                                    @else
+                                        <img src="https://via.placeholder.com/400x150" class="card-img-top img-fluid" style="height: 150px;" alt="{{ $company->name }}">
+                                    @endif
                                     <div class="card-body">
                                             <p class="card-text"><strong>{{ $company->user->fullname }}</strong></p>
                                             <p class="card-text">{{ Str::limit($company->description, 50) }}</p>
