@@ -45,7 +45,18 @@
                         <td>{{ $event->description }}</td>
                         <td>{{ \Carbon\Carbon::parse($event->start_date)->format('d-M-Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($event->end_date)->format('d-M-Y') }}</td>
-                        <td><span class="badge badge-info">{{ $event->status }}</span></td>
+                        <td>
+                            <span class="badge 
+                                @if ($event->status === 'open')
+                                    badge-primary
+                                @elseif ($event->status === 'closed')
+                                    badge-secondary
+                                @else
+                                    badge-success
+                                @endif">
+                                {{ $event->status }}
+                            </span>
+                        </td>
                         <td>
                             <ul>
                             @foreach($event->companies as $company)

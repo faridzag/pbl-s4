@@ -40,13 +40,22 @@
                         <td>{{ $application->company->description }}</td>
                         <td>{{ $application->vacancy->position }}</td>
                         <td>
-                            @if ($application->status === 'accept')
-                                Diterima
-                            @elseif ($application->status === 'reject')
-                                Ditolak
-                            @else
-                                {{ $application->status }}
-                            @endif
+                            <span class="badge 
+                                @if ($application->status === 'reject')
+                                    badge-danger
+                                @elseif ($application->status === 'pending')
+                                    badge-warning
+                                @else
+                                    badge-success
+                                @endif">
+                                @if ($application->status === 'accept')
+                                    Diterima
+                                @elseif ($application->status === 'reject')
+                                    Ditolak
+                                @else
+                                    {{ $application->status }}
+                                @endif
+                            </span>
                         </td>
                         <td>
                             <div class="d-flex">

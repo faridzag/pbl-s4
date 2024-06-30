@@ -37,21 +37,24 @@
                   @enderror
                 </div>
 
-                <div class="form-group">
-                  <label for="username">Nama Pengguna</label>
-                  <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" placeholder="Nama Pengguna" autocomplete="off" value="{{ old('username') ?? $company->user->username }}" readonly>
-                  @error('username')
-                    <span class="text-danger">{{ $message }}</span>
-                  @enderror
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="username">Nama Pengguna</label>
+                    <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" placeholder="Nama Pengguna" autocomplete="off" value="{{ old('username') ?? $company->user->username }}" readonly>
+                    @error('username')
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Email" autocomplete="off" value="{{ old('email') ?? $company->user->email }}" maxlength="100">
+                    @error('email')
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                  </div>
                 </div>
 
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Email" autocomplete="off" value="{{ old('email') ?? $company->user->email }}" maxlength="100">
-                  @error('email')
-                    <span class="text-danger">{{ $message }}</span>
-                  @enderror
-                </div>
                 <div class="form-group">
                   <label class="block" for="status">
                     <span>Aktif</span>
@@ -62,20 +65,22 @@
                   @enderror
                 </div>
 
-                <div class="form-group">
-                  <label for="password">Password</label>
-                  <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Password" autocomplete="off" maxlength="255">
-                  @error('password')
-                    <span class="text-danger">{{ $message }}</span>
-                  @enderror
-                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Password" autocomplete="off" maxlength="255">
+                    @error('password')
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                  </div>
 
-                <div class="form-group">
-                  <label for="password_confirmation">Konfirmasi Password</label>
-                  <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="password_confirmation" placeholder="Konfirmasi Password" autocomplete="off" maxlength="255">
-                  @error('password_confirmation')
-                    <span class="text-danger">{{ $message }}</span>
-                  @enderror
+                  <div class="form-group col-md-6">
+                    <label for="password_confirmation">Konfirmasi Password</label>
+                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="password_confirmation" placeholder="Konfirmasi Password" autocomplete="off" maxlength="255">
+                    @error('password_confirmation')
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                  </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Simpan</button>

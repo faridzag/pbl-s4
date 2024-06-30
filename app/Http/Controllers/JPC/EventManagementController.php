@@ -9,9 +9,6 @@ use App\Models\Company;
 
 class EventManagementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $events = Event::paginate(10);
@@ -21,62 +18,55 @@ class EventManagementController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {    
-        $event = new Event();  // Create a new empty event object
-        $companies = Company::all();
+        $event = new Event(); 
+        $companies = Company::where('status', 1)->get();
         return view('pages.event-management.create', compact('event', 'companies'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
-    {
+    {    
+        $request->validate([
+            'name' => 'required|string|max:100',
+            'location' => 'required|string|max:255',
+            'description' => 'required|string|max:1500',
+            'event_type' => 'required|in:Job Fair,Campus Hiring',
+            'start_date' => 'required|date|after_or_equal:today', 
+            'end_date' => 'required|date|after_or_equal:start_date', 
+            'status' => 'required|in:open,closed,done',
+            'companies' => 'required|array|min:1', // setidaknya 1 anggota
+        ]);
+
         $event = Event::create($request->all());
         $event->companies()->attach($request->input('companies'));
         return redirect()->route('event-management.index')->with('success', 'Kegiatan Berhasil Ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $event = Event::with('companies')->findOrFail($id);
-        $companies = Company::all();
+        $companies = Company::where('status', 1)->get();
         return view('pages.event-management.edit', compact('event', 'companies'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $event = Event::findOrFail($id);
 
         $request->validate([
             'name' => 'required|string|max:100',
-            'description' => 'required|string|max:1000',
-            'event_type' => 'required|string',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
-            'status' => 'required|string',
+            'location' => 'required|string|max:255',
+            'description' => 'required|string|max:1500',
+            'event_type' => 'required|in:Job Fair,Campus Hiring',
+            'start_date' => 'date',
+            'end_date' => 'date|after_or_equal:start_date',
+            'status' => 'required|in:open,closed,ongoing,done',
             'companies' => 'required|array',  // Setidaknya 1 item terpilih
         ]);
-
+    
         $event->name = $request->name;
+        $event->location = $request->location;
         $event->description = $request->description;
         $event->event_type = $request->event_type;
         $event->start_date = $request->start_date;
@@ -91,9 +81,6 @@ class EventManagementController extends Controller
         return redirect()->route('event-management.index')->with('success', 'Kegiatan berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $event = Event::find($id);

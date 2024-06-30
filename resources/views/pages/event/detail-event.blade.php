@@ -41,7 +41,7 @@
                                 <h5 class="font-weight-bold">{{ $company->user->fullname }}</h5>  
                                 @if ($company->vacancies->count() > 0)
                                     <ul class="list-group list-group-flush"> 
-                                        @foreach ($company->vacancies as $vacancy)
+                                        @foreach ($company->vacancies->where('status', 'open') as $vacancy)
                                             @if ($vacancy->event_id === $event->id)
                                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                                     <div style="display: inline-block; vertical-align: middle;">
@@ -76,7 +76,7 @@
                                         <div style="display: inline-block;">
                                             <h6 class="font-weight-bold">{{ $company->user->fullname }}</h6>
                                             <p class="text-warning" style="text-align: left;">
-                                                <?php $jobCount = $company->vacancies()->where('event_id', $event->id)->count(); ?>
+                                                <?php $jobCount = $company->vacancies()->where('event_id', $event->id)->where('status', 'open')->count(); ?>
                                                 {{ $jobCount }} Lowongan 
                                             </p> 
                                         </div>

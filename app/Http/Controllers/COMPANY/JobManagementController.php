@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Gate;
 
 class JobManagementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $jobs = Vacancy::where('company_id', auth()->user()->company->id)->paginate(10);
@@ -24,9 +21,6 @@ class JobManagementController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $user = auth()->user();
@@ -35,15 +29,12 @@ class JobManagementController extends Controller
         return view('pages.job-management.create', compact('jobs', 'availableEvents'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     { 
         $request->validate([
             'event_id' => 'required',
             'position' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|max:1500',
             'status' => 'required|string',
         ]);
 
@@ -60,23 +51,11 @@ class JobManagementController extends Controller
         return redirect()->route('job-management.index')->with('success', 'Lowongan berhasil dibuat!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $user = auth()->user();
         $availableEvents = $user->company->events;
-        $job = Vacancy::find($id);  // Already sure this retrieve vacancy
-        // checks both values that supposed to be compared
+        $job = Vacancy::find($id); 
         //dd($user->company->id);
         //dd($job->company_id);
         if (!Gate::allows('update-job', $job)) {
@@ -106,9 +85,6 @@ class JobManagementController extends Controller
         return redirect()->route('job-management.index')->with('success', 'Lowongan berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $job = Vacancy::find($id);

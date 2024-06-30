@@ -35,52 +35,55 @@
                   @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="event_type">Jenis Acara</label>
-                    <select class="form-control @error('event_type') is-invalid @enderror" id="event_type" name="event_type" value="{{ old('event_type') }}">
-                        <option value="Job Fair">Job Fair</option>
-                        <option value="Campus Hiring">Campus Hiring</option>
+                <div class="row">
+                  <div class="form-group col-md-4">
+                      <label for="event_type">Jenis Acara</label>
+                      <select class="form-control @error('event_type') is-invalid @enderror" id="event_type" name="event_type" value="{{ old('event_type') }}">
+                          <option value="Job Fair">Job Fair</option>
+                          <option value="Campus Hiring">Campus Hiring</option>
+                      </select>
+                      @error('event_type')
+                        <span class="text-danger">{{ $message }}</span>
+                      @enderror
+                  </div>
+
+                  <div class="form-group col-md-4">
+                      <label for="start_date">Tanggal Mulai</label>
+                      <input class="form-control @error('start_date') is-invalid @enderror" type="date" class="form-control" id="start_date" name="start_date" value="{{ old('start_date') }}">
+                      @error('start_date')
+                        <span class="text-danger">{{ $message }}</span>
+                      @enderror
+                  </div>
+
+                  <div class="form-group col-md-4">
+                      <label for="end_date">Tanggal Akhir</label>
+                      <input class="form-control @error('end_date') is-invalid @enderror" type="date" class="form-control" id="end_date" name="end_date" value="{{ old('end_date') }}">
+                      @error('end_date')
+                        <span class="text-danger">{{ $message }}</span>
+                      @enderror
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-6">
+                      <label for="status">Status</label>
+                      <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" value="{{ old('status') }}">
+                          <option value="open">Open</option>
+                          <option value="closed">Closed</option>
+                          <option value="done">Done</option>
+                      </select>
+                      @error('status')
+                        <span class="text-danger">{{ $message }}</span>
+                      @enderror
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="companies">Anggota Kegiatan:</label>
+                      <select multiple size="6" class="form-select form-control @error('status') is-invalid @enderror" id="companies" name="companies[]">
+                        @foreach($companies as $company)
+                        <<option value="{{ $company->id }}">{{ $company->user->fullname }}</option>
+                        @endforeach
                     </select>
-                    @error('event_type')
-                      <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="start_date">Tanggal Mulai</label>
-                    <input class="form-control @error('start_date') is-invalid @enderror" type="date" class="form-control" id="start_date" name="start_date" value="{{ old('start_date') }}">
-                    @error('start_date')
-                      <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="end_date">Tanggal Akhir</label>
-                    <input class="form-control @error('end_date') is-invalid @enderror" type="date" class="form-control" id="end_date" name="end_date" value="{{ old('end_date') }}">
-                    @error('end_date')
-                      <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" value="{{ old('status') }}">
-                        <option value="open">Open</option>
-                        <option value="closed">Closed</option>
-                        <option value="ongoing">Ongoing</option>
-                        <option value="done">Done</option>
-                    </select>
-                    @error('status')
-                      <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                  <label for="companies">Anggota Kegiatan:</label>
-                    <select multiple size="3" class="form-select form-control @error('status') is-invalid @enderror" id="companies" name="companies[]">
-                      @foreach($companies as $company)
-                      <<option value="{{ $company->id }}">{{ $company->user->fullname }}</option>
-                      @endforeach
-                  </select>
+                  </div>
                 </div>
                 
                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -88,7 +91,13 @@
             </form>
         </div>
     </div>
-
+    <script>
+      var userTimezoneOffset = new Date().getTimezoneOffset();
+      
+      var userLocalDate = new Date(new Date().getTime() - userTimezoneOffset * 60000).toISOString().slice(0, 10);
+      document.getElementById('start_date').setAttribute('min', userLocalDate);
+      document.getElementById('end_date').setAttribute('min', userLocalDate);
+    </script>
     <!-- End of Main Content -->
 @endsection
 

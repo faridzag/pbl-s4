@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Company;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,14 +22,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::count();
+        /*$users = User::count();
         $companies = Company::count();
 
         $widget = [
             'users' => $users,
             'companies' => $companies
-        ];
+        ];*/
+        $user = Auth::user();
 
-        return view('pages.home', compact('widget'));
+        //return view('pages.home', compact('widget'));
+        return view('home', compact('user'));
     }
 }

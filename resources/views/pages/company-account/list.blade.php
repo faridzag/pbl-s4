@@ -43,7 +43,16 @@
                         <td>{{ $company->user->fullname }}</td>
                         <td>{{ $company->address }}</td>
                         <td>{{ $company->description }}</td>
-                        <td><span class="badge badge-primary">{{ $company->status == 1 ? 'Aktif' : 'NonAktif' }}</span></td>
+                        <td>
+                            <span class="badge 
+                                        @if ($company->status == 1)
+                                            badge-success
+                                        @else
+                                            badge-danger
+                                        @endif
+                                    ">{{ $company->status == 1 ? 'Aktif' : 'NonAktif' }}
+                            </span>
+                        </td>
                         <td>{{ $company->user->role }}</td>
                         <td>
                             <div class="d-flex">
