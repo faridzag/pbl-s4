@@ -50,6 +50,12 @@
                 </a>
         </li>
         @elseif ( Auth::user()->role == 'COMPANY')
+        <li class="nav-item {{ Nav::isRoute('company-profile') }}">
+                <a class="nav-link" href="{{ route('company-profile') }}">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>{{ __('Profil') }}</span>
+                </a>
+        </li>
         <!-- Nav Item Lowongan -->
         <li class="nav-item {{ Nav::isRoute('job-management.index') }}">
                 <a class="nav-link" href="{{ route('job-management.index') }}">

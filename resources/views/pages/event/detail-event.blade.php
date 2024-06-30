@@ -7,7 +7,11 @@
     <div class="container">
         <div class="row align-items-center text-center text-md-start">
             <div class="col-md-4 mb-3 mb-md-0">
-                <img src="{{asset('img/campus-hiring.jpg')}}" class="img-fluid mx-auto mx-md-0" alt="Event Image">
+                @if($event->image)
+                    <img src="{{ asset(str_replace('public/', '', 'storage/' . $event->image)) }}" class="img-fluid mx-auto mx-md-0" alt="{{ $event->name }}">
+                @else
+                    <img src="{{asset('img/campus-hiring.jpg')}}" class="img-fluid mx-auto mx-md-0" alt="Event Image">
+                @endif
             </div>
             <div class="col-md-8 d-flex flex-column align-items-center align-items-md-start justify-content-between">
                 <div class="text-container text-center text-md-start">

@@ -38,7 +38,9 @@
                                     <div class="card-body">
                                         <p class="card-text fw-bold small">{{ $event->name }}</p>
                                         <p class="card-text small"><i class="bi bi-clock-fill"></i>{{ \Carbon\Carbon::parse($event->start_date)->format('d-M-Y') }} - {{ \Carbon\Carbon::parse($event->end_date)->format('d-M-Y') }}</p>
-                                        <a href="{{ route('event.show', $event->id) }}" class="text-dark">Selengkapnya</a>
+                                        @if ($event->status === 'open')
+                                            <a href="{{ route('event.show', $event->id) }}" class="text-dark">Selengkapnya</a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

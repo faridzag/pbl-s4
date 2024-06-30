@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\ApplicantProfileController;
 use App\Http\Controllers\JPC\CompanyAccountController;
 use App\Http\Controllers\JPC\EventManagementController;
@@ -32,8 +33,6 @@ Route::middleware(['guest'])->group(function(){
 Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::middleware(['auth', 'verified', 'role-jpc'])->group(function(){
@@ -50,10 +49,12 @@ Route::middleware(['auth', 'verified', 'role-jpc'])->group(function(){
     Route::get('event-management/{event_management}/edit', [EventManagementController::class, 'edit'])->name('event-management.edit');
     Route::put('event-management/{event_management}', [EventManagementController::class, 'update'])->name('event-management.update');
     Route::delete('event-management/{event_management}', [EventManagementController::class, 'destroy'])->name('event-management.destroy');
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::middleware(['auth', 'verified', 'role-company'])->group(function(){
-
     Route::get('job-management', [JobManagementController::class, 'index'])->name('job-management.index');
     Route::get('job-management/create', [JobManagementController::class, 'create'])->name('job-management.create');
     Route::post('job-management', [JobManagementController::class, 'store'])->name('job-management.store');
@@ -67,6 +68,9 @@ Route::middleware(['auth', 'verified', 'role-company'])->group(function(){
     Route::get('job-application/{job_application}/edit', [JobApplicationController::class, 'edit'])->name('job-application.edit');
     Route::put('job-application/{job_application}', [JobApplicationController::class, 'update'])->name('job-application.update');
     Route::delete('job-application/{job_application}', [JobApplicationController::class, 'destroy'])->name('job-application.destroy');
+
+    Route::get('/company-profile', [CompanyProfileController::class, 'index'])->name('company-profile');
+    Route::put('/company-profile', [CompanyProfileController::class, 'update'])->name('company-profile.update');
 });
 
 Route::middleware(['auth', 'verified', 'role-applicant'])->group(function(){

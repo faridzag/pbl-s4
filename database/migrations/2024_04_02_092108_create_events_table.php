@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
+            $table->string('image')->nullable();
             $table->enum('event_type', ['Job Fair', 'Campus Hiring']);
             $table->string('location')->nullable();
             $table->string('description', 1500)->nullable();

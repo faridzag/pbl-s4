@@ -25,6 +25,7 @@
                 <tr>
                     <th>No</th>
                     <th>Nama Kegiatan</th>
+                    <th>Gambar</th>
                     <th>Jenis</th>
                     <th>Lokasi</th>
                     <th>Deskripsi</th>
@@ -40,6 +41,15 @@
                     <tr>
                         <td scope="row">{{ $loop->iteration }}</td>
                         <td>{{ $event->name }}</td>
+                        <td>
+                            @if ($event->image)
+                            <a href="{{ asset(str_replace('public/', '', 'storage/' . $event->image)) }}" target="_blank">
+                                <img src="{{ asset(str_replace('public/', '', 'storage/' . $event->image)) }}" alt="{{ $event->name }} gambar" style="width: 100px; height: 50px; object-fit: cover;">  
+                            </a>
+                            @else
+                                Anda belum upload gambar
+                            @endif
+                        </td>
                         <td>{{ $event->event_type }}</td>
                         <td>{{ $event->location }}</td>
                         <td>{{ $event->description }}</td>

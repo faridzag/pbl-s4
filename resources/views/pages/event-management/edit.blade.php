@@ -9,7 +9,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('event-management.update', $event->id) }}" method="post">
+            <form action="{{ route('event-management.update', $event->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
@@ -18,6 +18,14 @@
                   @error('name')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Upload Gambar:</label>
+                    <input class="form-control" type="file" id="image" name="image" accept=".png,.jpg,.jpeg">
+                    @error('image')
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="form-group">

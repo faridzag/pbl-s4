@@ -13,6 +13,7 @@ class Event extends Model
     protected $dates = ['start_date', 'end_date'];
     protected $fillable = [
         'name',
+        'image',
         'start_date', 
         'end_date',
         'location',

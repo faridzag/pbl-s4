@@ -12,6 +12,7 @@ class Company extends Model
     protected $table = 'company_profiles';
     protected $fillable = [
         'description',
+        'image',
         'address',
         'status',
         'user_id'

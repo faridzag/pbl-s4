@@ -37,7 +37,11 @@
                     <div class="col-lg-4 mb-4">
                         <div class="card border-0 rounded shadow">
                             <a href="{{ route('event.show', $event->id) }}" class="card-title text-decoration-none">
-                                <img src="https://via.placeholder.com/400x150" class="card-img-top" alt="...">
+                                @if($event->image)
+                                    <img src="{{ asset(str_replace('public/', '', 'storage/' . $event->image)) }}" class="card-img-top img-fluid" style="height: 150px;" alt="{{ $event->name }}">
+                                @else
+                                    <img src="https://via.placeholder.com/400x150" class="card-img-top img-fluid" style="height: 150px;" alt="{{ $event->name }}">
+                                @endif
                                 <div class="card-body">
                                     <p class="card-text">{{ $event->start_date }}</p> <h5 class="card-title">{{ $event->name }}</h5> <span><i class="fas fa-map-marker-alt mr-2"></i>{{ $event->location }}</span> </div>
                                 </div>

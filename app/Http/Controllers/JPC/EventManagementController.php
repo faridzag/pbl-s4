@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Company;
+use Illuminate\Support\Facades\Storage;
 
 class EventManagementController extends Controller
 {
@@ -29,6 +30,7 @@ class EventManagementController extends Controller
     {    
         $request->validate([
             'name' => 'required|string|max:100',
+            'image' => 'image|file|max:1024',
             'location' => 'required|string|max:255',
             'description' => 'required|string|max:1500',
             'event_type' => 'required|in:Job Fair,Campus Hiring',
@@ -37,6 +39,14 @@ class EventManagementController extends Controller
             'status' => 'required|in:open,closed,done',
             'companies' => 'required|array|min:1', // setidaknya 1 anggota
         ]);
+
+        if ($request->hasFile('image')) {
+            if (isset($event->image)) {
+                Storage::delete($event->image);
+            }
+            $image = $request->file('image')->store('public/events');
+            $event->image = $image;
+        }
 
         $event = Event::create($request->all());
         $event->companies()->attach($request->input('companies'));
@@ -56,6 +66,7 @@ class EventManagementController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:100',
+            'image' => 'image|file|max:1024',
             'location' => 'required|string|max:255',
             'description' => 'required|string|max:1500',
             'event_type' => 'required|in:Job Fair,Campus Hiring',
@@ -64,6 +75,14 @@ class EventManagementController extends Controller
             'status' => 'required|in:open,closed,ongoing,done',
             'companies' => 'required|array',  // Setidaknya 1 item terpilih
         ]);
+
+        if ($request->hasFile('image')) {
+            if (isset($event->image)) {
+                Storage::delete($event->image);
+            }
+            $image = $request->file('image')->store('public/events');
+            $event->image = $image;
+        }
     
         $event->name = $request->name;
         $event->location = $request->location;
