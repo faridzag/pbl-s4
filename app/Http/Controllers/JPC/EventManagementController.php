@@ -40,15 +40,20 @@ class EventManagementController extends Controller
             'companies' => 'required|array|min:1', // setidaknya 1 anggota
         ]);
 
-        if ($request->hasFile('image')) {
-            if (isset($event->image)) {
-                Storage::delete($event->image);
-            }
-            $image = $request->file('image')->store('public/events');
-            $event->image = $image;
-        }
+        $image = $request->file('image')->store('public/events');
+        $event = Event::create([
+            'name' => $request->input('name'),
+            'image' => $image,
+            'location' => $request->input('location'),
+            'description' => $request->input('description'),
+            'event_type' => $request->input('event_type'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'status' => $request->input('status'),
+            'companies' => $request->input('companies'),
+        ]);
+    
 
-        $event = Event::create($request->all());
         $event->companies()->attach($request->input('companies'));
         return redirect()->route('event-management.index')->with('success', 'Kegiatan Berhasil Ditambahkan!');
     }
