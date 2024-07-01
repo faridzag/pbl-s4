@@ -24,7 +24,7 @@ class JobManagementController extends Controller
     public function create()
     {
         $user = auth()->user();
-        $availableEvents = $user->company->events; 
+        $availableEvents = $user->company->events()->where('status', 'open')->get(); 
         $jobs = Vacancy::paginate(10);
         return view('pages.job-management.create', compact('jobs', 'availableEvents'));
     }
@@ -32,7 +32,7 @@ class JobManagementController extends Controller
     public function store(Request $request)
     { 
         $request->validate([
-            'event_id' => 'required',
+            'event_id' => 'required|exists:events,id',
             'position' => 'required|string|max:255',
             'description' => 'required|string|max:1500',
             'status' => 'required|string',
@@ -54,7 +54,7 @@ class JobManagementController extends Controller
     public function edit(string $id)
     {
         $user = auth()->user();
-        $availableEvents = $user->company->events;
+        $availableEvents = $user->company->events()->where('status', 'open')->get();
         $job = Vacancy::find($id); 
         //dd($user->company->id);
         //dd($job->company_id);

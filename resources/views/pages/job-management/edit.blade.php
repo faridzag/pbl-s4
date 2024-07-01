@@ -14,10 +14,8 @@
                 @method('PUT')
                 <div class="form-group">
                   <label for="event_id">Acara Terkait</label>
-                  <select class="form-control @error('event_id') is-invalid @enderror" id="event_id" name="event_id" value="{{ $job->event_id}}" readonly>
-                    @foreach($availableEvents as $event)
-                      <option value="{{ $event->id }}">{{ $event->name }}</option>
-                    @endforeach
+                  <select class="form-control @error('event_id') is-invalid @enderror" id="event_id" name="event_id" value="{{ $job->event_id }}" readonly>
+                      <option value="{{ $job->event_id }}">{{ $job->event->name }}</option>
                   </select>
                   @error('event_id')
                     <span class="text-danger">{{ $message }}</span>
