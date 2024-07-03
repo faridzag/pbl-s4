@@ -14,6 +14,7 @@
         <div class="container py-5">
             <div class="flex justify-content mb-4">
                 <h2>Event yang akan datang</h2>
+                <!--
                 <div class="row">
                     <div class="col-lg-3">
                         <h5 class="fw-bold">Tipe</h5>
@@ -28,6 +29,7 @@
                         <input type="date" class="form-control mt-2">
                     </div>
                 </div>
+                -->
             </div>
             
             <div class="row justify-content-center">
