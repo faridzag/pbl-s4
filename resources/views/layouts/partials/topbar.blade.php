@@ -145,10 +145,22 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                @if (Auth::user()->role == 'JPC')
                 <a class="dropdown-item" href="{{ route('profile') }}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     {{ __('Profil') }}
                 </a>
+                @elseif ( Auth::user()->role == 'COMPANY')
+                <a class="dropdown-item" href="{{ route('company-profile') }}">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    {{ __('Profil') }}
+                </a>
+                @else
+                <a class="dropdown-item" href="{{ route('applicant-profile') }}">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    {{ __('Profil') }}
+                </a>
+                @endif
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
