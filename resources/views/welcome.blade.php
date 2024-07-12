@@ -1,5 +1,5 @@
 @extends('layouts.main')
-
+<!-- TODO -->
 @section('title', 'Selamat Datang')
 
 @section('content')
@@ -14,7 +14,7 @@
         <div class="container py-5">
             <div class="flex justify-content mb-4">
                 <h2>Event yang akan datang</h2>
-                <!--
+                <!-- TODO:
                 <div class="row">
                     <div class="col-lg-3">
                         <h5 class="fw-bold">Tipe</h5>
