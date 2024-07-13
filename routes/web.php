@@ -3,17 +3,17 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\CompanyProfileController;
-use App\Http\Controllers\ApplicantProfileController;
 use App\Http\Controllers\JPC\CompanyAccountController;
 use App\Http\Controllers\JPC\EventManagementController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\COMPANY\JobManagementController;
 use App\Http\Controllers\COMPANY\JobApplicationController;
+use App\Http\Controllers\PROFILE\JpcProfileController;
+use App\Http\Controllers\PROFILE\CompanyProfileController;
+use App\Http\Controllers\PROFILE\ApplicantProfileController;
 use App\Http\Controllers\APPLICANT\JobApplicationController as ApplicantJob;
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
@@ -50,8 +50,8 @@ Route::middleware(['auth', 'verified', 'role-jpc'])->group(function(){
     Route::put('event-management/{event_management}', [EventManagementController::class, 'update'])->name('event-management.update');
     Route::delete('event-management/{event_management}', [EventManagementController::class, 'destroy'])->name('event-management.destroy');
 
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile', [JpcProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [JpcProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::middleware(['auth', 'verified', 'role-company'])->group(function(){

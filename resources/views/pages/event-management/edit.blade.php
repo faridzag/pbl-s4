@@ -89,7 +89,7 @@
                     <label for="companies">Anggota Kegiatan:</label>
                       <select multiple size="6" class="form-select form-control @error('status') is-invalid @enderror" id="companies" name="companies[]">
                         @foreach($companies as $company)
-                          <option value="{{ $company->id }}" @if(in_array($company->id, $event->companies->pluck('id')->toArray())) selected @endif>{{ $company->user->fullname }}</option>
+                          <option value="{{ $company->id }}" @if(in_array($company->id, $event->companies->pluck('id')->toArray())) selected @endif>{{ $company->user->name }}</option>
                         @endforeach
                     </select>
                   </div>
@@ -103,7 +103,7 @@
     </div>
     <!--<script>
       var userTimezoneOffset = new Date().getTimezoneOffset();
-      
+
       var userLocalDate = new Date(new Date().getTime() - userTimezoneOffset * 60000).toISOString().slice(0, 10);
       document.getElementById('start_date').setAttribute('min', userLocalDate);
       document.getElementById('end_date').setAttribute('min', userLocalDate);

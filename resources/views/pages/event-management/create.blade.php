@@ -88,12 +88,12 @@
                     <label for="companies">Anggota Kegiatan:</label>
                       <select multiple size="6" class="form-select form-control @error('status') is-invalid @enderror" id="companies" name="companies[]">
                         @foreach($companies as $company)
-                        <<option value="{{ $company->id }}">{{ $company->user->fullname }}</option>
+                            <option value="{{ $company->id }}">{{ $company->user->name }}</option>
                         @endforeach
                     </select>
                   </div>
                 </div>
-                
+
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="{{ route('event-management.index') }}" class="btn btn-default">Kembali</a>
             </form>
@@ -101,7 +101,7 @@
     </div>
     <script>
       var userTimezoneOffset = new Date().getTimezoneOffset();
-      
+
       var userLocalDate = new Date(new Date().getTime() - userTimezoneOffset * 60000).toISOString().slice(0, 10);
       document.getElementById('start_date').setAttribute('min', userLocalDate);
       document.getElementById('end_date').setAttribute('min', userLocalDate);
