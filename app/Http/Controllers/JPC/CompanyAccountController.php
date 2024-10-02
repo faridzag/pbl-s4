@@ -42,7 +42,7 @@ class CompanyAccountController extends Controller
     {
         //ddd($request);
         $request->validate([
-            'fullname' => 'required|string|max:50',
+            'name' => 'required|string|max:50',
             'address' => 'string|max:100',
             'description' => 'string|max:255',
             'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
@@ -52,7 +52,7 @@ class CompanyAccountController extends Controller
 
         $user = User::create([
             'username' => $request->username,
-            'fullname' => $request->fullname,
+            'name' => $request->name,
             'email' => $request->email,
             //'email_verified_at' => now(),
             'password' => Hash::make($request->password),
@@ -65,7 +65,7 @@ class CompanyAccountController extends Controller
             'status' => $request->has('status') ? 1 : 0,
             'user_id' => $user->id,
         ]);
-        
+
         $user->markEmailAsVerified();
 
         return redirect()->route('company-account.index')->with('message', 'Berhasil menambahkan akun perusahaan!');
@@ -93,7 +93,7 @@ class CompanyAccountController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'fullname' => 'required|string|max:50',
+            'name' => 'required|string|max:50',
             'address' => 'string|max:100',
             'description' => 'string|max:1500',
             'username' => 'required|min:6|max:25|alpha_dash:ascii',
@@ -106,7 +106,7 @@ class CompanyAccountController extends Controller
         if($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
-        $user->fullname = $request->fullname;
+        $user->name = $request->name;
         $user->username = $request->username;
         $user->email = $request->email;
         $user->save();

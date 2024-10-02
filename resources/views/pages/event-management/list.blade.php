@@ -44,7 +44,7 @@
                         <td>
                             @if ($event->image)
                             <a href="{{ asset(str_replace('public/', '', 'storage/' . $event->image)) }}" target="_blank">
-                                <img src="{{ asset(str_replace('public/', '', 'storage/' . $event->image)) }}" alt="{{ $event->name }} gambar" style="width: 100px; height: 50px; object-fit: cover;">  
+                                <img src="{{ asset(str_replace('public/', '', 'storage/' . $event->image)) }}" alt="{{ $event->name }} gambar" style="width: 100px; height: 50px; object-fit: cover;">
                             </a>
                             @else
                                 Anda belum upload gambar
@@ -56,7 +56,7 @@
                         <td>{{ \Carbon\Carbon::parse($event->start_date)->format('d-M-Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($event->end_date)->format('d-M-Y') }}</td>
                         <td>
-                            <span class="badge 
+                            <span class="badge
                                 @if ($event->status === 'open')
                                     badge-primary
                                 @elseif ($event->status === 'closed')
@@ -70,7 +70,7 @@
                         <td>
                             <ul>
                             @foreach($event->companies as $company)
-                                <li>{{ $company->user->fullname }}</li>
+                                <li>{{ $company->user->name }}</li>
                             @endforeach
                             </ul>
                         </td>

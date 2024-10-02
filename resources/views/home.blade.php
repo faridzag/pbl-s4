@@ -28,8 +28,13 @@
             <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
+<<<<<<< HEAD
                             <div class="text-xs font-weight-bold text-uppercase mb-1">Pelamar Terdaftar</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $widget['users'] }}</div>
+=======
+                            <div class="text-xs font-weight-bold .text-primary-emphasis text-uppercase mb-1">{{ __('Halo, ') }}{{ $user->name }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">-</div>
+>>>>>>> 40575a769f6295ab6ecce11abc4eeb5e83f84612
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-users fa-2x text-gray-300"></i>

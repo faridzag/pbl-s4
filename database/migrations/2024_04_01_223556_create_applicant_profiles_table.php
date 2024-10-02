@@ -21,7 +21,6 @@ return new class extends Migration
             $table->enum('gender',['pria', 'wanita']);
             $table->string('description', 1500)->nullable();
             $table->string('cv_path')->nullable();
-            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

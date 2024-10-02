@@ -16,12 +16,11 @@
     @endif
 
     <div class="row">
-
         <div class="col-lg-4 order-lg-2">
             <div class="card shadow mb-4">
                 <div class="card-profile-image mt-4">
-                    @if (isset($applicant->image))
-                        <img src="{{ asset(str_replace('public/', '', 'storage/' . $applicant->image)) }}" alt="{{ Auth::user()->fullname }}"width="180" height="180" class="rounded-circle shadow-4-strong">
+                    @if (isset(Auth::user()->avatar))
+                        <img src="{{ asset(str_replace('public/', '', 'storage/' . Auth::user()->avatar)) }}" alt="{{ Auth::user()->name }}"width="180" height="180" class="rounded-circle shadow-4-strong">
                     @else
                         <figure class="rounded-circle avatar avatar font-weight-bold" style="font-size: 60px; height: 180px; width: 180px;" data-initial="{{ Auth::user()->username[0] }}">
                         </figure>
@@ -32,7 +31,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="text-center">
-                                <h5 class="font-weight-bold">{{  Auth::user()->fullname }}</h5>
+                                <h5 class="font-weight-bold">{{  Auth::user()->name }}</h5>
                                 <p>{{ Auth::user()->username }} / {{ Auth::user()->role }}</p>
                             </div>
                         </div>
@@ -70,8 +69,8 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group focused">
-                                        <label class="form-control-label" for="fullname">Nama</label>
-                                        <input type="text" id="fullname" class="form-control" name="fullname" placeholder="Name" value="{{ old('fullname', Auth::user()->fullname) }}" readonly>
+                                        <label class="form-control-label" for="name">Nama</label>
+                                        <input type="text" id="name" class="form-control" name="name" placeholder="Name" value="{{ old('name', Auth::user()->name) }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -105,8 +104,8 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="image" class="form-control-label">Upload Foto Profil:</label>
-                                        <input class="form-control" type="file" id="image" name="image" accept=".png,.jpg,.jpeg">
+                                        <label for="avatar" class="form-control-label">Upload Foto Profil:</label>
+                                        <input class="form-control" type="file" id="avatar" name="avatar" accept=".png,.jpg,.jpeg">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">

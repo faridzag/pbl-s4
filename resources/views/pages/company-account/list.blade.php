@@ -40,11 +40,11 @@
                         <td scope="row">{{ $loop->iteration }}</td>
                         <td>{{ $company->user->username }}</td>
                         <td>{{ $company->user->email }}</td>
-                        <td>{{ $company->user->fullname }}</td>
+                        <td>{{ $company->user->name }}</td>
                         <td>{{ $company->address }}</td>
                         <td>{{ $company->description }}</td>
                         <td>
-                            <span class="badge 
+                            <span class="badge
                                         @if ($company->status == 1)
                                             badge-success
                                         @else

@@ -12,9 +12,9 @@
             <form action="{{ route('company-account.store') }}" method="post">
                 @csrf
                 <div class="form-group">
-                  <label for="fullname">Nama Perusahaan</label>
-                  <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" id="fullname" placeholder="Nama Perusahaan" autocomplete="off" maxlength="50" value="{{ old('fullname') }}">
-                  @error('fullname')
+                  <label for="name">Nama Perusahaan</label>
+                  <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Nama Perusahaan" autocomplete="off" maxlength="50" value="{{ old('name') }}">
+                  @error('name')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>

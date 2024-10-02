@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\PROFILE;
 
 use App\Models\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class CompanyProfileController extends Controller
+class ApplicantProfileController extends Controller
 {
     public function index()
     {
-        $company = Auth::user()->company;
-        return view('pages.profile.company', compact('company'));
+        $applicant = Auth::user()->applicant;
+        return view('pages.profile.applicant', compact('applicant'));
     }
 
     public function update(Request $request)
@@ -21,8 +22,8 @@ class CompanyProfileController extends Controller
         //ddd($request);
         $request->validate([
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::user()->id,
-            'image' => 'image|file|max:1024',
-            'address' => 'nullable|string|max:100',
+            'avatar' => 'image|file|max:1024',
+            'cv_path' => 'file|max:1024',
             'description' => 'nullable|string|max:1500',
             'current_password' => 'nullable|required_with:new_password',
             'new_password' => 'nullable|min:8|max:12|required_with:current_password',
@@ -30,11 +31,10 @@ class CompanyProfileController extends Controller
         ]);
 
         $user = User::findOrFail(Auth::user()->id);
-        $company = $user->company;
+        $applicant = $user->applicant;
         $user->username = $request->input('username');
-        $company->address = $request->input('username');
         $user->email = $request->input('email');
-        $company->description = $request->input('description');
+        $applicant->description = $request->input('description');
 
         if (!is_null($request->input('current_password'))) {
             if (Hash::check($request->input('current_password'), $user->password)) {
@@ -43,20 +43,25 @@ class CompanyProfileController extends Controller
                 return redirect()->back()->withInput();
             }
         }
-
-        
-        if ($request->hasFile('image')) {
-            if (isset($company->image)) {
-                Storage::delete($company->image);
+        if ($request->hasFile('avatar')) {
+            if (isset($user->avatar)) {
+                Storage::delete($user->avatar);
             }
-            //dd($request->all());
-            $image = $request->file('image')->store('public/companies');
-            $company->image = $image;
+            $avatar = $request->file('avatar')->store('public/applicants/avatar');
+            $user->avatar = $avatar;
+        }
+
+        if ($request->hasFile('cv_path')) {
+            if (isset($applicant->cv_path)) {
+                Storage::delete($applicant->cv_path);
+            }
+            $cv_path = $request->file('cv_path')->store('public/applicant-cvs');
+            $applicant->cv_path = $cv_path;
         }
 
         $user->save();
-        $company->save();;
+        $applicant->save();;
 
-        return redirect()->route('company-profile');
+        return redirect()->route('applicant-profile');
     }
 }

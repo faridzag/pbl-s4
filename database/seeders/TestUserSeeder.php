@@ -16,7 +16,7 @@ class TestUserSeeder extends Seeder
         $userData = [
             [
                 'username' => 'testuser',
-                'fullname' => 'Test User',
+                'name' => 'Test User',
                 'email' => 'testuser@gmail.com',
                 'role' => user::ROLE_DEFAULT,
                 'email_verified_at' => now(),
@@ -24,7 +24,7 @@ class TestUserSeeder extends Seeder
             ],
             [
                 'username' => 'jpcuser',
-                'fullname' => 'JPC User',
+                'name' => 'JPC User',
                 'email' => 'jpcuser@gmail.com',
                 'role' => user::ROLE_JPC,
                 'email_verified_at' => now(),
@@ -32,7 +32,7 @@ class TestUserSeeder extends Seeder
             ],
             [
                 'username' => 'testcompany',
-                'fullname' => 'Company User',
+                'name' => 'Company User',
                 'email' => 'testcompany@gmail.com',
                 'role' => user::ROLE_COMPANY,
                 'email_verified_at' => now(),

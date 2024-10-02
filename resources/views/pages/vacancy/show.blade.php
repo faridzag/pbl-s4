@@ -7,7 +7,7 @@
     <div class="row">
     <div class="col-md-8">
     <h1>{{ $vacancy->position }}</h1>
-    <p><b>Perusahaan:</b> {{ $vacancy->company->user->fullname }}</p>
+    <p><b>Perusahaan:</b> {{ $vacancy->company->user->name }}</p>
     <hr>
     <div class="mb-3">
         <h2>Deskripsi Lowongan</h2>
@@ -15,8 +15,8 @@
     </div>
 
     @auth
-        @if (Auth::user()->role === 'APPLICANT')  
-        @if (!$applicant->applications()->where('vacancy_id', $vacancy->id)->exists())  
+        @if (Auth::user()->role === 'APPLICANT')
+        @if (!$applicant->applications()->where('vacancy_id', $vacancy->id)->exists())
         <form method="POST" action="{{ route('apply.job') }}">
                     @csrf
                     <input type="hidden" name="vacancy_id" value="{{ $vacancy->id }}">
@@ -36,7 +36,7 @@
 </div>
 
         <div class="col-md-4">
-            <h3>Lowongan Serupa di {{ $company->user->fullname }}</h3>
+            <h3>Lowongan Serupa di {{ $company->user->name }}</h3>
             @if ($similarVacancies->count() > 0)
                 <ul class="list-group">
                     @foreach ($similarVacancies as $similarVacancy)

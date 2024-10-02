@@ -36,11 +36,11 @@
                     <tr>
                         <td scope="row">{{ $loop->iteration }}</td>
                         <td>{{ $application->event->name }}</td>
-                        <td>{{ $application->company->user->fullname }}</td>
+                        <td>{{ $application->company->user->name }}</td>
                         <td>{{ $application->company->description }}</td>
                         <td>{{ $application->vacancy->position }}</td>
                         <td>
-                            <span class="badge 
+                            <span class="badge
                                 @if ($application->status === 'reject')
                                     badge-danger
                                 @elseif ($application->status === 'pending')
