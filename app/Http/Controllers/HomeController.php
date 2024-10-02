@@ -42,8 +42,9 @@ class HomeController extends Controller
         ];
 
         $user = Auth::user();
+        $role = $user->role;
 
         //return view('pages.home', compact('widget'));
-        return view('home', compact('user', 'widget'));
+        return view('home', compact('user', 'role', 'widget'));
     }
 }
