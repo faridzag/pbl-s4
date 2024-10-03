@@ -26,4 +26,11 @@ class Event extends Model
     {
         return $this->belongsToMany(Company::class, 'event_company')->withTimestamps();
     }
+    public function jobVacancies() {
+        return $this->hasMany(Vacancy::class);
+    }
+
+    public function jobApplications() {
+        return $this->hasMany(Application::class);
+    }
 }
