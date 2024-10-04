@@ -138,6 +138,7 @@
                 </div>
             </div>
         </div>
+
     @else
         <div class="alert alert-info" role="alert">
             Selamat datang. {{ $user->name }} {{ $role }}

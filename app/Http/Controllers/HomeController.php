@@ -66,4 +66,12 @@ class HomeController extends Controller
         // view untuk user selain JPC
         return view('home', compact('user', 'role'));
     }
+
+    public function show($id)
+    {
+    $event = Event::with(['companies', 'jobVacancies', 'jobApplications.user', 'jobApplications.vacancy'])
+        ->findOrFail($id);
+
+    return view('dashboard-detail', compact('event'));
+    }
 }
