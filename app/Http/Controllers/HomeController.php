@@ -46,6 +46,7 @@ class HomeController extends Controller
                 ->map(function ($event) {
                     $applicationStatus = $event->jobApplications->pluck('total', 'status')->toArray();
                     return [
+                        'id' => $event->id,
                         'name' => $event->name,
                         'companies_count' => $event->companies_count,
                         'jobs_count' => $event->job_vacancies_count,

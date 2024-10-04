@@ -130,7 +130,7 @@
                                 <td>{{ $event['pending_count'] }}</td>
                                 <td>{{ $event['reject_count'] }}</td>
                                 <td>{{ $event['accept_count'] }}</td>
-                                <td><a href="#" class="btn btn-primary btn-sm">Lihat Detail</a></td>
+                                <td><a href="{{ route('home.show', $event['id']) }}" class="btn btn-primary btn-sm">Lihat Detail</a></td>
                             </tr>
                             @endforeach
                         </tbody>
