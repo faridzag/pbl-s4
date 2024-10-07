@@ -12,9 +12,16 @@ use Illuminate\Support\Facades\Gate;
 
 class JobManagementController extends Controller
 {
-    public function index()
-    {
-        $jobs = Vacancy::where('company_id', auth()->user()->company->id)->paginate(10);
+    public function index(Request $request)
+ {
+        if($request->has('search')){
+            $jobs = Vacancy::where('position', 'LIKE','%' .$request->search.'%')
+            ->orWhere('event_id', 'LIKE', '%' .$request->search.'%')
+            ->orWhere('description', 'LIKE', '%' .$request->search.'%')
+            ->orWhere('status', 'LIKE', '%' .$request->search.'%')->paginate(10);
+        }else{
+            $jobs = Vacancy::where('company_id', auth()->user()->company->id)->paginate(10);
+        }
         return view('pages.job-management.list', [
             'title' => 'Manajemen Lowongan',
             'jobs' => $jobs,

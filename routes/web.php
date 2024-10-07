@@ -57,6 +57,7 @@ Route::middleware(['auth', 'verified', 'role-jpc'])->group(function(){
 
 Route::middleware(['auth', 'verified', 'role-company'])->group(function(){
     Route::get('job-management', [JobManagementController::class, 'index'])->name('job-management.index');
+    Route::get('job-management', [JobManagementController::class, 'index'])->name('job-management.index');
     Route::get('job-management/create', [JobManagementController::class, 'create'])->name('job-management.create');
     Route::post('job-management', [JobManagementController::class, 'store'])->name('job-management.store');
     Route::get('job-management/{job_management}/edit', [JobManagementController::class, 'edit'])->name('job-management.edit');
