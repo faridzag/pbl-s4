@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AuthenticationController;
@@ -33,6 +34,7 @@ Route::middleware(['guest'])->group(function(){
 Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/home/{id}', [HomeController::class, 'show'])->name('home.show');
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 });
 
@@ -56,7 +58,6 @@ Route::middleware(['auth', 'verified', 'role-jpc'])->group(function(){
 });
 
 Route::middleware(['auth', 'verified', 'role-company'])->group(function(){
-    Route::get('job-management', [JobManagementController::class, 'index'])->name('job-management.index');
     Route::get('job-management', [JobManagementController::class, 'index'])->name('job-management.index');
     Route::get('job-management/create', [JobManagementController::class, 'create'])->name('job-management.create');
     Route::post('job-management', [JobManagementController::class, 'store'])->name('job-management.store');

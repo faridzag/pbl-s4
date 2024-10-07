@@ -19,6 +19,9 @@
         {{ session('message') }}
     </div>
     @endif
+    @if(request()->has('search'))
+        <h2>Hasil Pencarian untuk "{{ request('search') }}"</h2>
+    @endif
     <div class="table-responsive">
         <table class="table table-bordered table-stripped">
             <thead>
@@ -39,7 +42,7 @@
                         <td>{{ $job->position }}</td>
                         <td>{{ $job->description }}</td>
                         <td>
-                        <span class="badge 
+                        <span class="badge
                                         @if ($job->status === 'open')
                                             badge-success
                                         @else

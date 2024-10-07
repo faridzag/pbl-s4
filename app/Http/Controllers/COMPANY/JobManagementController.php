@@ -13,15 +13,20 @@ use Illuminate\Support\Facades\Gate;
 class JobManagementController extends Controller
 {
     public function index(Request $request)
- {
-        if($request->has('search')){
+    {
+        $jobs = Vacancy::query();
+        if($request->has('search') && $request->search !== ''){
             $jobs = Vacancy::where('position', 'LIKE','%' .$request->search.'%')
-            ->orWhere('event_id', 'LIKE', '%' .$request->search.'%')
             ->orWhere('description', 'LIKE', '%' .$request->search.'%')
-            ->orWhere('status', 'LIKE', '%' .$request->search.'%')->paginate(10);
+            ->orWhere('status', 'LIKE', '%' .$request->search.'%')
+            ->orWhereHas('event', function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->search . '%');
+            });
         }else{
-            $jobs = Vacancy::where('company_id', auth()->user()->company->id)->paginate(10);
+            $jobs->where('company_id', auth()->user()->company->id);
         }
+
+        $jobs = $jobs->paginate(10);
         return view('pages.job-management.list', [
             'title' => 'Manajemen Lowongan',
             'jobs' => $jobs,
@@ -31,13 +36,13 @@ class JobManagementController extends Controller
     public function create()
     {
         $user = auth()->user();
-        $availableEvents = $user->company->events()->where('status', 'open')->get(); 
+        $availableEvents = $user->company->events()->where('status', 'open')->get();
         $jobs = Vacancy::paginate(10);
         return view('pages.job-management.create', compact('jobs', 'availableEvents'));
     }
 
     public function store(Request $request)
-    { 
+    {
         $request->validate([
             'event_id' => 'required|exists:events,id',
             'position' => 'required|string|max:255',
@@ -62,7 +67,7 @@ class JobManagementController extends Controller
     {
         $user = auth()->user();
         $availableEvents = $user->company->events()->where('status', 'open')->get();
-        $job = Vacancy::find($id); 
+        $job = Vacancy::find($id);
         //dd($user->company->id);
         //dd($job->company_id);
         if (!Gate::allows('update-job', $job)) {
