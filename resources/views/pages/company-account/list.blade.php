@@ -60,7 +60,7 @@
                                 <form action="{{ route('company-account.destroy', $company->id) }}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin untuk menghapus?')">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin untuk menghapus?')">Hapus</button>
                                 </form>
                             </div>
                         </td>

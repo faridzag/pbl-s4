@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('main-content')
 <div class="container">
     <h1 class="mb-4">{{ $event->name }}</h1>
 
@@ -8,13 +8,13 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <p><strong>Type:</strong> {{ $event->event_type }}</p>
+                    <p><strong>Tipe:</strong> {{ $event->event_type }}</p>
                     <p><strong>Status:</strong> {{ $event->status }}</p>
-                    <p><strong>Start Date:</strong> {{ $event->start_date }}</p>
-                    <p><strong>End Date:</strong> {{ $event->end_date ?? 'N/A' }}</p>
+                    <p><strong>Tanggal Mulai:</strong> {{ $event->start_date }}</p>
+                    <p><strong>Tanggal Selesai:</strong> {{ $event->end_date ?? 'N/A' }}</p>
                 </div>
                 <div class="col-md-6">
-                    <p><strong>Location:</strong> {{ $event->location ?? 'N/A' }}</p>
+                    <p><strong>Lokasi:</strong> {{ $event->location ?? 'N/A' }}</p>
                     @if($event->image)
                         <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->name }}" class="img-fluid">
                     @endif
@@ -28,53 +28,53 @@
     </div>
 
     <div class="card mb-4">
-        <div class="card-header">Participation Statistics</div>
+        <div class="card-header">Statistik Partisipasi</div>
         <div class="card-body">
             <div class="row text-center">
                 <div class="col-md-4">
                     <h3>{{ $event->companies->count() }}</h3>
-                    <p>Companies</p>
+                    <p>Perusahaan</p>
                 </div>
                 <div class="col-md-4">
                     <h3>{{ $event->jobVacancies->count() ?? 'N/A' }}</h3>
-                    <p>Job Vacancies</p>
+                    <p>Lowongan</p>
                 </div>
                 <div class="col-md-4">
                     <h3>{{ $event->jobApplications->count() }}</h3>
-                    <p>Applications</p>
+                    <p>Lamaran</p>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="card mb-4">
-        <div class="card-header">Application Status</div>
+        <div class="card-header">Status Lamaran</div>
         <div class="card-body">
             <div class="row text-center">
                 <div class="col-md-4">
                     <h3>{{ $event->jobApplications->where('status', 'pending')->count() }}</h3>
-                    <p>Pending</p>
+                    <p>Diproses</p>
                 </div>
                 <div class="col-md-4">
                     <h3>{{ $event->jobApplications->where('status', 'reject')->count() }}</h3>
-                    <p>Rejected</p>
+                    <p>Ditolak</p>
                 </div>
                 <div class="col-md-4">
                     <h3>{{ $event->jobApplications->where('status', 'accept')->count() }}</h3>
-                    <p>Accepted</p>
+                    <p>Diterima</p>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="card mb-4">
-        <div class="card-header">Participating Companies</div>
+        <div class="card-header">Perusahaan Terdaftar</div>
         <div class="card-body">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Company Name</th>
-                        <th>Vacancies</th>
+                        <th>Nama Perusahaan</th>
+                        <th>Jumlah Lowongan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -90,15 +90,15 @@
     </div>
 
     <div class="card mb-4">
-        <div class="card-header">Job Vacancies</div>
+        <div class="card-header">Daftar Lamaean</div>
         <div class="card-body">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Position</th>
-                        <th>Company</th>
+                        <th>Posisi</th>
+                        <th>Perusahaan</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th>#</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -108,7 +108,7 @@
                         <td>{{ $vacancy->company->user->name }}</td>
                         <td>{{ $vacancy->status }}</td>
                         <td>
-                            <a href="{{ route('vacancy.show', $vacancy->id) }}" class="btn btn-sm btn-primary">View</a>
+                            <a href="{{ route('vacancy.show', $vacancy->id) }}" class="btn btn-sm btn-primary">Lihat</a>
                         </td>
                     </tr>
                     @endforeach
