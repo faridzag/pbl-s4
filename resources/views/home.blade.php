@@ -95,7 +95,7 @@
         <!-- Events Table -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Events List</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Daftar Kegiatan</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -106,14 +106,14 @@
                                 <th>Tipe</th>
                                 <th>Status</th>
                                 <th>Tanggal Mulai</th>
-                                <th>End Date</th>
+                                <th>Tanggal Selesai</th>
                                 <th>Total Perusahaan</th>
                                 <th>Total Lowongan</th>
                                 <th>Total Lamaran</th>
-                                <th>Pending</th>
-                                <th>Rejected</th>
-                                <th>Accepted</th>
-                                <th>Details</th>
+                                <th>Diproses</th>
+                                <th>Ditolak</th>
+                                <th>Diterima</th>
+                                <th>Detail</th>
                             </tr>
                         </thead>
                         <tbody>
