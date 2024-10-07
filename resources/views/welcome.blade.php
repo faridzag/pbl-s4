@@ -6,7 +6,7 @@
     <!-- Blade: Fullscreen Background -->
     <div class="position-relative vh-100">
         <!-- Gambar Latar Belakang dengan Blur -->
-        <img src="{{asset('img/background-gedung.jpg')}}" class="position-absolute w-100 h-100" style="object-fit: cover; filter: blur(3px);" alt="Background">
+        <img src="{{asset('img/background-gedung.jpg')}}" class="position-absolute w-100 h-100" style="object-fit: cover;" alt="Background">
     </div>
 
     <!-- Blade: Job Fair Yang Berlangsung -->
