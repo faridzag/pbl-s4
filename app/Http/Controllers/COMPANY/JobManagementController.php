@@ -15,6 +15,7 @@ class JobManagementController extends Controller
     public function index(Request $request)
     {
         $jobs = Vacancy::query();
+        
         if($request->has('search') && $request->search !== ''){
             $jobs = Vacancy::where('position', 'LIKE','%' .$request->search.'%')
             ->orWhere('description', 'LIKE', '%' .$request->search.'%')

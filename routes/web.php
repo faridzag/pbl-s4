@@ -77,7 +77,8 @@ Route::middleware(['auth', 'verified', 'role-company'])->group(function(){
 });
 
 Route::middleware(['auth', 'verified', 'role-applicant'])->group(function(){
-    Route::get('my-job-application', [ApplicantJob::class, 'index'])->name('my-job-application');
+    Route::get('/my-job-application', [JobApplicationController::class, 'index'])->name('my-job-application');
+    Route::get('my-job-application', [ApplicantJob::class, 'index'])->name('my-job-application.index');
     Route::delete('my-job-application/{id}', [ApplicantJob::class, 'destroy'])->name('my-job-application.destroy');
     Route::get('/applicant-profile', [ApplicantProfileController::class, 'index'])->name('applicant-profile');
     Route::put('/applicant-profile', [ApplicantProfileController::class, 'update'])->name('applicant-profile.update');

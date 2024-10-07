@@ -80,7 +80,7 @@
         </li>
         <!-- Nav Item Lamaran User -->
         <li class="nav-item {{ Nav::isRoute('my-job-application') }}">
-                <a class="nav-link" href="{{ route('my-job-application') }}">
+                <a class="nav-link" href="{{ route('my-job-application.index') }}">
                         <i class="fas fa-fw fa-book"></i>
                         <span>{{ __('Lamaranku') }}</span>
                 </a>

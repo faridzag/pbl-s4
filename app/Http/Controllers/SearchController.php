@@ -19,7 +19,7 @@ class SearchController extends Controller
                 return redirect()->route('event-management.index', ['search' => $query]);
 
             case 'APPLICANT':
-                return redirect()->route('application.index', ['search' => $query]);
+                return redirect()->route('my-job-application.index', ['search' => $query]);
 
             default:
                 return redirect()->back()->with('message', 'Unauthorized role');
