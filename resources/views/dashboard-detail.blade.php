@@ -93,7 +93,7 @@
     </div>
 
     <div class="card mb-4">
-        <div class="card-header">Daftar Lamaean</div>
+        <div class="card-header">Daftar Lamaran</div>
         <div class="card-body">
             <table class="table">
                 <thead>
