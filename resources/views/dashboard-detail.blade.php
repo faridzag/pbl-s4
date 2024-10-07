@@ -2,26 +2,29 @@
 
 @section('main-content')
 <div class="container">
+    <a href="{{ route('home') }}" class="btn btn-secondary mb-3">Kembali ke Dasbor</a>
     <h1 class="mb-4">{{ $event->name }}</h1>
 
     <div class="card mb-4">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
+                    <a href="{{ route('event.show', $event->id) }}">
+                    @if($event->image)
+                        <img src="{{ asset(str_replace('public/', '','storage/' . $event->image)) }}" alt="{{ $event->name }}" class="img-fluid">
+                    @endif
+                    </a>
+                </div>
+                <div class="col-md-6">
                     <p><strong>Tipe:</strong> {{ $event->event_type }}</p>
                     <p><strong>Status:</strong> {{ $event->status }}</p>
                     <p><strong>Tanggal Mulai:</strong> {{ $event->start_date }}</p>
                     <p><strong>Tanggal Selesai:</strong> {{ $event->end_date ?? 'N/A' }}</p>
-                </div>
-                <div class="col-md-6">
                     <p><strong>Lokasi:</strong> {{ $event->location ?? 'N/A' }}</p>
-                    @if($event->image)
-                        <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->name }}" class="img-fluid">
-                    @endif
                 </div>
             </div>
             <div class="mt-3">
-                <h5>Description</h5>
+                <h5>Deskripsi</h5>
                 <p>{{ $event->description }}</p>
             </div>
         </div>
@@ -137,7 +140,7 @@
                         <td>{{ $application->vacancy->position }}</td>
                         <td>{{ $application->status }}</td>
                         <td>
-                            <a href="{{ route('applications.show', $application->id) }}" class="btn btn-sm btn-primary">View</a>
+                            <a href="{{ route('applications.show', $application->id) }}" class="btn btn-sm btn-primary">Lihat</a>
                         </td>
                     </tr>
                     @endforeach
