@@ -14,9 +14,24 @@ class CompanyAccountController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $companies = Company::with('user')->paginate(10);
+        // Query untuk mendapatkan daftar perusahaan dengan user terkait
+        $companies = Company::with('user');
+
+        // Jika ada input pencarian, lakukan filter
+        if ($request->has('search') && $request->search !== '') {
+            $companies = $companies->whereHas('user', function ($query) use ($request) {
+                $query->where('username', 'LIKE', '%' . $request->search . '%')
+                      ->orWhere('name', 'LIKE', '%' . $request ->search. '%')
+                      ->orWhere('email', 'LIKE', '%' . $request->search . '%');
+            })->orWhere('description', 'LIKE', '%' . $request->search . '%')
+              ->orWhere('address', 'LIKE', '%' . $request->search . '%');
+        }
+
+        // Paginate hasil query
+        $companies = $companies->paginate(10);
+
         return view('pages.company-account.list', [
             'title' => 'Akun Perusahaan CRUD',
             'companies' => $companies,

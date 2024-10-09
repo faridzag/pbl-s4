@@ -13,10 +13,18 @@ class SearchController extends Controller
 
         switch ($role) {
             case 'COMPANY':
-                return redirect()->route('job-management.index', ['search' => $query]);
+                if ($request->has('target') && $request->target === 'job-application') {
+                    return redirect()->route('job-application.index', ['search' => $query]);
+                } else {
+                    return redirect()->route('job-management.index', ['search' => $query]);
+                }
 
             case 'JPC':
-                return redirect()->route('event-management.index', ['search' => $query]);
+                if ($request->has('target') && $request->target === 'company-account') {
+                    return redirect()->route('company-account.index', ['search' => $query]);
+                } else {
+                    return redirect()->route('event-management.index', ['search' => $query]);
+                }
 
             case 'APPLICANT':
                 return redirect()->route('my-job-application.index', ['search' => $query]);
