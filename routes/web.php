@@ -34,7 +34,6 @@ Route::middleware(['guest'])->group(function(){
 Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/home/{id}', [HomeController::class, 'show'])->name('home.show');
-    Route::get('/search', [SearchController::class, 'search'])->name('search');
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 });
 
