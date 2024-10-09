@@ -38,7 +38,7 @@
         <!-- Main Content -->
         <div id="content">
             <!-- Topbar -->
-                @include('layouts.partials.topbarsearch')
+                @include('layouts.partials.topbar')
             <!-- End of Topbar -->
             <!-- Begin Page Content -->
             <div class="container-fluid">
