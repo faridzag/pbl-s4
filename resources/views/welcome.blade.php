@@ -5,8 +5,8 @@
 @section('content')
     <!-- Blade: Fullscreen Background -->
     <div class="position-relative vh-100">
-        <!-- Gambar Latar Belakang dengan Blur -->
-        <img src="{{asset('img/background-gedung.jpg')}}" class="position-absolute w-100 h-100" style="object-fit: cover; filter: blur(3px);" alt="Background">
+        <!-- Gambar Latar Belakang -->
+        <img src="{{asset('img/poliwangi.jpg')}}" class="position-absolute w-100 h-100" style="object-fit: cover;" alt="Background">
     </div>
 
     <!-- Blade: Job Fair Yang Berlangsung -->
@@ -82,7 +82,7 @@
                                     <div class="card-body">
                                             <p class="card-text"><strong>{{ $company->user->name }}</strong></p>
                                             <p class="card-text">{{ Str::limit($company->description, 50) }}</p>
-                                            <span><i class="fas fa-map-marker-alt mr-2"></i>{{ $company->address }}</span>
+                                            <span><i class="fas fa-map-marker"></i>{{ $company->address }}</span>
                                         </a>
                                     </div>
                                 </a>
