@@ -27,7 +27,7 @@ class JobApplicationController extends Controller
                     $query->where('description', 'LIKE', '%' . $request->search . '%');
                 });
         }
-        
+
 
         $applications = $applications->latest()->paginate(10); // Paginate for better performance
 
@@ -39,6 +39,6 @@ class JobApplicationController extends Controller
         $application = Application::find($id);
         $application->delete();
 
-        return redirect()->route('my-job-application')->with('message', 'Lamaran berhasil dihapus!');
+        return redirect()->route('my-job-application.index')->with('message', 'Lamaran berhasil dihapus!');
     }
 }
