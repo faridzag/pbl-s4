@@ -34,7 +34,6 @@ Route::middleware(['guest'])->group(function(){
 Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/home/{id}', [HomeController::class, 'show'])->name('home.show');
-    Route::get('/search', [SearchController::class, 'search'])->name('search');
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 });
 
@@ -77,7 +76,7 @@ Route::middleware(['auth', 'verified', 'role-company'])->group(function(){
 });
 
 Route::middleware(['auth', 'verified', 'role-applicant'])->group(function(){
-    Route::get('my-job-application', [ApplicantJob::class, 'index'])->name('my-job-application');
+    Route::get('my-job-application', [ApplicantJob::class, 'index'])->name('my-job-application.index');
     Route::delete('my-job-application/{id}', [ApplicantJob::class, 'destroy'])->name('my-job-application.destroy');
     Route::get('/applicant-profile', [ApplicantProfileController::class, 'index'])->name('applicant-profile');
     Route::put('/applicant-profile', [ApplicantProfileController::class, 'update'])->name('applicant-profile.update');

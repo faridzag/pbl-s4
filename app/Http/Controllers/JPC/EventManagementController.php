@@ -10,14 +10,23 @@ use Illuminate\Support\Facades\Storage;
 
 class EventManagementController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $events = Event::paginate(10);
+        $events = Event::query();
+    
+        if ($request->has('search') && $request->search !== '') {
+            $events = Event::where('name', 'LIKE', '%' .$request->search.'%')
+            ->orWhere('location', 'LIKE', '%' .$request->search.'%')
+            ->orWhere('description', 'LIKE', '%' .$request->search.'%');
+        }
+
+        $events = $events->paginate(10);
         return view('pages.event-management.list', [
             'title' => 'Manajemen Kegiatan CRUD',
             'events' => $events,
         ]);
     }
+    
 
     public function create()
     {    

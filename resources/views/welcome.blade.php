@@ -5,8 +5,8 @@
 @section('content')
     <!-- Blade: Fullscreen Background -->
     <div class="position-relative vh-100">
-        <!-- Gambar Latar Belakang -->
-        <img src="{{asset('img/poliwangi.jpg')}}" class="position-absolute w-100 h-100" style="object-fit: cover;" alt="Background">
+        <!-- Gambar Latar Belakang dengan Blur -->
+        <img src="{{asset('img/background-gedung.jpg')}}" class="position-absolute w-100 h-100" style="object-fit: cover;" alt="Background">
     </div>
 
     <!-- Blade: Job Fair Yang Berlangsung -->

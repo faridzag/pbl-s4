@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @section('title','Akun Perusahaan | List')
 @section('main-content')
