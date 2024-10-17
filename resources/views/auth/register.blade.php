@@ -51,10 +51,10 @@
                         <input type="text" value="{{ old('username')}}" id="username" name="username" placeholder="Nama Pengguna" minlength="6" maxlength="25">
                     </div>
                     <div class="input-group">
-                        <input type="password" id="password" name="password" placeholder="Kata Sandi" minlength="8" maxlength="255">
+                        <input type="password" id="password" name="password" placeholder="Kata Sandi" minlength="8" maxlength="16">
                     </div>
                     <div class="input-group">
-                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Kata Sandi" minlength="8" maxlength="255">
+                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Kata Sandi" minlength="8" maxlength="16">
                     </div>
                     <div class="input-group">
                         <button name="submit" class="" type="submit">Daftar</button>

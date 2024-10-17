@@ -27,7 +27,7 @@ class RegistrationController extends Controller
             'phone_number' => ['required', 'min:10', 'numeric', 'regex:/^(\+62|62|0)8[1-9][0-9]{8,13}$/'],
             'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
             'email' => 'required|email|min:6|max:100|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|max:16|confirmed',
         ], [
             'id_number.required' => 'NIK wajib diisi',
             'id_number.digits' => 'NIK harus terdiri dari 16 digit angka',
@@ -42,6 +42,7 @@ class RegistrationController extends Controller
             'email.required' => 'Email wajib diisi',
             'email.size' => 'Karakter Email 6 sampai 100 karakter',
             'password.required'=>'Password wajib diisi',
+            'password.size'=>'Password minimal 8 karakter maksimal 16 karakter',
         ]);
 
         $user = User::create([
