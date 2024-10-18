@@ -126,6 +126,7 @@
                                 <th>Ditolak</th>
                                 <th>Diterima</th>
                                 <th>Detail</th>
+                                <th>Download</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -142,7 +143,14 @@
                                 <td>{{ $event['pending_count'] }}</td>
                                 <td>{{ $event['reject_count'] }}</td>
                                 <td>{{ $event['accept_count'] }}</td>
-                                <td><a href="{{ route('home.show', $event['id']) }}" class="btn btn-primary btn-sm">Lihat Detail</a></td>
+                                <td>
+                                    <a href="{{ route('home.show', $event['id']) }}" class="btn btn-primary btn-sm">Lihat Detail</a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('home.export', $event['id']) }}" class="btn btn-success btn-sm">
+                                        <i class="fas fa-download"></i> CSV
+                                    </a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

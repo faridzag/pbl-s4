@@ -26,8 +26,8 @@ class Vacancy extends Model
     public function event()
     {
         return $this->belongsTo(Event::class);
-    }    
-    
+    }
+
     public function company()
     {
         return $this->belongsTo(Company::class);
@@ -37,7 +37,7 @@ class Vacancy extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
     public function isApplied()
     {
         // Access the currently logged-in user's applicant ID
@@ -49,4 +49,8 @@ class Vacancy extends Model
             ->exists();
     }
 
+    public function applications()
+    {
+        return $this->hasMany(Application::class, 'vacancy_id');
+    }
 }
