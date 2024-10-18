@@ -8,14 +8,57 @@
     <!-- Topbar Search -->
     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="{{ route(Route::currentRouteName()) }}" method="GET">
         <div class="input-group">
-            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Cari sesuatu..." aria-label="Search" aria-describedby="basic-addon2" value="{{ request()->input('search') }}">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">
-                    <i class="fas fa-search fa-sm"></i>
-                </button>
-            </div>
+            <input type="text"
+                   name="search"
+                   class="form-control bg-light border-0 small"
+                   placeholder="Cari sesuatu..."
+                   aria-label="Search"
+                   aria-describedby="basic-addon2"
+                   value="{{ request()->input('search') }}"
+                   id="searchInput">
+                   <div class="input-group-append">
+                       <button class="btn btn-primary" type="submit">
+                           <i class="fas fa-search fa-sm"></i>
+                       </button>
+                       @if(request()->has('search') && request('search') !== '')
+                           <button type="button" class="btn btn-secondary" id="clearSearch">
+                               <i class="fas fa-times fa-sm"></i>
+                           </button>
+                       @endif
+                   </div>
         </div>
     </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const form = searchInput.closest('form');
+            const clearButton = document.getElementById('clearSearch');
+
+            // Prevent form submission if search input is empty
+            form.addEventListener('submit', function(e) {
+                if (!searchInput.value.trim()) {
+                    e.preventDefault();
+                    window.location.href = '{{ route(Route::currentRouteName()) }}';
+                }
+            });
+
+            // clear button click
+            if (clearButton) {
+                clearButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = '{{ route(Route::currentRouteName()) }}';
+                });
+            }
+
+            // Clear when pressing Escape key
+            searchInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Escape') {
+                    window.location.href = '{{ route(Route::currentRouteName()) }}';
+                }
+            });
+        });
+    </script>
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">

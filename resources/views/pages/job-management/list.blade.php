@@ -20,7 +20,16 @@
     </div>
     @endif
     @if(request()->has('search'))
-        <h2>Hasil Pencarian untuk "{{ request('search') }}"</h2>
+        @if($jobs->count())
+            <div class="alert alert-info">
+                <h2>Ditemukan {{ $jobs->count() }} hasil untuk pencarian "{{ request('search') }}"</h2>
+            </div>
+        @else
+            <div class="alert alert-warning">
+                <h2>Tidak ada hasil ditemukan untuk "{{ request('search') }}"</h2>
+                <p>Pencarian Anda "{{ request('search') }}" tidak menghasilkan data. Silakan coba dengan kata kunci lain.</p>
+            </div>
+        @endif
     @endif
     <div class="table-responsive">
         <table class="table table-bordered table-stripped">

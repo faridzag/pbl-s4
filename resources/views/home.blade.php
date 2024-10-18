@@ -98,6 +98,18 @@
                 <h6 class="m-0 font-weight-bold text-primary">Daftar Kegiatan</h6>
             </div>
             <div class="card-body">
+                @if(request()->has('search'))
+                    @if($events->count())
+                        <div class="alert alert-info">
+                            <h2>Ditemukan {{ $events->count() }} hasil untuk pencarian "{{ request('search') }}"</h2>
+                        </div>
+                    @else
+                        <div class="alert alert-warning">
+                            <h2>Tidak ada hasil ditemukan untuk "{{ request('search') }}"</h2>
+                            <p>Pencarian Anda "{{ request('search') }}" tidak menghasilkan data. Silakan coba dengan kata kunci lain.</p>
+                        </div>
+                    @endif
+                @endif
                 <div class="table-responsive">
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
