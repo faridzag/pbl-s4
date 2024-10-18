@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AuthenticationController;
@@ -29,6 +28,10 @@ Route::middleware(['guest'])->group(function(){
     Route::post('/login', [AuthenticationController::class, 'login']);
     Route::get('/register', [RegistrationController::class, 'index'])->name('register');
     Route::post('/register', [RegistrationController::class, 'register']);
+    Route::get('/forgot-password', [AuthenticationController::class, 'forgot_password'])->name('password.request');
+    Route::post('/forgot-password', [AuthenticationController::class, 'forgot_password_send'])->name('password.email');
+    Route::get('/reset-password/{token}', [AuthenticationController::class, 'reset_password'])->name('password.reset');
+    Route::post('/reset-password', [AuthenticationController::class, 'update_password'])->name('password.update');
 });
 
 Route::middleware(['auth', 'verified'])->group(function(){
