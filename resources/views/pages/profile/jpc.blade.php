@@ -89,19 +89,19 @@
                                 <div class="col-lg-4">
                                     <div class="form-group focused">
                                         <label class="form-control-label" for="current_password">Password Lama</label>
-                                        <input type="password" id="current_password" class="form-control" name="current_password" placeholder="Password Lama">
+                                        <input type="password" id="current_password" class="form-control" name="current_password" placeholder="Password Lama" minlength="8" maxlength="16">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group focused">
                                         <label class="form-control-label" for="new_password">Password Baru</label>
-                                        <input type="password" id="new_password" class="form-control" name="new_password" placeholder="Password Baru">
+                                        <input type="password" id="new_password" class="form-control" name="new_password" placeholder="Password Baru" minlength="8" maxlength="16">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group focused">
                                         <label class="form-control-label" for="confirm_password">Konfirmasi Password</label>
-                                        <input type="password" id="confirm_password" class="form-control" name="password_confirmation" placeholder="Konfirmasi Password">
+                                        <input type="password" id="confirm_password" class="form-control" name="password_confirmation" placeholder="Konfirmasi Password" minlength="8" maxlength="16">
                                     </div>
                                 </div>
                             </div>
