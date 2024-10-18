@@ -14,15 +14,17 @@ class JobApplicationController extends Controller
         $applications = Application::where('company_id', $companyId)
             ->with('applicant.user', 'vacancy.event');
 
-
         if ($request->has('search') && $request->search !== '') {
-            $applications = $applications->whereHas('applicant.user', function($query) use ($request) {
-                $query->where('name', 'LIKE', '%' . $request->search . '%');
-            })->orWhereHas('vacancy', function($query) use ($request) {
-                $query->where('position', 'LIKE', '%' . $request->search . '%');
-            })->orWhereHas('event', function ($query) use ($request) {
-                $query->where('name', 'LIKE', '%' . $request->search . '%');
-            });
+            $applications = $applications->where('company_id', auth()->user()->company->id)
+                ->where(function($query) use ($request) {
+                    $query->whereHas('applicant.user', function($query) use ($request) {
+                        $query->where('name', 'LIKE', '%' . $request->search . '%');
+                    })->orWhereHas('vacancy', function($query) use ($request) {
+                            $query->where('position', 'LIKE', '%' . $request->search . '%');
+                        })->orWhereHas('event', function ($query) use ($request) {
+                            $query->where('name', 'LIKE', '%' . $request->search . '%');
+                        });
+                });
         }
 
         $applications = $applications->paginate(10);

@@ -15,16 +15,19 @@ class JobApplicationController extends Controller
         $applications = $user->applicant->applications()->with('vacancy.event');
 
         if ($request->has('search') && $request->search !== '') {
-            $applications = $applications->where('status', 'LIKE', '%' . $request->search . '%')
-                ->orWhereHas('vacancy', function ($query) use ($request) {
-                    // Mencari berdasarkan posisi lowongan
-                    $query->where('position', 'LIKE', '%' . $request->search . '%');
-                })->orWhereHas('vacancy.event', function ($query) use ($request) {
-                    // Mencari berdasarkan nama event (jika ada relasi event pada vacancy)
-                    $query->where('name', 'LIKE', '%' . $request->search . '%');
-                })->orWhereHas('vacancy.company', function ($query) use ($request) {
-                    // Mencari berdasarkan deskripsi perusahaan
-                    $query->where('description', 'LIKE', '%' . $request->search . '%');
+            $applications = $applications->where('user_id', auth()->user()->id)
+                ->where(function($query) use ($request) {
+                    $query->where('status', 'LIKE', '%' . $request->search . '%')
+                        ->orWhereHas('vacancy', function ($query) use ($request) {
+                            // Mencari berdasarkan posisi lowongan
+                            $query->where('position', 'LIKE', '%' . $request->search . '%');
+                        })->orWhereHas('vacancy.event', function ($query) use ($request) {
+                            // Mencari berdasarkan nama event (jika ada relasi event pada vacancy)
+                            $query->where('name', 'LIKE', '%' . $request->search . '%');
+                        })->orWhereHas('vacancy.company', function ($query) use ($request) {
+                            // Mencari berdasarkan deskripsi perusahaan
+                            $query->where('description', 'LIKE', '%' . $request->search . '%');
+                        });
                 });
         }
 

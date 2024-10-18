@@ -16,13 +16,16 @@ class JobManagementController extends Controller
     {
         $jobs = Vacancy::query();
 
-        if($request->has('search') && $request->search !== ''){
-            $jobs = Vacancy::where('position', 'LIKE','%' .$request->search.'%')
-            ->orWhere('description', 'LIKE', '%' .$request->search.'%')
-            ->orWhere('status', 'LIKE', '%' .$request->search.'%')
-            ->orWhereHas('event', function ($query) use ($request) {
-                $query->where('name', 'LIKE', '%' . $request->search . '%');
-            });
+        if ($request->has('search') && $request->search !== '') {
+            $jobs = Vacancy::where('company_id', auth()->user()->company->id)  // filter hanya menampilkan data milik sendiri
+                ->where(function($query) use ($request) {
+                    $query->where('position', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('description', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('status', 'LIKE', '%' . $request->search . '%')
+                        ->orWhereHas('event', function ($eventQuery) use ($request) {
+                            $eventQuery->where('name', 'LIKE', '%' . $request->search . '%');
+                        });
+                });
         }else{
             $jobs->where('company_id', auth()->user()->company->id);
         }
