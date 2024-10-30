@@ -21,18 +21,18 @@ class RegistrationController extends Controller
     {
         $request->validate([
             'id_number' => 'required|digits:16|unique:applicant_profiles',
-            'name' => 'required|string|string|min:4|max:50',
+            'name' => 'required|string|string|min:6|max:50',
             'birth_date' => 'required|date',
             'gender' => 'required|in:pria,wanita',
-            'phone_number' => ['required', 'min:10', 'numeric', 'regex:/^(\+62|62|0)8[1-9][0-9]{8,13}$/'],
+            'phone_number' => ['required', 'min:10', 'numeric', 'regex:/^(\+62[0-9]{9,11}|62[0-9]{8,11}|0[0-9]{9,12})$/'],
             'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
             'email' => 'required|email|min:6|max:100|unique:users',
             'password' => 'required|string|min:8|max:16|confirmed',
         ], [
             'id_number.required' => 'NIK wajib diisi',
             'id_number.digits' => 'NIK harus terdiri dari 16 digit angka',
-            'full_name.required' => 'Nama lengkap wajib diisi',
-            'full_name.size' => 'Nama terdiri dari 4 sampai 40 karakter',
+            'name.required' => 'Nama lengkap wajib diisi',
+            'name.size' => 'Nama terdiri dari 4 sampai 40 karakter',
             'birth_date.required' => 'Tanggal lahir wajib diisi',
             'gender.required' => 'Jenis kelamin wajib diisi',
             'phone_number.required' => 'Nomor Telpon wajib diisi',

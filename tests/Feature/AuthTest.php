@@ -32,7 +32,7 @@ class AuthTest extends TestCase
         // Test username branch
         $response = $this->post('/login', [
             'login' => 'jpcuser',
-            'password' => '12345678'
+            'password' => '12345'
         ]);
         $response->assertSessionHasErrors();
     }
