@@ -36,16 +36,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12 d-flex justify-content-center">
-                            @if (isset($user->avatar))
-                                <a href="{{ Storage::url($user->avatar) }}" target="_blank">Lihat profil</a>
-                            @else
-                                <span class="text-muted">Anda belum mengupload foto profil</span>
-                            @endif
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
