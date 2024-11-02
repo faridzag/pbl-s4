@@ -18,7 +18,6 @@ use App\Http\Controllers\APPLICANT\JobApplicationController as ApplicantJob;
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 Route::get('/company/{company}', [LandingPageController::class, 'company_profile'])->name('company.profile');
-Route::get('/company-event/{company}', [LandingPageController::class, 'company_event'])->name('company.event');
 Route::get('/event/{event}', [LandingPageController::class, 'event_show'])->name('event.show');
 Route::get('/vacancy/{vacancy}', [LandingPageController::class, 'vacancy_show'])->name('vacancy.show');
 Route::post('/applications', [LandingPageController::class, 'apply'])->name('apply.job');

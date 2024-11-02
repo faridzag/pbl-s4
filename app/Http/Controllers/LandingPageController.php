@@ -26,12 +26,6 @@ class LandingPageController extends Controller
         return view('pages.company.company-profile', compact('company', 'events', 'openVacancies'));
     }
 
-    public function company_event(Company $company)
-    {
-        $events = $company->events;
-        return view('pages.company.company-event', compact('company', 'events'));
-    }
-
     public function event_show(Event $event)
     {
         if ($event->status !== 'open') {
