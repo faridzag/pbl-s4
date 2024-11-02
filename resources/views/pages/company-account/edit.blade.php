@@ -29,14 +29,6 @@
                   @enderror
                 </div>
 
-                <div class="form-group">
-                  <label for="description">Profile / Deskripsi perusahaan</label>
-                  <textarea class="form-control" id="description" name="description" rows="6" maxlength="1500">{{ old('description') ?? $company->description }}</textarea>
-                  @error('description')
-                    <span class="text-danger">{{ $message }}</span>
-                  @enderror
-                </div>
-
                 <div class="row">
                   <div class="form-group col-md-6">
                     <label for="username">Nama Pengguna</label>

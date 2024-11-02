@@ -53,6 +53,22 @@
             </form>
         </div>
     </div>
+    <script>
+        $('#description').summernote({
+            placeholder: 'Ubah Deskripsi Lowongan',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['help']]
+            ]
+        });
+    </script>
 
     <!-- End of Main Content -->
 @endsection

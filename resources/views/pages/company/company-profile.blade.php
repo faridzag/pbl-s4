@@ -41,7 +41,7 @@
                         <h2 class="h5 card-title fw-bold mb-4">
                             <i class="fas fa-info-circle me-2"></i>Tentang Perusahaan
                         </h2>
-                        <p class="card-text text-muted">{{ $company->description }}</p>
+                        <p class="card-text text-muted">{!! $company->description !!}</p>
                     </div>
                 </div>
 

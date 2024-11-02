@@ -54,7 +54,7 @@
                         <td>{{ $company->user->email }}</td>
                         <td>{{ $company->user->name }}</td>
                         <td>{{ $company->address }}</td>
-                        <td>{{ $company->description }}</td>
+                        <td>{!! Str::limit($company->description, 250) !!}</td>
                         <td>
                             <span class="badge
                                         @if ($company->status == 1)

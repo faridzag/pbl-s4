@@ -136,7 +136,7 @@
                 <div class="card-body">
                     <h3 class="h5 card-title fw-bold mb-4">Tentang Perusahaan</h3>
                     <div class="company-info">
-                        <p class="text-muted mb-3">{{ Str::limit($vacancy->company->description, 150) }}</p>
+                        <p class="text-muted mb-3">{!! Str::limit($vacancy->company->description, 250) !!}</p>
                         <a href="{{ route('company.profile', $vacancy->company->id) }}"
                            class="btn btn-outline-primary w-100">
                             <i class="fas fa-building me-2"></i>Lihat Profil Perusahaan

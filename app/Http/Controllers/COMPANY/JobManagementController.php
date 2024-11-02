@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\COMPANY;
 
+use DOMDocument;
 use App\Models\Company;
 use App\Models\Vacancy;
 use App\Models\User;
@@ -62,6 +63,21 @@ class JobManagementController extends Controller
         $job->user_id = auth()->user()->id;
         $job->company_id = auth()->user()->company->id;
 
+        $dom = new DOMDocument();
+        $dom->loadHTML($job->description,9);
+
+        /*$images = $dom->getElementsByTagName('img');
+
+        foreach ($images as $key => $img) {
+            $data = base64_decode(explode(',',explode(';',$img->getAttribute('src'))[1])[1]);
+            $image_name = "/upload/" . time(). $key.'.png';
+            file_put_contents(public_path().$image_name,$data);
+
+            $img->removeAttribute('src');
+            $img->setAttribute('src',$image_name);
+        }*/
+        $job->description = $dom->saveHTML();
+
         $job->save();
 
         return redirect()->route('job-management.index')->with('success', 'Lowongan berhasil dibuat!');
@@ -95,6 +111,10 @@ class JobManagementController extends Controller
         $job->position = $request->position;
         $job->description = $request->description;
         $job->status = $request->status;
+
+        $dom = new DOMDocument();
+        $dom->loadHTML($job->description,9);
+        $job->description = $dom->saveHTML();
 
         $job->save();
 

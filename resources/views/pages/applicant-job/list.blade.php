@@ -49,7 +49,11 @@
                         <td scope="row">{{ $loop->iteration }}</td>
                         <td>{{ $application->event->name }}</td>
                         <td>{{ $application->company->user->name }}</td>
-                        <td>{{ $application->company->description }}</td>
+                        <td>
+                            <a href="{{ route('company.profile', $application->company->id) }}" class="btn btn-primary">
+                                Lihat Profil
+                            </a>
+                        </td>
                         <td>{{ $application->vacancy->position }}</td>
                         <td>
                             <span class="badge

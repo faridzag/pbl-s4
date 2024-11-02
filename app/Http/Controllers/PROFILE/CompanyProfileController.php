@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\PROFILE;
 
+use DOMDocument;
 use App\Models\User;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -34,6 +35,11 @@ class CompanyProfileController extends Controller
         $user->username = $request->input('username');
         $company->address = $request->input('username');
         $company->description = $request->input('description');
+
+        $dom = new DOMDocument();
+        $dom->loadHTML($company->description,9);
+        $company->description = $dom->saveHTML();
+
 
         if (!is_null($request->input('current_password'))) {
             if (Hash::check($request->input('current_password'), $user->password)) {

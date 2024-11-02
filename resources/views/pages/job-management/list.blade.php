@@ -49,7 +49,7 @@
                         <td scope="row">{{ $loop->iteration }}</td>
                         <td>{{ $job->event->name }}</td>
                         <td>{{ $job->position }}</td>
-                        <td>{{ $job->description }}</td>
+                        <td>{!! Str::limit($job->description, 250) !!}</td>
                         <td>
                         <span class="badge
                                         @if ($job->status === 'open')
