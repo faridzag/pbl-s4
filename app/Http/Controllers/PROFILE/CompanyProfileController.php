@@ -24,7 +24,8 @@ class CompanyProfileController extends Controller
         $request->validate([
             'avatar' => 'image|file|max:1024',
             'address' => 'nullable|string|max:100',
-            'description' => 'nullable|string|max:1500',
+            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::user()->id,
+            'description' => 'required|string|max:1500',
             'current_password' => 'nullable|required_with:new_password',
             'new_password' => 'nullable|min:8|max:16|required_with:current_password',
             'password_confirmation' => 'nullable|min:8|max:16|required_with:new_password|same:new_password',
@@ -33,6 +34,7 @@ class CompanyProfileController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         $company = $user->company;
         $user->username = $request->input('username');
+        $user->email = $request->input('email');
         $company->address = $request->input('username');
         $company->description = $request->input('description');
 

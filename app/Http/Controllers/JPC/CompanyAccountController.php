@@ -59,10 +59,11 @@ class CompanyAccountController extends Controller
         $request->validate([
             'name' => 'required|string|max:50',
             'address' => 'string|max:100',
-            'description' => 'string|max:255',
             'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
-            'email' => 'required|email|min:6|max:100|unique:users',
+            'email' => 'required|email|min:6|max:100|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
+        ], [
+            'email.unique' => 'Alamat email sudah digunakan oleh akun lain.',
         ]);
 
         $user = User::create([
@@ -76,7 +77,6 @@ class CompanyAccountController extends Controller
 
         Company::create([
             'address' => $request->address,
-            'description' => $request->description,
             'status' => $request->has('status') ? 1 : 0,
             'user_id' => $user->id,
         ]);
@@ -107,16 +107,17 @@ class CompanyAccountController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $company = Company::with('user')->findOrFail($id);
+        $user = $company->user;
         $request->validate([
             'name' => 'required|string|max:50',
             'address' => 'string|max:100',
-            'description' => 'string|max:1500',
             'username' => 'required|min:6|max:25|alpha_dash:ascii',
-            'email' => 'required|email|min:6|max:100',
+            'email' => 'required|email|min:6|max:100|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
+        ], [
+            'email.unique' => 'Alamat email sudah digunakan oleh akun lain.',
         ]);
-        $company = Company::with('user')->findOrFail($id);
-        $user = $company->user;
 
         if($request->filled('password')) {
             $user->password = Hash::make($request->password);
@@ -127,7 +128,6 @@ class CompanyAccountController extends Controller
         $user->save();
         $company->status = $request->has('status') ? 1 : 0;
         $company->address = $request->address;
-        $company->description = $request->description;
         $company->save();
         return redirect()->route('company-account.index')->with('message', 'Berhasil memperbarui data perusahaan!');
     }
