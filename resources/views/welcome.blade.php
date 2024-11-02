@@ -124,7 +124,6 @@
                                         <small class="text-muted">{{ $company->industry }}</small>
                                     </div>
                                 </div>
-                                <p class="card-text">{!! Str::limit($company->description, 250) !!}</p>
                                 <div class="d-flex align-items-center mt-3">
                                     <i class="fas fa-map-marker-alt text-primary me-2"></i>
                                     <small class="text-muted">{{ $company->address }}</small>
