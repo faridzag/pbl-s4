@@ -80,13 +80,13 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="email">Alamat Email<span class="small text-danger">*</span></label>
-                                        <input type="email" id="email" class="form-control" name="email" placeholder="example@example.com" value="{{ old('email', Auth::user()->email) }}">
+                                        <input type="email" id="email" class="form-control" name="email" placeholder="example@example.com" value="{{ old('email', Auth::user()->email) }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="form-control-label" for="description">Profil diri<span class="small text-danger">*</span></label>
-                                        <textarea class="form-control" name="description" id="description" autocomplete="off" rows="6" maxlength="1500">{{ old('description') ?? Auth::user()->company->description }}</textarea>
+                                        <textarea class="form-control" name="description" id="description" cols="30" rows="10" maxlength="1500">{{ old('description') ?? Auth::user()->company->description }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -96,6 +96,7 @@
                                     <div class="form-group">
                                         <label for="avatar" class="form-control-label">Upload Foto Profil:</label>
                                         <input class="form-control" type="file" id="avatar" name="avatar" accept=".png,.jpg,.jpeg">
+                                        <span class="file-size-indicator">Max: 1MB</span>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -136,5 +137,22 @@
         </div>
 
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#description').summernote({
+                height: 300,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'clear']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview']],
+                ]
+            });
+        });
+    </script>
 
 @endsection

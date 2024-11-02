@@ -21,7 +21,6 @@ class CompanyProfileController extends Controller
     {
         //ddd($request);
         $request->validate([
-            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::user()->id,
             'avatar' => 'image|file|max:1024',
             'address' => 'nullable|string|max:100',
             'description' => 'nullable|string|max:1500',
@@ -34,7 +33,6 @@ class CompanyProfileController extends Controller
         $company = $user->company;
         $user->username = $request->input('username');
         $company->address = $request->input('username');
-        $user->email = $request->input('email');
         $company->description = $request->input('description');
 
         if (!is_null($request->input('current_password'))) {

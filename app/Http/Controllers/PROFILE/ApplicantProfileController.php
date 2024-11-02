@@ -21,7 +21,6 @@ class ApplicantProfileController extends Controller
     {
         //ddd($request);
         $request->validate([
-            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::user()->id,
             'avatar' => 'image|file|max:1024',
             'cv_path' => 'file|max:1024',
             'description' => 'nullable|string|max:1500',
