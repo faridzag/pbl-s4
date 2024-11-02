@@ -21,7 +21,9 @@ class LandingPageController extends Controller
 
     public function company_profile(Company $company)
     {
-        return view('pages.company.company-profile', compact('company'));
+        $events = $company->events;
+        $openVacancies = $company->vacancies()->where('status', 'open')->limit(3)->get();
+        return view('pages.company.company-profile', compact('company', 'events', 'openVacancies'));
     }
 
     public function company_event(Company $company)
@@ -31,7 +33,7 @@ class LandingPageController extends Controller
     }
 
     public function event_show(Event $event)
-    {    
+    {
         if ($event->status !== 'open') {
             abort(403);
         }
@@ -42,9 +44,9 @@ class LandingPageController extends Controller
     public function vacancy_show(Vacancy $vacancy)
     {
         if ($vacancy->status !== 'open') {
-            abort(403); 
+            abort(403);
         }
-    
+
         $user = Auth::user();
         $applicant = null;
 
@@ -52,7 +54,7 @@ class LandingPageController extends Controller
             $applicant = $user->applicant;
         }
         $company = $vacancy->company;
-        $similarVacancies = $vacancy->company->vacancies()->where('id', '!=', $vacancy->id)->where('status', 'open')->limit(3)->get();  
+        $similarVacancies = $vacancy->company->vacancies()->where('id', '!=', $vacancy->id)->where('status', 'open')->limit(3)->get();
 
         return view('pages.vacancy.show', compact('vacancy', 'company', 'similarVacancies', 'applicant'));
     }
@@ -60,8 +62,8 @@ class LandingPageController extends Controller
     public function apply(Request $request, Vacancy $vacancy)
     {
         $user = Auth::user();
-        
-        $applicant = $user->applicant; 
+
+        $applicant = $user->applicant;
         $application = new Application;
         $application->user_id = $user->id;
         $application->company_id = $request->input('company_id');
