@@ -97,7 +97,7 @@
                                                         <div class="d-flex justify-content-between align-items-start">
                                                             <div>
                                                                 <h6 class="text-primary fw-bold mb-2">{{ $vacancy->position }}</h6>
-                                                                <p class="text-muted mb-2">{{ Str::limit($vacancy->description, 100) }}</p>
+                                                                <p class="text-muted mb-2">{!! Str::limit($vacancy->description, 250) !!}</p>
                                                                 <div class="vacancy-tags">
                                                                     @if($vacancy->type)
                                                                         <span class="badge bg-light text-dark me-2">{{ $vacancy->type }}</span>
