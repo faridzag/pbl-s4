@@ -5,6 +5,7 @@ namespace App\Http\Controllers\JPC;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Event;
+use DOMDocument;
 use App\Models\Company;
 use Illuminate\Support\Facades\Storage;
 
@@ -48,6 +49,12 @@ class EventManagementController extends Controller
             'status' => 'required|in:open,closed,done',
             'companies' => 'required|array|min:1', // setidaknya 1 anggota
         ]);
+        $event = new Event();
+        $event->description = $request->input('description');
+
+        $dom = new DOMDocument();
+        $dom->loadHTML($event->description,9);
+        $event->description = $dom->saveHTML();
 
         $image = $request->file('image')->store('public/events');
         $event = Event::create([
@@ -98,9 +105,14 @@ class EventManagementController extends Controller
             $event->image = $image;
         }
 
+        $event->description = $request->input('description');
+
+        $dom = new DOMDocument();
+        $dom->loadHTML($event->description,9);
+        $event->description = $dom->saveHTML();
+
         $event->name = $request->name;
         $event->location = $request->location;
-        $event->description = $request->description;
         $event->event_type = $request->event_type;
         $event->start_date = $request->start_date;
         $event->end_date = $request->end_date;

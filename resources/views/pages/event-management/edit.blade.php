@@ -38,7 +38,8 @@
 
                 <div class="form-group">
                   <label for="description">Deskripsi kegiatan</label>
-                  <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" autocomplete="off" rows="6" maxlength="1000">{{ old('description') ?? $event->description }}</textarea>
+                  <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" cols="30" rows="6" maxlength="1000">{{ old('description') ?? $event->description }}</textarea>
+                  <!--<small class="form-text text-muted">Maximum x karakter</small>-->
                   @error('name')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -101,13 +102,62 @@
             </form>
         </div>
     </div>
-    <!--<script>
-      var userTimezoneOffset = new Date().getTimezoneOffset();
+    <script>
+        $('#description').summernote({
+            placeholder: 'Desripsikan kegiatan',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['help']]
+            ]
+        });
+    </script>
+    <script>
+        // Date validation
+        const startDate = document.getElementById('start_date');
+        const endDate = document.getElementById('end_date');
 
-      var userLocalDate = new Date(new Date().getTime() - userTimezoneOffset * 60000).toISOString().slice(0, 10);
-      document.getElementById('start_date').setAttribute('min', userLocalDate);
-      document.getElementById('end_date').setAttribute('min', userLocalDate);
-    </script>-->
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        startDate.setAttribute('min', today);
+
+        startDate.addEventListener('change', function() {
+            endDate.setAttribute('min', this.value);
+            validateDates();
+        });
+
+        endDate.addEventListener('change', validateDates);
+
+        function validateDates() {
+            if (startDate.value && endDate.value) {
+                if (new Date(endDate.value) < new Date(startDate.value)) {
+                    endDate.setCustomValidity('Tanggal akhir harus setelah tanggal mulai');
+                } else {
+                    endDate.setCustomValidity('');
+                }
+            }
+        }
+
+        /* Character counter for description
+            const description = document.getElementById('description');
+            description.addEventListener('input', function() {
+                const remaining = 1000 - this.value.length;
+                const small = this.nextElementSibling;
+                small.textContent = `${remaining} characters remaining`;
+                if (remaining < 100) {
+                    small.classList.add('text-warning');
+                } else {
+                    small.classList.remove('text-warning');
+                }
+            });*/
+});
+    </script>
 @endsection
 
 @push('notif')

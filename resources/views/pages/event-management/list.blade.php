@@ -64,7 +64,7 @@
                         </td>
                         <td>{{ $event->event_type }}</td>
                         <td>{{ $event->location }}</td>
-                        <td>{{ $event->description }}</td>
+                        <td>{{ strip_tags($event->description, 100) }}</td>
                         <td>{{ \Carbon\Carbon::parse($event->start_date)->format('d-M-Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($event->end_date)->format('d-M-Y') }}</td>
                         <td>
