@@ -13,7 +13,7 @@ class EventManagementController extends Controller
     public function index(Request $request)
     {
         $events = Event::query();
-    
+
         if ($request->has('search') && $request->search !== '') {
             $events = Event::where('name', 'LIKE', '%' .$request->search.'%')
             ->orWhere('location', 'LIKE', '%' .$request->search.'%')
@@ -26,25 +26,25 @@ class EventManagementController extends Controller
             'events' => $events,
         ]);
     }
-    
+
 
     public function create()
-    {    
-        $event = new Event(); 
+    {
+        $event = new Event();
         $companies = Company::where('status', 1)->get();
         return view('pages.event-management.create', compact('event', 'companies'));
     }
 
     public function store(Request $request)
-    {    
+    {
         $request->validate([
             'name' => 'required|string|max:100',
-            'image' => 'image|file|max:1024',
+            'image' => 'required|image|file|max:1024',
             'location' => 'required|string|max:255',
             'description' => 'required|string|max:1500',
             'event_type' => 'required|in:Job Fair,Campus Hiring',
-            'start_date' => 'required|date|after_or_equal:today', 
-            'end_date' => 'required|date|after_or_equal:start_date', 
+            'start_date' => 'required|date|after_or_equal:today',
+            'end_date' => 'required|date|after_or_equal:start_date',
             'status' => 'required|in:open,closed,done',
             'companies' => 'required|array|min:1', // setidaknya 1 anggota
         ]);
@@ -61,7 +61,7 @@ class EventManagementController extends Controller
             'status' => $request->input('status'),
             'companies' => $request->input('companies'),
         ]);
-    
+
 
         $event->companies()->attach($request->input('companies'));
         return redirect()->route('event-management.index')->with('success', 'Kegiatan Berhasil Ditambahkan!');
@@ -97,7 +97,7 @@ class EventManagementController extends Controller
             $image = $request->file('image')->store('public/events');
             $event->image = $image;
         }
-    
+
         $event->name = $request->name;
         $event->location = $request->location;
         $event->description = $request->description;
