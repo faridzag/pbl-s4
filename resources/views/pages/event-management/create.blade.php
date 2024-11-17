@@ -91,6 +91,9 @@
                             <option value="{{ $company->id }}">{{ $company->user->name }}</option>
                         @endforeach
                     </select>
+                    @error('companies')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                   </div>
                 </div>
 

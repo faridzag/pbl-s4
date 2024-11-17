@@ -57,14 +57,37 @@ class CompanyAccountController extends Controller
     {
         //ddd($request);
         $request->validate([
-            'name' => 'required|string|max:50',
-            'address' => 'string|max:100',
-            'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users',
+            'name' => 'required|string|min:6|max:50|unique:users,name',
+            'address' => 'nullable|string|max:100', // address opsional
+            'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users,username',
             'email' => 'required|email|min:6|max:100|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
         ], [
-            'email.unique' => 'Alamat email sudah digunakan oleh akun lain.',
-        ]);
+                'name.unique' => 'Nama perusahaan sudah ada.',
+                'name.required' => 'Nama lengkap wajib diisi.',
+                'name.min' => 'Nama lengkap minimal harus 6 karakter.',
+                'name.max' => 'Nama lengkap maksimal 50 karakter.',
+
+                'address.string' => 'Alamat harus berupa teks.',
+                'address.max' => 'Alamat maksimal 100 karakter.',
+
+                'username.required' => 'Nama pengguna wajib diisi.',
+                'username.min' => 'Nama pengguna minimal 6 karakter.',
+                'username.max' => 'Nama pengguna maksimal 25 karakter.',
+                'username.alpha_dash' => 'Nama pengguna hanya boleh mengandung huruf, angka, tanda hubung, dan garis bawah.',
+                'username.unique' => 'Nama pengguna sudah digunakan oleh akun lain.',
+
+                'email.required' => 'Alamat email wajib diisi.',
+                'email.email' => 'Format alamat email tidak valid.',
+                'email.min' => 'Alamat email minimal 6 karakter.',
+                'email.max' => 'Alamat email maksimal 100 karakter.',
+                'email.unique' => 'Alamat email sudah digunakan oleh akun lain.',
+
+                'password.required' => 'Kata sandi wajib diisi.',
+                'password.min' => 'Kata sandi minimal harus 8 karakter.',
+                'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
+            ]);
+
 
         $user = User::create([
             'username' => $request->username,
@@ -110,14 +133,35 @@ class CompanyAccountController extends Controller
         $company = Company::with('user')->findOrFail($id);
         $user = $company->user;
         $request->validate([
-            'name' => 'required|string|max:50',
-            'address' => 'string|max:100',
-            'username' => 'required|min:6|max:25|alpha_dash:ascii',
+            'name' => 'required|string|min:6|max:50|unique:users,name,'.$user->id,
+            'address' => 'nullable|string|max:100', // address opsional
+            'username' => 'required|min:6|max:25|alpha_dash:ascii|unique:users,username,' . $user->id,
             'email' => 'required|email|min:6|max:100|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
         ], [
-            'email.unique' => 'Alamat email sudah digunakan oleh akun lain.',
-        ]);
+                'name.unique' => 'Nama perusahaan sudah ada.',
+                'name.required' => 'Nama lengkap wajib diisi.',
+                'name.min' => 'Nama lengkap minimal harus 6 karakter.',
+                'name.max' => 'Nama lengkap maksimal 50 karakter.',
+
+                'address.string' => 'Alamat harus berupa teks.',
+                'address.max' => 'Alamat maksimal 100 karakter.',
+
+                'username.required' => 'Nama pengguna wajib diisi.',
+                'username.min' => 'Nama pengguna minimal 6 karakter.',
+                'username.max' => 'Nama pengguna maksimal 25 karakter.',
+                'username.alpha_dash' => 'Nama pengguna hanya boleh mengandung huruf, angka, tanda hubung, dan garis bawah.',
+                'username.unique' => 'Nama pengguna sudah digunakan oleh akun lain.',
+
+                'email.required' => 'Alamat email wajib diisi.',
+                'email.email' => 'Format alamat email tidak valid.',
+                'email.min' => 'Alamat email minimal 6 karakter.',
+                'email.max' => 'Alamat email maksimal 100 karakter.',
+                'email.unique' => 'Alamat email sudah digunakan oleh akun lain.',
+
+                'password.min' => 'Kata sandi minimal harus 8 karakter.',
+                'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
+            ]);
 
         if($request->filled('password')) {
             $user->password = Hash::make($request->password);
