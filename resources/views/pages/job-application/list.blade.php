@@ -12,6 +12,45 @@
         <h6 class="m-0 font-weight-bold text-primary">List Lamaran</h6>
     </div>
     <div class="card-body">
+    <form action="{{ route('job-application.index') }}" method="GET" class="mb-4">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label for="status_filter" class="form-label">Status</label>
+                        <select class="form-control" id="status_filter" name="status">
+                            <option value="">Semua Status</option>
+                            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="accept" {{ request('status') == 'accept' ? 'selected' : '' }}>Diterima</option>
+                            <option value="reject" {{ request('status') == 'reject' ? 'selected' : '' }}>Ditolak</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="position_filter" class="form-label">Posisi</label>
+                        <select class="form-control" id="position_filter" name="position">
+                            <option value="">Semua Posisi</option>
+                            @foreach($positions as $position)
+                                <option value="{{ $position }}" {{ request('position') == $position ? 'selected' : '' }}>
+                                    {{ $position }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="event_filter" class="form-label">Kegiatan</label>
+                        <select class="form-control" id="event_filter" name="event">
+                            <option value="">Semua Kegiatan</option>
+                            @foreach($events as $event)
+                                <option value="{{ $event->id }}" {{ request('event') == $event->id ? 'selected' : '' }}>
+                                    {{ $event->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <a href="{{ route('job-application.index') }}" class="btn btn-secondary">Reset</a>
+                    </div>
+                </div>
+            </form>
 
     @if (session('message'))
     <div class="alert alert-success">
@@ -30,6 +69,7 @@
             </div>
         @endif
     @endif
+
     <div class="table-responsive">
         <table class="table table-bordered table-stripped">
             <thead>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\COMPANY;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Application;
+use App\Models\Event;
+use App\Models\Vacancy;
 
 class JobApplicationController extends Controller
 {
@@ -26,9 +28,33 @@ class JobApplicationController extends Controller
                         });
                 });
         }
+        // status filter
+        if ($request->has('status') && $request->status !== '') {
+            $applications->where('status', $request->status);
+        }
+
+        // position filter
+        if ($request->has('position') && $request->position !== '') {
+            $applications->whereHas('vacancy', function($query) use ($request) {
+                $query->where('position', $request->position);
+            });
+        }
+
+        // event filter
+        if ($request->has('event') && $request->event !== '') {
+            $applications->whereHas('vacancy', function($query) use ($request) {
+                $query->where('event_id', $request->event);
+            });
+        }
+
+        // Get unique positions and events for filter dropdowns
+        $positions = Vacancy::where('company_id', $companyId)->distinct()->pluck('position');
+        $events = Event::whereHas('jobVacancies', function($query) use ($companyId) {
+            $query->where('company_id', $companyId);
+        })->get();
 
         $applications = $applications->paginate(10);
-        return view('pages.job-application.list', compact('applications'));
+        return view('pages.job-application.list', compact('applications', 'positions', 'events'));
     }
 
     public function update(Request $request, $id)
