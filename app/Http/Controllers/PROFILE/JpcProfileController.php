@@ -19,7 +19,7 @@ class JpcProfileController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'avatar' => 'image|max:2048',
+            'avatar' => 'image|mimes:jpg,jpeg,png|max:2048',
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
             'current_password' => 'nullable|required_with:new_password',
             'new_password' => 'nullable|min:8|max:16|required_with:current_password',
@@ -28,6 +28,7 @@ class JpcProfileController extends Controller
                 // Avatar
                 'avatar.image' => 'Avatar harus berupa file gambar.',
                 'avatar.max' => 'Ukuran avatar maksimal 2MB.',
+                'avatar.mimes' => 'Format avatar harus berupa gambar jpg, jpeg, atau png.',
 
                 // Email
                 'email.required' => 'Alamat email wajib diisi.',

@@ -22,7 +22,7 @@ class CompanyProfileController extends Controller
     {
         //ddd($request);
         $request->validate([
-            'avatar' => 'image|max:2048',
+            'avatar' => 'image|mimes:jpg,jpeg,png|max:2048',
             //'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
             'address' => 'nullable|string|max:100',
             'description' => 'required|string|max:1500',
@@ -33,6 +33,7 @@ class CompanyProfileController extends Controller
                 // Avatar
                 'avatar.image' => 'Avatar harus berupa file gambar.',
                 'avatar.max' => 'Ukuran avatar maksimal 2MB.',
+                'avatar.mimes' => 'Format avatar harus berupa gambar jpg, jpeg, atau png.',
 
                 // Email
                 /*'email.required' => 'Alamat email wajib diisi.',
