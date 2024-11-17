@@ -38,7 +38,7 @@
 
                 <div class="form-group">
                   <label for="description">Deskripsi Kegiatan</label>
-                  <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" autocomplete="off" value="{{ old('description') }}" rows="8" maxlength="1500"></textarea>
+                  <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" autocomplete="off" rows="8" maxlength="1500">{{ old('description') }}</textarea>
                   @error('description')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
