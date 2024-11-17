@@ -119,6 +119,7 @@
                         </td>
                         <td>
                             <div class="d-flex">
+                                    @if($application->event->status !== 'done')
                                     <form action="{{ route('job-application.update', $application->id) }}" method="post">
                                             @csrf
                                             @method('PUT')
@@ -129,13 +130,18 @@
                                                 <option value="reject" {{ $application->status == 'reject' ? 'selected' : '' }}>Tolak</option>
                                             </select>
                                         </div>
-                                            @error('status')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-sm btn-primary">Konfirmasi</button>
-                                        </div>
+                                        @error('status')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-sm btn-primary">Konfirmasi</button>
+                                    </div>
                                     </form>
+                                @else
+                                    <span class="badge badge-{{ $application->status == 'accept' ? 'success' : ($application->status == 'reject' ? 'danger' : 'warning') }}">
+                                        {{ ucfirst($application->status) }}
+                                    </span>
+                                @endif
                             </div>
                         </td>
                     </tr>
