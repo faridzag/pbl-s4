@@ -68,7 +68,7 @@ class ApplicantProfileController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         $applicant = $user->applicant;
         $user->username = $request->input('username');
-        $user->email = $request->input('email');
+        //$user->email = $request->input('email');
         $applicant->description = $request->input('description');
 
         if (!is_null($request->input('current_password'))) {
