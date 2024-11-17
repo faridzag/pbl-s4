@@ -4,6 +4,11 @@
 @section('main-content')
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">{{ __('Profil') }}</h1>
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
 
     @if ($errors->any())
         <div class="alert alert-danger border-left-danger" role="alert">
@@ -80,7 +85,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="email">Alamat Email<span class="small text-danger">*</span></label>
-                                        <input type="email" id="email" class="form-control" name="email" placeholder="example@example.com" value="{{ old('email', Auth::user()->email) }}">
+                                        <input type="email" id="email" class="form-control" name="email" placeholder="example@example.com" value="{{ old('email', Auth::user()->email) }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -96,7 +101,7 @@
                                     <div class="form-group">
                                         <label for="avatar" class="form-control-label">Upload Foto Profil:</label>
                                         <input class="form-control" type="file" id="avatar" name="avatar" accept=".png,.jpg,.jpeg">
-                                        <span class="file-size-indicator">Max: 1MB</span>
+                                        <span class="file-size-indicator">Max: 2MB</span>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
