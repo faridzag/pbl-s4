@@ -23,6 +23,7 @@
                 <div class="form-group">
                     <label for="image">Upload Gambar:</label>
                     <input class="form-control" type="file" id="image" name="image" accept=".png,.jpg,.jpeg">
+                    <span class="file-size-indicator">Max: 2MB</span>
                     @error('image')
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -80,7 +81,6 @@
                       <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
                           <option value="open" {{ $event->status == 'open' ? 'selected' : '' }}>Open</option>
                           <option value="closed" {{ $event->status == 'closed' ? 'selected' : '' }}>Closed</option>
-                          <option value="done" {{ $event->status == 'done' ? 'selected' : '' }}>Done</option>
                       </select>
                       @error('status')
                         <span class="text-danger">{{ $message }}</span>

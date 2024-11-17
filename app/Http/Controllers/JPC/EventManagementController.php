@@ -39,16 +39,54 @@ class EventManagementController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:100',
-            'image' => 'required|image|file|max:1024',
+            'name' => 'required|string|unique:events|min:6|max:100',
+            'image' => 'required|image|max:2048|mimes:jpg,jpeg,png',
             'location' => 'required|string|max:255',
             'description' => 'required|string|max:1500',
             'event_type' => 'required|in:Job Fair,Campus Hiring',
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'status' => 'required|in:open,closed,done',
-            'companies' => 'required|array|min:1', // setidaknya 1 anggota
-        ]);
+            'status' => 'required|in:open,closed',
+            'companies' => 'required|array|min:1',
+        ], [
+                'name.required' => 'Nama kegiatan wajib diisi.',
+                'name.string' => 'Nama kegiatan harus berupa string.',
+                'name.unique' => 'Nama kegiatan sudah terdaftar.',
+                'name.min' => 'Nama kegiatan minimal terdiri dari 6 karakter.',
+                'name.max' => 'Nama kegiatan maksimal terdiri dari 100 karakter.',
+
+                'image.required' => 'Gambar kegiatan wajib diunggah.',
+                'image.image' => 'File yang diunggah harus berupa gambar.',
+                'image.max' => 'Ukuran gambar maksimal 2 MB.',
+                'image.mimes' => 'Format gambar harus berupa jpg, jpeg, atau png.',
+
+                'location.required' => 'Lokasi kegiatan wajib diisi.',
+                'location.string' => 'Lokasi kegiatan harus berupa string.',
+                'location.max' => 'Lokasi kegiatan maksimal terdiri dari 255 karakter.',
+
+                'description.required' => 'Deskripsi kegiatan wajib diisi.',
+                'description.string' => 'Deskripsi kegiatan harus berupa string.',
+                'description.max' => 'Deskripsi kegiatan maksimal terdiri dari 1500 karakter.',
+
+                'event_type.required' => 'Jenis kegiatan wajib diisi.',
+                'event_type.in' => 'Jenis kegiatan harus berupa Job Fair atau Campus Hiring.',
+
+                'start_date.required' => 'Tanggal mulai kegiatan wajib diisi.',
+                'start_date.date' => 'Tanggal mulai harus berupa tanggal yang valid.',
+                'start_date.after_or_equal' => 'Tanggal mulai harus hari ini atau tanggal yang akan datang.',
+
+                'end_date.required' => 'Tanggal berakhir kegiatan wajib diisi.',
+                'end_date.date' => 'Tanggal berakhir harus berupa tanggal yang valid.',
+                'end_date.after_or_equal' => 'Tanggal berakhir harus sama atau setelah tanggal mulai.',
+
+                'status.required' => 'Status kegiatan wajib diisi.',
+                'status.in' => 'Status kegiatan harus berupa open atau closed.',
+
+                'companies.required' => 'Setidaknya satu perusahaan harus dipilih.',
+                'companies.array' => 'Daftar perusahaan harus berupa array.',
+                'companies.min' => 'Setidaknya satu perusahaan harus dipilih.',
+            ]);
+
         $event = new Event();
         $event->description = $request->input('description');
 
@@ -86,16 +124,49 @@ class EventManagementController extends Controller
         $event = Event::findOrFail($id);
 
         $request->validate([
-            'name' => 'required|string|max:100',
-            'image' => 'image|file|max:1024',
+            'name' => 'required|string|min:6|max:100|unique:events,name,'.$event->id,
+            'image' => 'image|max:2048|mimes:jpg,jpeg,png',
             'location' => 'required|string|max:255',
             'description' => 'required|string|max:1500',
             'event_type' => 'required|in:Job Fair,Campus Hiring',
-            'start_date' => 'date',
-            'end_date' => 'date|after_or_equal:start_date',
-            'status' => 'required|in:open,closed,ongoing,done',
-            'companies' => 'required|array',  // Setidaknya 1 item terpilih
-        ]);
+            'start_date' => 'sometimes|date',
+            'end_date' => 'sometimes|date|after_or_equal:start_date',
+            'status' => 'required|in:open,closed',
+            'companies' => 'required|array|min:1',
+        ], [
+                'name.required' => 'Nama kegiatan wajib diisi.',
+                'name.string' => 'Nama kegiatan harus berupa string.',
+                'name.unique' => 'Nama kegiatan sudah terdaftar.',
+                'name.min' => 'Nama kegiatan minimal terdiri dari 6 karakter.',
+                'name.max' => 'Nama kegiatan maksimal terdiri dari 100 karakter.',
+
+                'image.image' => 'File yang diunggah harus berupa gambar.',
+                'image.max' => 'Ukuran gambar maksimal 2 MB.',
+                'image.mimes' => 'Format gambar harus berupa jpg, jpeg, atau png.',
+
+                'location.required' => 'Lokasi kegiatan wajib diisi.',
+                'location.string' => 'Lokasi kegiatan harus berupa string.',
+                'location.max' => 'Lokasi kegiatan maksimal terdiri dari 255 karakter.',
+
+                'description.required' => 'Deskripsi kegiatan wajib diisi.',
+                'description.string' => 'Deskripsi kegiatan harus berupa string.',
+                'description.max' => 'Deskripsi kegiatan maksimal terdiri dari 1500 karakter.',
+
+                'event_type.required' => 'Jenis kegiatan wajib diisi.',
+                'event_type.in' => 'Jenis kegiatan harus berupa Job Fair atau Campus Hiring.',
+
+                'start_date.date' => 'Tanggal mulai harus berupa tanggal yang valid.',
+
+                'end_date.date' => 'Tanggal berakhir harus berupa tanggal yang valid.',
+                'end_date.after_or_equal' => 'Tanggal berakhir harus sama atau setelah tanggal mulai.',
+
+                'status.required' => 'Status kegiatan wajib diisi.',
+                'status.in' => 'Status kegiatan harus berupa open atau closed.',
+
+                'companies.required' => 'Setidaknya satu perusahaan harus dipilih.',
+                'companies.array' => 'Daftar perusahaan harus berupa array.',
+                'companies.min' => 'Setidaknya satu perusahaan harus dipilih.',
+            ]);
 
         if ($request->hasFile('image')) {
             if (isset($event->image)) {
@@ -114,8 +185,10 @@ class EventManagementController extends Controller
         $event->name = $request->name;
         $event->location = $request->location;
         $event->event_type = $request->event_type;
+
         $event->start_date = $request->start_date;
         $event->end_date = $request->end_date;
+
         $event->status = $request->status;
 
         $event->save();

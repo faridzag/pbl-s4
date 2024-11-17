@@ -22,6 +22,7 @@
                 <div class="form-group">
                     <label for="image">Upload Gambar:</label>
                     <input class="form-control" class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" accept=".png,.jpg,.jpeg">
+                    <span class="file-size-indicator">Max: 2MB</span>
                     @error('image')
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -37,7 +38,7 @@
 
                 <div class="form-group">
                   <label for="description">Deskripsi Kegiatan</label>
-                  <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" autocomplete="off" value="{{ old('description') }}" rows="6" maxlength="1500"></textarea>
+                  <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" autocomplete="off" value="{{ old('description') }}" rows="8" maxlength="1500"></textarea>
                   @error('description')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -78,7 +79,6 @@
                       <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" value="{{ old('status') }}">
                           <option value="open">Open</option>
                           <option value="closed">Closed</option>
-                          <option value="done">Done</option>
                       </select>
                       @error('status')
                         <span class="text-danger">{{ $message }}</span>
