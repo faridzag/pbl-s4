@@ -14,8 +14,7 @@ class LandingPageController extends Controller
     public function index()
     {
         $companies = Company::paginate(3, ['*'], 'company_per_page');
-        //$events = Event::paginate(3, ['*'], 'event_per_page');
-        $events = Event::where('status', 'open')->paginate(3, ['*'], 'event_per_page');
+        $events = Event::where('status', 'open')->orderBy('start_date', 'desc')->paginate(3, ['*'], 'event_per_page');
         return view('welcome', compact('companies', 'events'));
     }
 
