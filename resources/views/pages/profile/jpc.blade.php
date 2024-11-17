@@ -4,6 +4,11 @@
 @section('main-content')
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">{{ __('Profil') }}</h1>
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
 
     @if ($errors->any())
         <div class="alert alert-danger border-left-danger" role="alert">
@@ -75,6 +80,7 @@
                                     <div class="form-group">
                                         <label for="avatar" class="form-control-label">Upload Foto Profil:</label>
                                         <input class="form-control" type="file" id="avatar" name="avatar" accept=".png,.jpg,.jpeg">
+                                        <span class="file-size-indicator">Max: 2MB</span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
