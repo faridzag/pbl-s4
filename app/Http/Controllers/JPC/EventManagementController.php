@@ -46,7 +46,7 @@ class EventManagementController extends Controller
             'event_type' => 'required|in:Job Fair,Campus Hiring',
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'status' => 'required|in:open,closed',
+            'status' => 'required|in:open,closed,done',
             'companies' => 'required|array|min:1',
         ], [
                 'name.required' => 'Nama kegiatan wajib diisi.',
@@ -80,7 +80,7 @@ class EventManagementController extends Controller
                 'end_date.after_or_equal' => 'Tanggal berakhir harus sama atau setelah tanggal mulai.',
 
                 'status.required' => 'Status kegiatan wajib diisi.',
-                'status.in' => 'Status kegiatan harus berupa open atau closed.',
+                'status.in' => 'Status kegiatan harus berupa open, done atau closed.',
 
                 'companies.required' => 'Setidaknya satu perusahaan harus dipilih.',
                 'companies.array' => 'Daftar perusahaan harus berupa array.',
@@ -131,7 +131,7 @@ class EventManagementController extends Controller
             'event_type' => 'required|in:Job Fair,Campus Hiring',
             'start_date' => 'sometimes|date',
             'end_date' => 'sometimes|date|after_or_equal:start_date',
-            'status' => 'required|in:open,closed',
+            'status' => 'required|in:open,closed,done',
             'companies' => 'required|array|min:1',
         ], [
                 'name.required' => 'Nama kegiatan wajib diisi.',
@@ -161,7 +161,7 @@ class EventManagementController extends Controller
                 'end_date.after_or_equal' => 'Tanggal berakhir harus sama atau setelah tanggal mulai.',
 
                 'status.required' => 'Status kegiatan wajib diisi.',
-                'status.in' => 'Status kegiatan harus berupa open atau closed.',
+                'status.in' => 'Status kegiatan harus berupa open, done atau closed.',
 
                 'companies.required' => 'Setidaknya satu perusahaan harus dipilih.',
                 'companies.array' => 'Daftar perusahaan harus berupa array.',
