@@ -138,8 +138,8 @@
                                     </div>
                                     </form>
                                 @else
-                                    <span class="badge badge-{{ $application->status == 'accept' ? 'success' : ($application->status == 'reject' ? 'danger' : 'warning') }}">
-                                        {{ ucfirst($application->status) }}
+                                    <span>
+                                        #
                                     </span>
                                 @endif
                             </div>
