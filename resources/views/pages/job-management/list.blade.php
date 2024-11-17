@@ -12,6 +12,25 @@
         <h6 class="m-0 font-weight-bold text-primary">List Lowongan</h6>
     </div>
     <div class="card-body">
+            <form action="{{ route('job-management.index') }}" method="GET" class="mb-4">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label for="event_filter" class="form-label">Kegiatan</label>
+                        <select class="form-control" id="event_filter" name="event">
+                            <option value="">Semua Kegiatan</option>
+                            @foreach($events as $event)
+                                <option value="{{ $event->id }}" {{ request('event') == $event->id ? 'selected' : '' }}>
+                                    {{ $event->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <a href="{{ route('job-management.index') }}" class="btn btn-secondary">Reset</a>
+                    </div>
+                </div>
+            </form>
         <a href="{{ route('job-management.create') }}" class="btn btn-primary mb-3">Buat Lowongan Baru</a>
 
     @if (session('message'))

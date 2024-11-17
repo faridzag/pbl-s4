@@ -8,6 +8,7 @@ use App\Models\Vacancy;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -30,11 +31,21 @@ class JobManagementController extends Controller
         }else{
             $jobs->where('company_id', auth()->user()->company->id);
         }
+        // Event filter
+        if ($request->has('event') && $request->event !== '') {
+            $jobs->where('event_id', $request->event);
+        }
+
+        // Get events for filter dropdown
+        $events = Event::whereHas('jobVacancies', function($query) {
+            $query->where('company_id', auth()->user()->company->id);
+        })->get();
 
         $jobs = $jobs->paginate(10);
         return view('pages.job-management.list', [
             'title' => 'Manajemen Lowongan',
             'jobs' => $jobs,
+            'events' => $events,
         ]);
     }
 
