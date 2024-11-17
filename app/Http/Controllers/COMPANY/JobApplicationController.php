@@ -53,7 +53,7 @@ class JobApplicationController extends Controller
             $query->where('company_id', $companyId);
         })->get();
 
-        $applications = $applications->paginate(10);
+        $applications = $applications->orderBy('created_at', 'desc')->paginate(10);
         return view('pages.job-application.list', compact('applications', 'positions', 'events'));
     }
 
