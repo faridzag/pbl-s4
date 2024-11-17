@@ -41,7 +41,7 @@
                   <label for="description">Deskripsi kegiatan</label>
                   <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" cols="30" rows="6" maxlength="1000">{{ old('description') ?? $event->description }}</textarea>
                   <!--<small class="form-text text-muted">Maximum x karakter</small>-->
-                  @error('name')
+                  @error('description')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>

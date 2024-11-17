@@ -52,8 +52,27 @@ class JobManagementController extends Controller
             'event_id' => 'required|exists:events,id',
             'position' => 'required|string|max:255',
             'description' => 'required|string|max:1500',
-            'status' => 'required|string',
-        ]);
+            'status' => 'required|string|in:open,closed',
+        ], [
+                // Event ID
+                'event_id.required' => 'Acara terkait wajib dipilih.',
+                'event_id.exists' => 'Acara yang dipilih tidak valid.',
+
+                // Position
+                'position.required' => 'Posisi/jabatan wajib diisi.',
+                'position.string' => 'Posisi harus berupa teks.',
+                'position.max' => 'Posisi maksimal 255 karakter.',
+
+                // Description
+                'description.required' => 'Deskripsi lowongan wajib diisi.',
+                'description.string' => 'Deskripsi harus berupa teks.',
+                'description.max' => 'Deskripsi maksimal 1500 karakter.',
+
+                // Status
+                'status.required' => 'Status lowongan wajib diisi.',
+                'status.string' => 'Status harus berupa teks.',
+                'status.in' => 'Status hanya boleh berisi "open" atau "closed".',
+            ]);
 
         $job = new Vacancy();
         $job->event_id = $request->event_id;
@@ -103,9 +122,24 @@ class JobManagementController extends Controller
     {
         $request->validate([
             'position' => 'required|string|max:255',
-            'description' => 'required|string|max:1000',
-            'status' => 'required|string',
-        ]);
+            'description' => 'required|string|max:1500',
+            'status' => 'required|string|in:open,closed',
+        ], [
+                // Position
+                'position.required' => 'Posisi/jabatan wajib diisi.',
+                'position.string' => 'Posisi harus berupa teks.',
+                'position.max' => 'Posisi maksimal 255 karakter.',
+
+                // Description
+                'description.required' => 'Deskripsi lowongan wajib diisi.',
+                'description.string' => 'Deskripsi harus berupa teks.',
+                'description.max' => 'Deskripsi maksimal 1500 karakter.',
+
+                // Status
+                'status.required' => 'Status lowongan wajib diisi.',
+                'status.string' => 'Status harus berupa teks.',
+                'status.in' => 'Status hanya boleh berisi "open" atau "closed".',
+            ]);
         $job = Vacancy::find($id);
 
         $job->position = $request->position;
