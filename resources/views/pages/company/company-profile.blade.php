@@ -55,28 +55,6 @@
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center">
                                     <div class="icon-wrapper me-3">
-                                        <i class="fas fa-industry text-primary"></i>
-                                    </div>
-                                    <div>
-                                        <small class="text-muted d-block">Industri</small>
-                                        <span>{{ $company->industry ?? 'Tidak tersedia' }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex align-items-center">
-                                    <div class="icon-wrapper me-3">
-                                        <i class="fas fa-users text-primary"></i>
-                                    </div>
-                                    <div>
-                                        <small class="text-muted d-block">Ukuran Perusahaan</small>
-                                        <span>{{ $company->size ?? 'Tidak tersedia' }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex align-items-center">
-                                    <div class="icon-wrapper me-3">
                                         <i class="fas fa-globe text-primary"></i>
                                     </div>
                                     <div>
@@ -95,7 +73,7 @@
                                     <div>
                                         <small class="text-muted d-block">Email</small>
                                         <a href="mailto:{{ $company->email ?? '' }}">
-                                            {{ $company->email ?? 'Tidak tersedia' }}
+                                            {{ $company->user->email ?? 'Tidak tersedia' }}
                                         </a>
                                     </div>
                                 </div>
@@ -201,7 +179,8 @@
                     </div>
                 </div>
 
-                <!-- Company Social Media -->
+
+                <!-- Company Social Media
                 <div class="card border-0 shadow-sm">
                     <div class="card-body">
                         <h3 class="h5 card-title fw-bold mb-4">
@@ -234,7 +213,7 @@
                             @endif
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
