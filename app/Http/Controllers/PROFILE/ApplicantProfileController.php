@@ -21,14 +21,49 @@ class ApplicantProfileController extends Controller
     {
         //ddd($request);
         $request->validate([
-            'avatar' => 'image|file|max:1024',
-            'cv_path' => 'file|max:1024',
+            'avatar' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'cv_path' => 'file|mimes:jpg,jpeg,png,pdf|max:5120',
             'description' => 'nullable|string|max:1500',
-            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::user()->id,
+            //'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
             'current_password' => 'nullable|required_with:new_password',
             'new_password' => 'nullable|min:8|max:16|required_with:current_password',
-            'password_confirmation' => 'nullable|min:8|max:12|required_with:new_password|same:new_password',
-        ]);
+            'password_confirmation' => 'nullable|min:8|max:16|required_with:new_password|same:new_password'
+        ], [
+                // Avatar
+                'avatar.image' => 'Avatar harus berupa file gambar.',
+                'avatar.max' => 'Ukuran avatar maksimal 2MB.',
+                'avatar.mimes' => 'Format avatar harus berupa gambar jpg, jpeg, atau png.',
+
+                // Email
+                /*'email.required' => 'Alamat email wajib diisi.',
+                'email.email' => 'Format alamat email tidak valid.',
+                'email.max' => 'Alamat email maksimal 255 karakter.',
+                'email.unique' => 'Alamat email sudah digunakan oleh akun lain.',*/
+
+                // CV
+                'cv_path.file' => 'CV harus berupa file gdf atau gambar.',
+                'cv_path.max' => 'Ukuran avatar maksimal 5MB.',
+                'cv_path.mimes' => 'Format CV harus berupa file pdf atau gambar jpg, jpeg, png.',
+
+                // Desc
+                'description.required' => 'Deskripsi wajib diisi.',
+                'description.string' => 'Deskripsi harus berupa teks.',
+                'description.max' => 'Deskripsi maksimal 1500 karakter.',
+
+                // Password
+                'current_password.required_with' => 'password saat ini wajib diisi ketika mengubah kata sandi.',
+                'new_password.required_with' => 'password baru wajib diisi ketika kata sandi saat ini diisi.',
+                'new_password.min' => 'password baru minimal 8 karakter.',
+                'new_password.max' => 'password baru maksimal 16 karakter.',
+                'password_confirmation.required_with' => 'Konfirmasi password wajib diisi.',
+                'password_confirmation.same' => 'Konfirmasi password tidak cocok dengan kata sandi baru.',
+                'password_confirmation.min' => 'Konfirmasi password minimal 8 karakter.',
+                'password_confirmation.max' => 'Konfirmasi password maksimal 16 karakter.',
+            ]);
+
+        if ($request->filled('current_password') && !Hash::check($request->current_password, Auth::user()->password)) {
+            return back()->withErrors(['current_password' => 'password lama tidak cocok.']);
+        }
 
         $user = User::findOrFail(Auth::user()->id);
         $applicant = $user->applicant;
@@ -62,6 +97,6 @@ class ApplicantProfileController extends Controller
         $user->save();
         $applicant->save();;
 
-        return redirect()->route('applicant-profile');
+        return redirect()->route('applicant-profile')->with('success', 'Profil berhasil diperbarui!');
     }
 }
