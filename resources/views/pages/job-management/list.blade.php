@@ -5,8 +5,6 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">{{ $title ?? __('job') }}</h1>
 
-    <!-- Main Content goes here -->
-
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">List Lowongan</h6>
@@ -62,6 +60,7 @@
                             <th>Pesan Pelamar Ditolak</th>
                             <th>Status</th>
                             <th>#</th>
+                            <th>##</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,6 +83,7 @@
                                     </span>
                                 </td>
                                 <td>
+                                    @if($job->event->status !== 'done')
                                     <div class="d-flex">
                                         <a href="{{ route('job-management.edit', $job->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
                                         <form action="{{ route('job-management.destroy', $job->id) }}" method="post">
@@ -92,6 +92,24 @@
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin untuk menghapus?')">Hapus</button>
                                         </form>
                                     </div>
+                                    @else
+                                        <span>
+                                            ###
+                                        </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($job->event->status !== 'done')
+                                    <form action="{{ route('job-management.send-status-emails', $job->id) }}" method="post">
+                                        @csrf
+                                        @method('post')
+                                        <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('Apakah anda untuk mengirimkan pesan ke pelamar?')">Kirim Pesan ke Pelamar</button>
+                                    </form>
+                                    @else
+                                        <span class="badge badge-primary">
+                                            Selesai
+                                        </span>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -119,6 +137,15 @@
     @if (session('warning'))
         <div class="alert alert-warning border-left-warning alert-dismissible fade show" role="alert">
             {{ session('warning') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

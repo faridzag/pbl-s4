@@ -12,6 +12,7 @@ use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Mail\ApplicationStatusUpdate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class JobManagementController extends Controller
@@ -43,42 +44,63 @@ class JobManagementController extends Controller
             $query->where('company_id', auth()->user()->company->id);
         })->get();
 
-        $jobs = $jobs->paginate(10);
+        $jobs = $jobs->orderBy('updated_at', 'desc')->paginate(10);
         return view('pages.job-management.list', [
             'title' => 'Manajemen Lowongan',
             'jobs' => $jobs,
             'events' => $events,
         ]);
     }
+
     public function sendStatusEmails($id)
     {
         try {
             $vacancy = Vacancy::with(['applications.user', 'event', 'company'])->findOrFail($id);
 
-            foreach ($vacancy->applications as $application) {
-                $message = $application->status === 'accept'
-                ? $vacancy->accept_message
-                : $vacancy->reject_message;
-
-                Mail::to($application->user->email)->send(
-                    new ApplicationStatusUpdate(
-                        $application->user,
-                        $application,
-                        $message
-                    )
-                );
+            if ($vacancy->applications->isEmpty()) {
+                return redirect()->back()
+                    ->with('error', 'Tidak ada pelamar yang dapat dikirimkan email.');
             }
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Status emails sent successfully'
-            ]);
+            $sentCount = 0;
+
+            foreach ($vacancy->applications as $application) {
+                try {
+                    $message = $application->status === 'accept'
+                    ? $vacancy->accept_message
+                    : $vacancy->reject_message;
+
+                    Mail::to($application->user->email)->send(
+                        new ApplicationStatusUpdate(
+                            $application->user,
+                            $application,
+                            $message
+                        )
+                    );
+
+                    $sentCount++;
+
+                } catch (\Exception $e) {
+                    // Log the specific error for debugging
+                    Log::error('Mail Error: ' . $e->getMessage());
+                    Log::error('Stack trace: ' . $e->getTraceAsString());
+                    throw $e; // Re-throw to see in development
+                }
+            }
+
+            return redirect()->back()
+                ->with('success', "Email berhasil dikirim kepada {$sentCount} pelamar!");
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error  emails: ' . $e->getMessage()
-            ], 500);
+            Log::error('Error sending status emails: ' . $e->getMessage());
+
+            // In development, you might want to see the actual error
+            if (config('app.debug')) {
+                throw $e;
+            }
+
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan saat mengirim email: ' . $e->getMessage());
         }
     }
 

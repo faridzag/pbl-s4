@@ -124,8 +124,12 @@
                                                        class="btn btn-outline-primary btn-sm w-100">
                                                         Lihat Detail
                                                     </a>
-                                                @else
+                                                @elseif($event->status === 'closed')
                                                     <button class="btn btn-outline-secondary btn-sm w-100" disabled>
+                                                        Event Tertutup
+                                                    </button>
+                                                @else
+                                                    <button class="btn btn-outline-success btn-sm w-100" disabled>
                                                         Event Selesai
                                                     </button>
                                                 @endif
