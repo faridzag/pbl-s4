@@ -63,6 +63,8 @@ class JobManagementController extends Controller
             'event_id' => 'required|exists:events,id',
             'position' => 'required|string|max:255',
             'description' => 'required|string|max:1500',
+            'accept_message' => 'required|string|max:1500',
+            'reject_message' => 'string|max:1500',
             'status' => 'required|string|in:open,closed',
         ], [
                 // Event ID
@@ -79,6 +81,13 @@ class JobManagementController extends Controller
                 'description.string' => 'Deskripsi harus berupa teks.',
                 'description.max' => 'Deskripsi maksimal 1500 karakter.',
 
+                // Message
+                'accept_message.required' => 'Pesan diterima wajib diisi.',
+                'accept_message.string' => 'Pesan diterima harus berupa teks.',
+                'accept_message.max' => 'Pesan diterima maksimal 1500 karakter.',
+                'reject_message.string' => 'Pesan diterima harus berupa teks.',
+                'reject_message.max' => 'Pesan diterima maksimal 1500 karakter.',
+
                 // Status
                 'status.required' => 'Status lowongan wajib diisi.',
                 'status.string' => 'Status harus berupa teks.',
@@ -89,6 +98,8 @@ class JobManagementController extends Controller
         $job->event_id = $request->event_id;
         $job->position = $request->position;
         $job->description = $request->description;
+        $job->accept_message = $request->accept_message;
+        $job->reject_message = $request->reject_message;
         $job->status = $request->status;
         $job->user_id = auth()->user()->id;
         $job->company_id = auth()->user()->company->id;
@@ -134,6 +145,8 @@ class JobManagementController extends Controller
         $request->validate([
             'position' => 'required|string|max:255',
             'description' => 'required|string|max:1500',
+            'accept_message' => 'required|string|max:1500',
+            'reject_message' => 'required|string|max:1500',
             'status' => 'required|string|in:open,closed',
         ], [
                 // Position
@@ -146,6 +159,13 @@ class JobManagementController extends Controller
                 'description.string' => 'Deskripsi harus berupa teks.',
                 'description.max' => 'Deskripsi maksimal 1500 karakter.',
 
+                // Message
+                'accept_message.required' => 'Pesan diterima wajib diisi.',
+                'accept_message.string' => 'Pesan diterima harus berupa teks.',
+                'accept_message.max' => 'Pesan diterima maksimal 1500 karakter.',
+                'reject_message.string' => 'Pesan diterima harus berupa teks.',
+                'reject_message.max' => 'Pesan diterima maksimal 1500 karakter.',
+
                 // Status
                 'status.required' => 'Status lowongan wajib diisi.',
                 'status.string' => 'Status harus berupa teks.',
@@ -155,6 +175,8 @@ class JobManagementController extends Controller
 
         $job->position = $request->position;
         $job->description = $request->description;
+        $job->accept_message = $request->accept_message;
+        $job->reject_message = $request->reject_message;
         $job->status = $request->status;
 
         $dom = new DOMDocument();

@@ -20,6 +20,8 @@ class Vacancy extends Model
         'event_id',
         'position',
         'description',
+        'accept_message',
+        'reject_message',
         'status'
     ];
 

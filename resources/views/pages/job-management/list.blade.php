@@ -7,11 +7,11 @@
 
     <!-- Main Content goes here -->
 
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List Lowongan</h6>
-    </div>
-    <div class="card-body">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">List Lowongan</h6>
+        </div>
+        <div class="card-body">
             <form action="{{ route('job-management.index') }}" method="GET" class="mb-4">
                 <div class="row">
                     <div class="col-md-3 mb-3">
@@ -31,74 +31,79 @@
                     </div>
                 </div>
             </form>
-        <a href="{{ route('job-management.create') }}" class="btn btn-primary mb-3">Buat Lowongan Baru</a>
+            <a href="{{ route('job-management.create') }}" class="btn btn-primary mb-3">Buat Lowongan Baru</a>
 
-    @if (session('message'))
-    <div class="alert alert-success">
-        {{ session('message') }}
-    </div>
-    @endif
-    @if(request()->has('search'))
-        @if($jobs->count())
-            <div class="alert alert-info">
-                <h2>Ditemukan {{ $jobs->count() }} hasil untuk pencarian "{{ request('search') }}"</h2>
+            @if (session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
+            @if(request()->has('search'))
+                @if($jobs->count())
+                    <div class="alert alert-info">
+                        <h2>Ditemukan {{ $jobs->count() }} hasil untuk pencarian "{{ request('search') }}"</h2>
+                    </div>
+                @else
+                    <div class="alert alert-warning">
+                        <h2>Tidak ada hasil ditemukan untuk "{{ request('search') }}"</h2>
+                        <p>Pencarian Anda "{{ request('search') }}" tidak menghasilkan data. Silakan coba dengan kata kunci lain.</p>
+                    </div>
+                @endif
+            @endif
+            <div class="table-responsive">
+                <table class="table table-bordered table-stripped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kegiatan</th>
+                            <th>Posisi Pekerjaan</th>
+                            <th>Deskripsi</th>
+                            <th>Pesan Pelamar Diterima</th>
+                            <th>Pesan Pelamar Ditolak</th>
+                            <th>Status</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($jobs as $job)
+                            <tr>
+                                <td scope="row">{{ $loop->iteration }}</td>
+                                <td>{{ $job->event->name }}</td>
+                                <td>{{ $job->position }}</td>
+                                <td>{!! Str::limit($job->description, 250) !!}</td>
+                                <td>{!! Str::limit($job->accept_message, 200) !!}</td>
+                                <td>{!! Str::limit($job->reject_message, 200) !!}</td>
+                                <td>
+                                    <span class="badge
+                                                 @if ($job->status === 'open')
+                                                     badge-success
+                                                 @else
+                                                     badge-warning
+                                                 @endif
+                                                 ">{{ $job->status }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{{ route('job-management.edit', $job->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                                        <form action="{{ route('job-management.destroy', $job->id) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin untuk menghapus?')">Hapus</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-        @else
-            <div class="alert alert-warning">
-                <h2>Tidak ada hasil ditemukan untuk "{{ request('search') }}"</h2>
-                <p>Pencarian Anda "{{ request('search') }}" tidak menghasilkan data. Silakan coba dengan kata kunci lain.</p>
-            </div>
-        @endif
-    @endif
-    <div class="table-responsive">
-        <table class="table table-bordered table-stripped">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Kegiatan</th>
-                    <th>Posisi Pekerjaan</th>
-                    <th>Deskripsi</th>
-                    <th>Status</th>
-                    <th>#</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($jobs as $job)
-                    <tr>
-                        <td scope="row">{{ $loop->iteration }}</td>
-                        <td>{{ $job->event->name }}</td>
-                        <td>{{ $job->position }}</td>
-                        <td>{!! Str::limit($job->description, 250) !!}</td>
-                        <td>
-                        <span class="badge
-                                        @if ($job->status === 'open')
-                                            badge-success
-                                        @else
-                                            badge-warning
-                                        @endif
-                                    ">{{ $job->status }}
-                            </span>
-                        <td>
-                            <div class="d-flex">
-                                <a href="{{ route('job-management.edit', $job->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
-                                <form action="{{ route('job-management.destroy', $job->id) }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin untuk menghapus?')">Hapus</button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        </div>
+
+        {{ $jobs->links() }}
+
+        <!-- End of Main Content -->
     </div>
-</div>
-
-    {{ $jobs->links() }}
-
-    <!-- End of Main Content -->
-</div>
 @endsection
 
 @push('notif')
