@@ -25,6 +25,7 @@ class CompanyProfileController extends Controller
             'avatar' => 'image|mimes:jpg,jpeg,png|max:2048',
             //'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
             'address' => 'nullable|string|max:100',
+            'website' => 'nullable|url|max:255|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
             'description' => 'required|string|max:1500',
             'current_password' => 'nullable|required_with:new_password',
             'new_password' => 'nullable|min:8|max:16|required_with:current_password',
@@ -44,6 +45,11 @@ class CompanyProfileController extends Controller
                 // Address
                 'address.string' => 'Alamat harus berupa teks.',
                 'address.max' => 'Alamat maksimal 100 karakter.',
+
+                // Website
+                'website.url' => 'Alamat harus berupa url valid.',
+                'address.max' => 'Alamat website maksimal 255 karakter.',
+                'address.regex' => 'Alamat website terdapat http:// atau https://.',
 
                 // Desc
                 'description.required' => 'Deskripsi wajib diisi.',
@@ -69,6 +75,7 @@ class CompanyProfileController extends Controller
         $company = $user->company;
         $user->username = $request->input('username');
         //$user->email = $request->input('email');
+        $company->website = $request->input('website');
         $company->address = $request->input('address');
         $company->description = $request->input('description');
 

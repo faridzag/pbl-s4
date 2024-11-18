@@ -78,7 +78,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="address">Alamat</label>
-                                        <input type="tel" id="address" class="form-control" value="{{ old('address', Auth::user()->company->address)}}" id="address" name="address" placeholder="Alamat"  maxlength="100">
+                                        <input type="text" id="address" class="form-control" value="{{ old('address', Auth::user()->company->address)}}" id="address" name="address" placeholder="Alamat"  maxlength="100">
                                     </div>
                                 </div>
 
@@ -97,7 +97,14 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="website">Alamat Website</label>
+                                        <input type="url" id="website" class="form-control" value="{{ old('website', Auth::user()->company->website)}}" id="website" name="website" placeholder="mulai dengan http:// atau https://"  maxlength="255">
+                                        <span class="file-size-indicator">Mulai dengan http:// atau https://</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="avatar" class="form-control-label">Upload Foto Profil:</label>
                                         <input class="form-control" type="file" id="avatar" name="avatar" accept=".png,.jpg,.jpeg">
