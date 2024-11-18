@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('event_type', ['Job Fair', 'Campus Hiring']);
             $table->string('location')->nullable();
             $table->string('description', 1500)->nullable();
-            $table->enum('status', ['open', 'closed', 'ongoing', 'done']);
+            $table->enum('status', ['open', 'closed', 'done']);
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->timestamps();
