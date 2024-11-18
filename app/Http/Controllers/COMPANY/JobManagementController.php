@@ -11,6 +11,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use App\Mail\ApplicationStatusUpdate;
+use Illuminate\Support\Facades\Mail;
 
 class JobManagementController extends Controller
 {
@@ -47,6 +49,37 @@ class JobManagementController extends Controller
             'jobs' => $jobs,
             'events' => $events,
         ]);
+    }
+    public function sendStatusEmails($id)
+    {
+        try {
+            $vacancy = Vacancy::with(['applications.user', 'event', 'company'])->findOrFail($id);
+
+            foreach ($vacancy->applications as $application) {
+                $message = $application->status === 'accept'
+                ? $vacancy->accept_message
+                : $vacancy->reject_message;
+
+                Mail::to($application->user->email)->send(
+                    new ApplicationStatusUpdate(
+                        $application->user,
+                        $application,
+                        $message
+                    )
+                );
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Status emails sent successfully'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error  emails: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     public function create()
