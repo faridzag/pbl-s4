@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Vacancy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,11 +39,12 @@ class AppServiceProvider extends ServiceProvider
             ->line("Hormat Kami,")
             ->salutation('Tim, ' . config('app.name'));
         });
-        
+
         Gate::define('update-job', function (User $user, Vacancy $job) {
             return $job->user_id === $user->id;
         });
 
         Paginator::useBootstrapFive();
+        Schema::defaultStringLength(191);
     }
 }
