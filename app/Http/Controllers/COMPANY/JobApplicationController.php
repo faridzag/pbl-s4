@@ -29,23 +29,24 @@ class JobApplicationController extends Controller
                 });
         }
         // status filter
-        if ($request->has('status') && $request->status !== '') {
+        if ($request->filled('status')) {
             $applications->where('status', $request->status);
         }
 
         // position filter
-        if ($request->has('position') && $request->position !== '') {
-            $applications->whereHas('vacancy', function($query) use ($request) {
+        if ($request->filled('position')) {
+            $applications->whereHas('vacancy', function ($query) use ($request) {
                 $query->where('position', $request->position);
             });
         }
 
         // event filter
-        if ($request->has('event') && $request->event !== '') {
-            $applications->whereHas('vacancy', function($query) use ($request) {
+        if ($request->filled('event')) {
+            $applications->whereHas('vacancy', function ($query) use ($request) {
                 $query->where('event_id', $request->event);
             });
         }
+
 
         // Get unique positions and events for filter dropdowns
         $positions = Vacancy::where('company_id', $companyId)->distinct()->pluck('position');
@@ -53,8 +54,12 @@ class JobApplicationController extends Controller
             $query->where('company_id', $companyId);
         })->get();
 
-        $applications = $applications->orderBy('created_at', 'desc')->paginate(10);
-        return view('pages.job-application.list', compact('applications', 'positions', 'events'));
+        $applications = $applications->paginate(10);
+        return view('pages.job-application.list', [
+            'applications' => $applications,
+            'positions' => $positions,
+            'events' => $events,
+        ]);
     }
 
     public function update(Request $request, $id)
