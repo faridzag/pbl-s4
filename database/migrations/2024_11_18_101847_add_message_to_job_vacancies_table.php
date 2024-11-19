@@ -24,7 +24,8 @@ return new class extends Migration
     {
         Schema::table('job_vacancies', function (Blueprint $table) {
             //
-            $table->dropColumn('website');
+            $table->dropColumn('accept_message');
+            $table->dropColumn('reject_message');
         });
     }
 };
