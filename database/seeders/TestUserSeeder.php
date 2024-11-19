@@ -15,26 +15,10 @@ class TestUserSeeder extends Seeder
     {
         $userData = [
             [
-                'username' => 'testuser',
-                'name' => 'Test User',
-                'email' => 'testuser@gmail.com',
-                'role' => user::ROLE_DEFAULT,
-                'email_verified_at' => now(),
-                'password' => bcrypt(12341234),
-            ],
-            [
                 'username' => 'jpcuser',
                 'name' => 'JPC User',
                 'email' => 'jpcuser@gmail.com',
                 'role' => user::ROLE_JPC,
-                'email_verified_at' => now(),
-                'password' => bcrypt(12341234),
-            ],
-            [
-                'username' => 'testcompany',
-                'name' => 'Company User',
-                'email' => 'testcompany@gmail.com',
-                'role' => user::ROLE_COMPANY,
                 'email_verified_at' => now(),
                 'password' => bcrypt(12341234),
             ],
