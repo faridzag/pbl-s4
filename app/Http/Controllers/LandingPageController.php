@@ -11,10 +11,16 @@ use App\Models\Event;
 
 class LandingPageController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $companies = Company::paginate(3, ['*'], 'company_per_page');
-        $events = Event::where('status', 'open')->orderBy('start_date', 'desc')->paginate(3, ['*'], 'event_per_page');
+
+        $eventsQuery = Event::where('status', 'open')->orderBy('start_date', 'desc');
+        if ($request->filled('event_type')) {
+            $eventsQuery->where('event_type', $request->event_type);
+        }
+
+        $events = $eventsQuery->paginate(3, ['*'], 'event_per_page');
         return view('welcome', compact('companies', 'events'));
     }
 

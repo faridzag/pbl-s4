@@ -30,16 +30,15 @@
                 <p class="text-muted">Jelajahi berbagai event karir yang akan datang</p>
             </div>
             <div class="col-lg-4 text-lg-end">
-                <div class="dropdown">
-                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="eventFilterDropdown" data-bs-toggle="dropdown">
-                        Filter Event
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Semua Event</a></li>
-                        <li><a class="dropdown-item" href="#">Job Fair</a></li>
-                        <li><a class="dropdown-item" href="#">Campus Hiring</a></li>
-                    </ul>
-                </div>
+                <form action="{{ route('landing') }}" method="GET" id="eventFilterForm"  class="d-flex align-items-center gap-2">
+                    <select name="event_type" class="form-select" style="width: auto;">
+                        <option value="">Semua Kegiatan</option>
+                        <option value="Job Fair" {{ request('event_type') === 'Job Fair' ? 'selected' : '' }}>Job Fair</option>
+                        <option value="Campus Hiring" {{ request('event_type') === 'Campus Hiring' ? 'selected' : '' }}>Campus Hiring</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <a href="{{ route('landing') }}" class="btn btn-secondary">Reset</a>
+                </form>
             </div>
         </div>
 
@@ -57,7 +56,7 @@
                                          class="card-img-top" alt="{{ $event->name }}">
                                 @endif
                                 <div class="card-img-overlay d-flex align-items-end">
-                                    <span class="badge bg-primary mb-2">{{ $event->type }}</span>
+                                    <span class="badge bg-primary mb-2">{{ $event->event_type }}</span>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -83,7 +82,7 @@
                 </div>
             @else
                 <div class="col-12 text-center py-5">
-                    <img src="{{ asset('img/no-events.svg') }}" alt="No Events" class="mb-3" style="max-width: 200px;">
+                    <img src="{{ asset('img/no-events.svg') }}" alt="Tidak ada kegiatan" class="mb-3" style="max-width: 200px;">
                     <h4>Tidak ada event saat ini</h4>
                     <p class="text-muted">Silakan cek kembali nanti</p>
                 </div>
@@ -121,7 +120,7 @@
                                     </div>
                                     <div>
                                         <h5 class="card-title mb-0">{{ $company->user->name }}</h5>
-                                        <small class="text-muted">{{ $company->industry }}</small>
+                                        <small class="text-muted">{{ $company->website }}</small>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center mt-3">
@@ -141,7 +140,7 @@
                 </div>
             @else
                 <div class="col-12 text-center py-5">
-                    <img src="{{ asset('img/no-companies.svg') }}" alt="No Companies" class="mb-3" style="max-width: 200px;">
+                    <img src="{{ asset('img/no-companies.svg') }}" alt="Tidak ada perusahaan terdaftar" class="mb-3" style="max-width: 200px;">
                     <h4>Tidak ada perusahaan terdaftar</h4>
                     <p class="text-muted">Silakan cek kembali nanti</p>
                 </div>
