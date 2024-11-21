@@ -19,7 +19,7 @@
                 <h5 class="fw-bold mb-3">Lokasi</h5>
                 <ul class="list-unstyled">
                     <li class="mb-2 d-flex align-items-start">
-                        <i class="fab fa-map-marker-alt text-primary mt-1 me-2"></i>
+                        <i class="fas fa-map-marker-alt text-primary mt-1 me-2"></i>
                         <div>
                             <p class="mb-0">Jalan Raya Jember KM 13</p>
                             <p class="mb-0">Banyuwangi 68461</p>

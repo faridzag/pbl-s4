@@ -7,7 +7,7 @@
         @include('layouts.partials.links')
         <style>
             html * {
-            font-family: Roboto !important;
+            /* font-family: Roboto !important; */
             }
             .nav-hover:hover {
                 background-color: #004878;
