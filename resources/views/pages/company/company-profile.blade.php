@@ -162,10 +162,6 @@
                             @foreach($openVacancies as $vacancy)
                                 <div class="vacancy-item p-3 mb-3 rounded-3 border">
                                     <h4 class="h6 mb-2">{{ $vacancy->position }}</h4>
-                                    <div class="d-flex align-items-center text-muted mb-2">
-                                        <i class="fas fa-map-marker-alt me-2"></i>
-                                        <small>{{ $vacancy->location }}</small>
-                                    </div>
                                     <a href="{{ route('vacancy.show', $vacancy->id) }}"
                                        class="btn btn-outline-primary btn-sm w-100">
                                         Lihat Detail
