@@ -45,7 +45,7 @@
                     <div class="row">
                         <div class="col-md-12 d-flex justify-content-center">
                             @if (isset($applicant->cv_path))
-                                <a href="{{ Storage::url($applicant->cv_path) }}" target="_blank">Lihat CV</a>
+                                <a href="{{ asset(str_replace('public','','storage' . $applicant->cv_path)) }}" target="_blank">Lihat CV</a>
                             @else
                                 <span class="text-muted">Anda belum mengupload CV</span>
                             @endif
