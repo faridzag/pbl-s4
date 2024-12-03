@@ -49,7 +49,7 @@
                         <div class="card event-card h-100 border-0 shadow-sm">
                             <div class="card-img-wrapper">
                                 @if($event->image)
-                                    <img src="{{ asset(str_replace('public', '', 'storage/' . $event->image)) }}"
+                                    <img src="{{ asset(str_replace('public', '', 'storage' . $event->image)) }}"
                                          class="card-img-top" alt="{{ $event->name }}">
                                 @else
                                     <img src="https://via.placeholder.com/400x200"
