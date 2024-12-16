@@ -94,7 +94,7 @@
                         <td>{{ $application->vacancy->position }}</td>
                         <td>
                             @if (isset($application->applicant->cv_path))
-                                <a href="{{ Storage::url($application->applicant->cv_path) }}" target="_blank">Lihat CV</a>
+                                <a href="{{ asset(str_replace('public','','storage' . $application->applicant->cv_path)) }}" target="_blank">Lihat CV</a>
                             @else
                                 <span class="text-muted">Pelamar belum mengupload CV</span>
                             @endif
